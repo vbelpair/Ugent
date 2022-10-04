@@ -1,0 +1,67 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{graphicx}
+\usepackage{geometry}
+\geometry{textwidth=426pt}
+\usepackage{tabularx, ragged2e}
+\usepackage{mathtools}
+\usepackage{blindtext}
+\usepackage{lipsum}
+\usepackage{multicol}
+\usepackage{titlesec}
+
+\titleformat{\section}{\fontsize{11}{15}\bfseries}{\Roman{section}}{1.5em}{USI }
+
+
+\begin{document}
+
+\scshape
+\centering{
+\onecolumn
+
+\noindent
+\begin{minipage}[]{0.7\textwidth}
+\large{MAKING TITLES IN \LaTeX}\par \vspace{0.1em}
+\footnotesize{AN HOPEFULLY DECENT GUIDE}\vspace{0.6em}
+\flushleft
+\begin{tabularx}{\widthof{\large{MAKING TITLES IN \LaTeX}}}{X l}
+Author:  & Federico Lagrasta\\
+Role: & Student at USI\\
+Supervisor: & Julien Prokofiev\\
+Date: & \today
+\end{tabularx}
+
+
+\end{minipage}% PUT THIS HERE!
+\begin{minipage}[]{0.3\textwidth}
+\flushright{
+\includegraphics[width=2cm, keepaspectratio]{logo_usi.png} \par \vspace{0.1cm}
+\texttt{DEPARTMENT OF INFORMATICS}
+}
+\end{minipage}
+
+%\vspace{1cm}
+
+
+\raisebox{-\baselineskip}{\rule{\textwidth}{1px}}
+\rule{\textwidth}{1px}\vspace{0.2cm}
+
+Abstract
+}
+\flushleft
+\footnotesize{\blindtext}
+
+\rule{\textwidth}{1px}\vspace{0.2cm}
+
+\begin{multicols}{2}
+\section{ONE}
+\tiny{\blindtext}
+
+\section{TWO}
+\tiny{\blindtext}
+
+\section{THREE}
+\tiny{\blindtext}
+\end{multicols}
+
+\end{document}
