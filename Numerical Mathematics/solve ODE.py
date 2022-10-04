@@ -2,7 +2,7 @@ import numpy as np
 from scipy.optimize import fsolve
 from scipy.integrate import trapz as int_t
 from scipy.interpolate import lagrange
-
+# Ello mister mrcocolinho
 
 class solve_ODE:
 
