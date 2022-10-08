@@ -20,7 +20,7 @@ data = data.replace(np.nan, 0, regex=True)
 
 # defining analyzing function: 
 
-def analyze(x, y, xlabel, ylabel, title, filename, g=lambda x: x):
+def analyze(x, y, ax, xlabel='', ylabel='', title='', g=lambda x: x, tc='red'):
     '''
     x, y: arrays with corresponding values
     xlabel, ylabel, title, filename: strings used for plot formation
@@ -34,22 +34,18 @@ def analyze(x, y, xlabel, ylabel, title, filename, g=lambda x: x):
 
     R2 = 1 - np.sum((y-f(x))**2)/np.sum((y-np.mean(y))**2)
 
-    fig, ax = plt.subplots(1, figsize=(10, 5))
     ax.scatter(x,y, lw=0.5, c='black', label='measurements')
     #ax.scatter(P0,A+a, lw=0.5, c='green', label='P0')
-    ax.plot(z, Y, ls='--', c='red', label=f'trendline, R squared = {R2:.2f}')
+    ax.plot(z, Y, ls='--', c=tc, label=f'trendline, R squared = {R2:.2f}')
     ax.set_xlabel(xlabel, size=20)
     ax.set_ylabel(ylabel, size=20)
     ax.set_title(title, size=25)
-    plt.legend()
-
-    dirname = os.path.dirname(__file__)
-    file = os.path.join(dirname, filename)
-    plt.savefig(file)
 
     return a, b
 
+#===============
 # question 1.1
+#===============
 
 C = data[data['label'] == 'C0'][column_samples[:-1]]
 A = data[data['label'] == 'M1'][column_samples[:-1]]
@@ -57,14 +53,19 @@ A = data[data['label'] == 'M1'][column_samples[:-1]]
 x = C.values.reshape((C.size))
 y = A.values.reshape((A.size))
 
-a, b = analyze(x, y, 'concentration', 'absorbance', 'Standard curve for nitrophenol', 'fig1.png')
+fig, ax = plt.subplots(1, figsize=(10, 5))
+a, b = analyze(x, y, ax, 'concentration', 'absorbance', 'Standard curve for nitrophenol')
+plt.legend()
+plt.savefig(os.path.join(dirname, 'figures/fig1.png'))
 
 A = data[data['label'] == 'M1'][column_samples[-1]]
 P = lambda z: z/b
 P0 = np.mean(P(A))
 print(f'q1.1: P0 = {P0:.2f}')
 
+#===============
 # question 2.1
+#===============
 
 C = np.array([0.4, 0.8, 1.6, 2, 4, 6, 8, 10, 12, 14, 16, 20])
 A = data[data['label'] == 'M2'][column_samples]
@@ -75,13 +76,19 @@ x = np.zeros(A_S.size)
 for i in range(4):
     x[len(C)*i:len(C)*(1+i)] = C
 
+fig, ax = plt.subplots(1, figsize=(10, 5))
+
 y_S = A_S.values.reshape((A_S.size))
-a, b = analyze(x, y_S, 'concentration (mM)', 'absorbance', '', 'fig2_1_1.png', g=lambda x: np.log(x))
+a, b = analyze(x, y_S, ax, 'concentration (mM)', 'absorbance', '', g=lambda x: np.log(x))
 
 y_B = A_B.values.reshape((A_B.size))
-a, b = analyze(x, y_B, 'concentration (mM)', 'absorbance', '', 'fig2_1_2.png')
+a, b = analyze(x, y_B, ax, 'concentration (mM)', 'absorbance', '', tc='green')
+plt.legend()
+plt.savefig(os.path.join(dirname, 'figures/fig2_1.png'))
 
+#===============
 # question 2.2
+#===============
 
 A = data[data['label'] == 'M2'][column_samples]
 A_S = A[:4]
@@ -91,26 +98,44 @@ for i in range(4):
     s[len(C)*i:len(C)*(1+i)] = C
 v = A_S.values.reshape((A_S.size))/(1200*b)
 
-a, b = analyze(1/s, 1/v, r'$rac{1}{[S]}$ (mM$^{-1}$)', r'$\frac{1}{v}$ (s mM$^{-1}$)', 'Lineweaver-Burk without inhibitor', 'fig2_2.png')
+fig, ax = plt.subplots(1, figsize=(10, 5))
+a, b = analyze(1/s, 1/v, ax, r'$\frac{1}{[S]}$ (mM$^{-1}$)', r'$\frac{1}{v}$ (s mM$^{-1}$)', 'Lineweaver-Burk without inhibitor')
+plt.legend()
+plt.savefig(os.path.join(dirname, 'figures/fig2_2.png'))
+
 Vmax = 1/a
 Km = b*Vmax
 print(f'q2.2: Vmax = {Vmax:.2f}, Km = {Km:.2f}')
 
+#===============
 # question 2.3
+#===============
 
-a, b = analyze(v/s, v, r'$\frac{v}{[S]} (s$^{-1}$)', r'$v (mM s$^{-1}$)', 'Eadie-Hofstee without inhibitor', 'fig2_3.png')
+fig, ax = plt.subplots(1, figsize=(10, 5))
+a, b = analyze(v/s, v, ax, r'$\frac{v}{[S]} (s$^{-1}$)', r'$v$ (mM s$^{-1}$)', 'Eadie-Hofstee without inhibitor')
+plt.legend()
+plt.savefig(os.path.join(dirname, 'figures/fig2_3.png'))
+
 Vmax = a
 Km = -b
 print(f'q2.3: Vmax = {Vmax:.2f}, Km = {Km:.2f}')
 
+#===============
 # question 2.4
+#===============
 
-a, b = analyze(s, s/v, r'$[S] (mM)', r'$\frac{[S]}{v}$ (s)', 'Hanes-Woolf without inhibitor', 'fig2_4.png')
+fig, ax = plt.subplots(1, figsize=(10, 5))
+a, b = analyze(s, s/v, ax, r'$[S]$ (mM)', r'$\frac{[S]}{v}$ (s)', 'Hanes-Woolf without inhibitor')
+plt.legend()
+plt.savefig(os.path.join(dirname, 'figures/fig2_4.png'))
+
 Vmax = 1/b
 Km = a*Vmax
 print(f'q2.4: Vmax = {Vmax:.2f}, Km = {Km:.2f}')
 
-#Question 3.1
+#===============
+# Question 3.1
+#===============
 
 A = np.array(data[data['label'] == 'M3'][column_samples])
 A[:, [0, 11]] = A[:, [11, 0]]
@@ -123,9 +148,17 @@ for i in range(4):
 c = np.linspace(x.min(), x.max(), 10)
 y = A_S.reshape((A_S.size))
 
-a, b = analyze(x, y, 'concentration [mM]', 'absorbance', '', 'fig3_1.png', g=lambda x: np.log(x))
+fig, ax = plt.subplots(1, figsize=(10, 5))
+a, b = analyze(x, y, ax, 'concentration [mM]', 'absorbance', '', g=lambda x: np.log(x))
+y = A_B.reshape((A_B.size))
+a, b = analyze(x, y, ax, 'concentration [mM]', 'absorbance', '', g=lambda x: np.log(x), tc='green')
+plt.legend()
+plt.savefig(os.path.join(dirname, 'figures/fig3_1.png'))
 
-#Question 3.2
+
+#===============
+# Question 3.2
+#===============
 
 C = np.array([0.4, 0.8, 1.6, 2, 4, 6, 8, 10, 12, 14, 16, 20])
 A = np.array(data[data['label'] == 'M3'][column_samples])
@@ -138,22 +171,37 @@ for i in range(4):
     s[len(C)*i:len(C)*(1+i)] = C
 v = A_S.reshape(A_S.size)/1200
 
-a, b = analyze(1/s, 1/v, r'$\frac{v}{[S]}$ s$^{-1}$)', r'$v (mM} s$^{-1}$)', "LineaWeaver-Burk with inhibitor", 'fig3_2.png')
+fig, ax = plt.subplots(1, figsize=(10, 5))
+a, b = analyze(1/s, 1/v, ax, r'$\frac{v}{[S]}$ s$^{-1}$)', r'$v (mM s$^{-1}$)', "LineaWeaver-Burk with inhibitor")
+plt.legend()
+plt.savefig(os.path.join(dirname, 'figures/fig3_2.png'))
+
 Vmax = 1/a
 Km = b*Vmax
 print(f'q3.2: Vmax = {Vmax:.2f}, Km = {Km:.2f}')
 
-#Question 3.3
+#===============
+# Question 3.3
+#===============
 
-a, b = analyze(v/s, v, r'$\frac{v}{[S]} (s$^{-1}$)', r'$v (mM s$^{-1}$)', "Eadie-Hofstee with inhibitor", 'fig3_3.png')
+fig, ax = plt.subplots(1, figsize=(10, 5))
+a, b = analyze(v/s, v, ax, r'$\frac{v}{[S]}$ (s$^{-1}$)', r'$v$ (mM s$^{-1}$)', "Eadie-Hofstee with inhibitor")
+plt.legend()
+plt.savefig(os.path.join(dirname, 'figures/fig3_3.png'))
+
 Vmax = a
 Km = -b
 print(f'q3.3: Vmax = {Vmax:.2f}, Km = {Km:.2f}')
 
+#===============
+# Question 3.4
+#===============
 
-#Question 3.4
+fig, ax = plt.subplots(1, figsize=(10, 5))
+a, b = analyze(s, s/v, ax, r'$[S]$ (mM)', r'$\frac{[S]}{v}$ (s)', "Hanes-Woolf with inhibitor")
+plt.legend()
+plt.savefig(os.path.join(dirname, 'figures/fig3_4.png'))
 
-a, b = analyze(s, s/v, r'$[S]$ (mM)', r'$\frac{[S]}{v}$ (s)', "Hanes-Woolf with inhibitor", 'fig3_4.png')
 Vmax = 1/b
 Km = a*Vmax
 print(f'q3.4: Vmax = {Vmax:.6f}, Km = {Km:.2f}')
