@@ -172,7 +172,7 @@ for i in range(4):
 v = A_S.reshape(A_S.size)/1200
 
 fig, ax = plt.subplots(1, figsize=(10, 5))
-a, b = analyze(1/s, 1/v, ax, r'$\frac{v}{[S]}$ s$^{-1}$)', r'$v$ (mM s$^{-1}$)', "LineaWeaver-Burk with inhibitor")
+a, b = analyze(1/s, 1/v, ax, r'$\frac{v}{[S]}$ (s$^{-1}$)', r'$v$ (mM s$^{-1}$)', "LineaWeaver-Burk with inhibitor")
 plt.legend()
 plt.savefig(os.path.join(dirname, 'figures/fig3_2.png'))
 
