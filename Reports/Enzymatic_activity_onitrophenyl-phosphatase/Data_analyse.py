@@ -37,9 +37,9 @@ def analyze(x, y, ax, xlabel='', ylabel='', title='', g=lambda x: x, tc='red'):
     ax.scatter(x,y, lw=0.5, c='black', label='measurements')
     #ax.scatter(P0,A+a, lw=0.5, c='green', label='P0')
     ax.plot(z, Y, ls='--', c=tc, label=f'trendline, R squared = {R2:.2f}')
-    ax.set_xlabel(xlabel, size=20)
-    ax.set_ylabel(ylabel, size=20)
-    ax.set_title(title, size=25)
+    ax.set_xlabel(xlabel, size=15)
+    ax.set_ylabel(ylabel, size=15)
+    ax.set_title(title, size=20)
 
     return a, b
 
@@ -112,7 +112,7 @@ print(f'q2.2: Vmax = {Vmax:.2f}, Km = {Km:.2f}')
 #===============
 
 fig, ax = plt.subplots(1, figsize=(10, 5))
-a, b = analyze(v/s, v, ax, r'$\frac{v}{[S]} (s$^{-1}$)', r'$v$ (mM s$^{-1}$)', 'Eadie-Hofstee without inhibitor')
+a, b = analyze(v/s, v, ax, r'$\frac{v}{[S]}$ (s$^{-1}$)', r'$v$ (mM s$^{-1}$)', 'Eadie-Hofstee without inhibitor')
 plt.legend()
 plt.savefig(os.path.join(dirname, 'figures/fig2_3.png'))
 
@@ -172,7 +172,7 @@ for i in range(4):
 v = A_S.reshape(A_S.size)/1200
 
 fig, ax = plt.subplots(1, figsize=(10, 5))
-a, b = analyze(1/s, 1/v, ax, r'$\frac{v}{[S]}$ s$^{-1}$)', r'$v (mM s$^{-1}$)', "LineaWeaver-Burk with inhibitor")
+a, b = analyze(1/s, 1/v, ax, r'$\frac{v}{[S]}$ s$^{-1}$)', r'$v$ (mM s$^{-1}$)', "LineaWeaver-Burk with inhibitor")
 plt.legend()
 plt.savefig(os.path.join(dirname, 'figures/fig3_2.png'))
 
