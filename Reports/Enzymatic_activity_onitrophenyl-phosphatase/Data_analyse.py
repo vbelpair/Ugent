@@ -29,8 +29,13 @@ f = lambda x: b*x + a
 c = np.linspace(x.min(), x.max(), 10)
 y_cap = f(c)
 
+A = data[data['label'] == 'M1'][column_samples[-1]]
+P = lambda z: z/b
+P0 = P(A)
+
 fig, ax = plt.subplots(1, figsize=(10, 5))
 ax.scatter(x,y, lw=0.5, c='black', label='measurement')
+ax.scatter(P0,A+a, lw=0.5, c='green', label='P0')
 ax.plot(c, y_cap, ls='--', c='red', label=f'trendline y = bx + a (b={b:.2f}, a={a:.2f})')
 ax.set_xlabel('concentration [mM]', size=20)
 ax.set_ylabel('absorbance', size=20)
@@ -38,5 +43,7 @@ ax.set_title("Standard curve for nitrophenol", size=25)
 plt.legend()
 plt.savefig(dirname + '/fig1.png')
 
-    
+
+
+
 
