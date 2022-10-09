@@ -22,9 +22,12 @@ data = data.replace(np.nan, 0, regex=True)
 
 def analyze(x, y, ax, xlabel='', ylabel='', title='', g=lambda x: x, tc='red'):
     '''
-    x, y: arrays with corresponding values
-    xlabel, ylabel, title, filename: strings used for plot formation
-    g: function used to define linear regression technique
+    input:
+        x, y: arrays with corresponding values
+        xlabel, ylabel, title, tc: strings used for plot formation
+        g: function used to define linear regression technique
+    description:
+        analyses input data with an linear regression defined by g and makes plots
     '''
     
     b, a = np.polyfit(g(x), y, 1)
