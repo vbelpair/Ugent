@@ -102,12 +102,12 @@ for i in range(4):
 v2 = A_S.values.reshape((A_S.size))/(1200)
 
 fig, ax = plt.subplots(1, figsize=(10, 5))
-a, b = analyze(1/s2, 1/v2, ax, r'$[S]^{-1}$ (mM$^{-1}$)', r'$v^{-1}$ (s)', 'Lineweaver-Burk without inhibitor', scatterlabel='enzyme incubation wells')
+a22, b22 = analyze(1/s2, 1/v2, ax, r'$[S]^{-1}$ (mM$^{-1}$)', r'$v^{-1}$ (s)', 'Lineweaver-Burk without inhibitor', scatterlabel='enzyme incubation wells')
 plt.legend()
 plt.savefig(os.path.join(dirname, 'figures/fig2_2.png'))
 
-Vmax = 1/a
-Km = b*Vmax
+Vmax = 1/a22
+Km = b22*Vmax
 print(f'q2.2: Vmax = {Vmax:.6f}, Km = {Km:.2f}')
 
 #===============
@@ -175,12 +175,12 @@ for i in range(4):
 v3 = A_S.reshape(A_S.size)/(1200)
 
 fig, ax = plt.subplots(1, figsize=(10, 5))
-a, b = analyze(1/s3, 1/v3, ax, r'$[S]^{-1}$ (mM$^{-1}$)', r'$v^{-1}$ (s)', "LineaWeaver-Burk with inhibitor", scatterlabel='enzyme incubation wells')
+a32, b32 = analyze(1/s3, 1/v3, ax, r'$[S]^{-1}$ (mM$^{-1}$)', r'$v^{-1}$ (s)', "LineaWeaver-Burk with inhibitor", scatterlabel='enzyme incubation wells')
 plt.legend()
 plt.savefig(os.path.join(dirname, 'figures/fig3_2.png'))
 
-Vmax = 1/a
-Km = b*Vmax
+Vmax = 1/a32
+Km = b32*Vmax
 print(f'q3.2: Vmax = {Vmax:.6f}, Km = {Km:.2f}')
 
 #===============
@@ -213,8 +213,20 @@ print(f'q3.4: Vmax = {Vmax:.6f}, Km = {Km:.2f}')
 # Question 3.6
 #===============
 
-fig, ax = plt.subplots(1, figsize=(10, 5))
-a, b = analyze(1/s2, 1/v2, ax, scatterlabel='without inhibitor', tc='green')
-a, b = analyze(1/s3, 1/v3, ax, r'$[S]^{-1}$ (mM$^{-1}$)', r'$v^{-1}$ (s)', 'Lineweaver-Burk with- vs without inhibitor', scatterlabel='with inhibitor', tc='blue', m='x')
+LB2 = lambda x: b22*x+a22 # Lineweaver-Burk trendline from exp. 2
+LB3 = lambda x: b32*x+a32 # Lineweaver-Burk trendline from exp. 3
+x = np.linspace(-1,1,10)
+
+fig, ax = plt.subplots(1, figsize=(10, 5.5))
+
+ax.spines['left'].set_position('center')
+ax.spines['bottom'].set_position('center')
+ax.spines['right'].set_color('none')
+ax.spines['top'].set_color('none')
+ax.plot(x, LB2(x), c='green', label='trendline without inhibitor')
+ax.plot(x, LB3(x), c='blue', label='trendline with inhibitor')
+ax.set_xlabel(r'$[S]^{-1}$ (mM$^{-1}$)', size=15, loc='right') 
+ax.set_ylabel(r'$v^{-1}$ (s)', size=15, loc='top', rotation=0)
+ax.set_title("LineaWeaver-Burk with vs without inhibitor", size=20, pad=30)
 plt.legend()
 plt.savefig(os.path.join(dirname, 'figures/fig3_6.png'))
