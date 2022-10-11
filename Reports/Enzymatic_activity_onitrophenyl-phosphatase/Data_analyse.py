@@ -64,7 +64,7 @@ plt.savefig(os.path.join(dirname, 'figures/fig1.png'))
 A = data[data['label'] == 'M1'][column_samples[-1]]
 P = lambda z: z/b
 P0 = np.mean(P(A))
-print(f'q1.1: P0 = {P0:.2f}')
+print(f'q1.1: P0 = {P0:.3f}')
 
 #===============
 # question 2.1
@@ -99,7 +99,7 @@ A_S = A[:4]
 s2 = np.zeros(A_S.size)
 for i in range(4):
     s2[len(C)*i:len(C)*(1+i)] = C
-v2 = A_S.values.reshape((A_S.size))/(1200*b)
+v2 = A_S.values.reshape((A_S.size))/(1200)
 
 fig, ax = plt.subplots(1, figsize=(10, 5))
 a, b = analyze(1/s2, 1/v2, ax, r'$[S]^{-1}$ (mM$^{-1}$)', r'$v^{-1}$ (s)', 'Lineweaver-Burk without inhibitor', scatterlabel='enzyme incubation wells')
@@ -108,7 +108,7 @@ plt.savefig(os.path.join(dirname, 'figures/fig2_2.png'))
 
 Vmax = 1/a
 Km = b*Vmax
-print(f'q2.2: Vmax = {Vmax:.2f}, Km = {Km:.2f}')
+print(f'q2.2: Vmax = {Vmax:.6f}, Km = {Km:.2f}')
 
 #===============
 # question 2.3
@@ -121,7 +121,7 @@ plt.savefig(os.path.join(dirname, 'figures/fig2_3.png'))
 
 Vmax = a
 Km = -b
-print(f'q2.3: Vmax = {Vmax:.2f}, Km = {Km:.2f}')
+print(f'q2.3: Vmax = {Vmax:.6f}, Km = {Km:.2f}')
 
 #===============
 # question 2.4
@@ -134,7 +134,7 @@ plt.savefig(os.path.join(dirname, 'figures/fig2_4.png'))
 
 Vmax = 1/b
 Km = a*Vmax
-print(f'q2.4: Vmax = {Vmax:.2f}, Km = {Km:.2f}')
+print(f'q2.4: Vmax = {Vmax:.6f}, Km = {Km:.2f}')
 
 #===============
 # Question 3.1
@@ -172,7 +172,7 @@ A_B = A[4:8]
 s3 = np.zeros(A_S.size)
 for i in range(4):
     s3[len(C)*i:len(C)*(1+i)] = C
-v3 = A_S.reshape(A_S.size)/1200
+v3 = A_S.reshape(A_S.size)/(1200)
 
 fig, ax = plt.subplots(1, figsize=(10, 5))
 a, b = analyze(1/s3, 1/v3, ax, r'$[S]^{-1}$ (mM$^{-1}$)', r'$v^{-1}$ (s)', "LineaWeaver-Burk with inhibitor", scatterlabel='enzyme incubation wells')
@@ -181,7 +181,7 @@ plt.savefig(os.path.join(dirname, 'figures/fig3_2.png'))
 
 Vmax = 1/a
 Km = b*Vmax
-print(f'q3.2: Vmax = {Vmax:.2f}, Km = {Km:.2f}')
+print(f'q3.2: Vmax = {Vmax:.6f}, Km = {Km:.2f}')
 
 #===============
 # Question 3.3
@@ -194,7 +194,7 @@ plt.savefig(os.path.join(dirname, 'figures/fig3_3.png'))
 
 Vmax = a
 Km = -b
-print(f'q3.3: Vmax = {Vmax:.2f}, Km = {Km:.2f}')
+print(f'q3.3: Vmax = {Vmax:.6f}, Km = {Km:.2f}')
 
 #===============
 # Question 3.4
