@@ -1,0 +1,69 @@
+\documentclass[a4paper, 10pt]{article}
+
+\usepackage{mathtools}
+\usepackage{amsmath}
+
+\usepackage{geometry}
+\geometry{
+    a4paper,
+    total={170mm,257mm},
+    left=20mm,
+    top=20mm,
+    }
+\geometry{textwidth=426pt}
+
+ \title{Formularium - Electromagnetism I}
+ \author{}
+ \date{}
+
+ \begin{document}
+    
+    \maketitle
+
+    \section{Introduction}
+    \begin{align}
+        AB + BA = \heartsuit
+    \end{align}
+    \section{Maxwell's Equations}
+    \section{Electrostatics}
+    \section{Magnetostatics}
+    \section{Plane Waves}
+    \subsection{Plane waves in a lossless dielectric}
+    \paragraph{Assumptions}
+    Source free, homogenous, lossless and isotrpoic dielectric characterized by $\epsilon=\epsilon_0\epsilon_r$ and $\mu=\mu_0\mu_r$.\\
+    Plane wave propagation to an arbitrary direction $\vec{u}$:
+    \begin{align}
+        \vec{e}(\vec{r}) & = \vec{A}e^{-jk\vec{u}\cdot \vec{r}} \label{PW_eq1},\\
+        \vec{h}(\vec{r}) & = \frac{1}{Z_c}\vec{u}\times \vec{e}(r) \label{PW_eq2},
+    \end{align}
+    with $\vec{A}\cdot \vec{u} = 0$, $Z_c = \frac{\mu}{\epsilon}$, $k^2=\omega^2\epsilon\mu$ and Poynting's vector: 
+    \begin{equation}\vec{p}(\vec{r})=\frac{|\vec{A}|^2}{2Z_c}\vec{u}.\label{PW_eq3}\end{equation}
+    \subsection*{Plane waves in a lossy dielectric}
+    Equations \refeq{PW_eq1} and \refeq{PW_eq2} with $\vec{A}\cdot u=0$ remain unchanged but $k$ and $Z_c$ are now complex valued (in VI). 
+    Denote $k=\beta-j\alpha$, the new Poynting vector becomes 
+    \begin{equation}\vec{p}(\vec{r})=\frac{|\vec{A}|^2}{2Z_c}e^{-2\alpha\vec{u}\cdot\vec{r}}\vec{u}.\label{PW_eq4}\end{equation}
+    This shows that when a wave propagates over a distance d in a lossy medium, its power descreases by a factor $e^{-2\alpha d}$. Expressed in decibel (dB) gives
+    \begin{equation}-10\log_{10}(e^{-2\alpha d})\approx 8.686\alpha d,\label{PW_eq5}\end{equation} with $L=8.686\alpha$ the relative power loss in (dB/m).
+
+    Considering a material with conduction losses ($\epsilon + \frac{\sigma}{j\omega}$):
+    \begin{align}
+        k & = \omega\sqrt{\epsilon\mu}\sqrt{1+\frac{\sigma}{j\omega}}\label{PW_eq6},\\
+        Z_c & = \sqrt{\frac{\mu}{\epsilon}}\frac{1}{\sqrt{1+\frac{\sigma}{j\omega}}}\label{PW_eq7},
+    \end{align}
+    gives rise to two interesting situations:
+    \begin{itemize}
+        \item[1.] Low-loss dielectric ($\sigma \ll \omega\epsilon$):
+        \begin{align}
+            k & = \beta - j\alpha \approx \omega\sqrt{\epsilon\mu} - j\frac{\sigma}{2}\sqrt{\frac{\mu}{\epsilon}} \label{PW_eq8},\\
+            Z_c & \approx \sqrt{\frac{\mu}{\epsilon}} \label{PW_eq9},
+        \end{align}
+        \item[2.] Good conductor ($\sigma \gg \omega\epsilon$):
+        \begin{align}
+            k & = \beta - j\alpha \approx \frac{1-j}{\delta} \label{PW_eq10},\\
+            Z_c & \approx \frac{1+j}{\sigma\delta} \label{PW_eq11},
+        \end{align}
+        with $\delta = \sqrt{\frac{2}{\omega\mu\sigma}}$ known as the \it{skin depth}.
+    \end{itemize}
+
+
+ \end{document}
