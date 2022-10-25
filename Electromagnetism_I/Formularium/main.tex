@@ -62,7 +62,7 @@
             k & = \beta - j\alpha \approx \frac{1-j}{\delta} \label{H5eq10},\\
             Z_c & \approx \frac{1+j}{\sigma\delta} \label{H5eq11},
         \end{align}
-        with $\delta = \sqrt{\frac{2}{\omega\mu\sigma}}$ known as the \it{skin depth}.
+        with $\delta = \sqrt{\frac{2}{\omega\mu\sigma}}$ known as the \textit{skin depth}.
     \end{itemize}
     \subsection{Reflection and transmission at a plane interface}
     Given the incident fields in medium 1:
@@ -83,10 +83,40 @@
             \vec{e}_t&=\vec{C}e^{-jk_2\vec{u_t}\cdot \vec{r}} \label{H5eq16},\\
             \vec{h}_t&=\frac{1}{Z_2}\vec{u_t}\times \vec{e}_t \label{H5eq17},
         \end{align}
-        with $u_r = \cos(\theta_t)\vec{u}_z+\sin(\theta_t)\vec{u}_x$, $\vec{C}\cdot \vec{u}_t = 0$ and where Snell's law states that
+        with $u_t = \cos(\theta_t)\vec{u}_z+\sin(\theta_t)\vec{u}_x$, $\vec{C}\cdot \vec{u}_t = 0$ and where $\theta_t$ is defined as
         \begin{equation}
             k_2\sin{\theta_t} = k_1\sin{\theta_i} \label{H5eq18}.
         \end{equation}
+        equation \ref{H5eq18} gives rise to some problems. To better understand these problems, consider the case of lossless materials.
+        Two cases must be distinguished:
+        \begin{itemize}
+            \item[i.] Medium 2 is more dense than medium 1 ($k_2 > k_1$ or $N_2 > N_1$ with $N_i=\sqrt{\epsilon_{ri}\mu_{r_i}}$). Then
+            \begin{equation}
+                \vec{u}_t = \vec{u}_z\sqrt{1-\frac{k^2_1}{k^2_2}\sin^2(\theta_i)} + \sin(\theta_t)\vec{u}_x, \label{H5eq19}
+            \end{equation}
+            and equation \refeq{H5eq18} can be rewritten as, what is known as \textit{Snell's law},
+            \begin{equation}
+                \sin(\theta_t) = \frac{N_1}{N_2}\sin(\theta_i). \label{H5eq20}
+            \end{equation}
+            \item[ii.] Medium 2 is less dense than medium 1 ($k_2 < k_1$ or $N_2 < N_1$). If 
+            \begin{equation}
+                \sin(\theta_i) < \frac{N_2}{N_1} = \sin(\theta_c), \label{H5eq21}
+            \end{equation}
+            with $\theta_c$ the critical angle, then equation \ref{H5eq19} still holds. When $\theta_i$ exceeds $\theta_c$, equation \refeq{H5eq19} becomes
+            \begin{equation}
+                \vec{u}_t = -j\vec{u}_z\sqrt{\frac{k^2_1}{k^2_2}\sin^2(\theta_i)-1} + \sin(\theta_t)\vec{u}_x, \label{H5eq22}
+            \end{equation}
+            and the transmitted wave decays exponentially when propagating in medium 2 with skin depth
+            \begin{equation}
+                \delta = \frac{1}{\sqrt{k^2_1\sin^2(\theta_i)-k^2_2}}, \;\;\; \theta_i \in [\theta_c, \frac{\pi}{2}] \label{H5eq23}
+            \end{equation}
+        \end{itemize}
+    \end{itemize}
+    Solving for $\vec{B}$ and $\vec{C}$: an incident wave with arbitrary elliptical polarization can be written as the superposition of a TE and a TM polarized contribution. 
+    \begin{itemize}
+        \item[1.] \textbf{TE polarization}
+            dsq
+        \item[2.] \textbf{TM polarization} 
     \end{itemize}
 
 
