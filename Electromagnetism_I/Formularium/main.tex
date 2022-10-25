@@ -115,8 +115,37 @@
     Solving for $\vec{B}$ and $\vec{C}$: an incident wave with arbitrary elliptical polarization can be written as the superposition of a TE and a TM polarized contribution. 
     \begin{itemize}
         \item[1.] \textbf{TE polarization}
-            dsq
-        \item[2.] \textbf{TM polarization} 
+            \begin{align}
+                \vec{e}_i(\vec{r}) &= Ae^{-jk_1\vec{u}_i\cdot\vec{r}}\vec{u}_y, \nonumber\\
+                \vec{h}_i(\vec{r}) &= \frac{1}{Z_1}\vec{u}_i\times\vec{e}_i, \nonumber\\
+                \vec{e}_r(\vec{r}) &= R_{TE}Ae^{-jk_1\vec{u}_r\cdot\vec{r}}\vec{u}_y, \label{H5eq24}\\
+                \vec{h}_r(\vec{r}) &= \frac{1}{Z_1}\vec{u}_r\times\vec{e}_r, \nonumber\\
+                \vec{e}_t(\vec{r}) &= T_{TE}Ae^{-jk_2\vec{u}_t\cdot\vec{r}}\vec{u}_y, \nonumber\\
+                \vec{h}_t(\vec{r}) &= \frac{1}{Z_2}\vec{u}_t\times\vec{e}_t, \nonumber
+            \end{align}
+            with
+            \begin{align}
+                R_{TE} = \frac{Z_2\cos(\theta_i)-Z_1\cos(\theta_t)}{Z_2\cos(\theta_i)+Z_1\cos(\theta_t)}, \label{H5eq25}\\
+                T_{TE} = \frac{2Z_2\cos(\theta_i)}{Z_2\cos(\theta_i)+Z_1\cos(\theta_t)}, \label{H5eq26}
+            \end{align}
+        \item[2.] \textbf{TM polarization}
+        \begin{align}
+            \vec{h}_i(\vec{r}) &= \frac{1}{Z_1}Ae^{-jk_1\vec{u}_i\cdot\vec{r}}\vec{u}_y, \nonumber\\
+            \vec{e}_i(\vec{r}) &= -Z_1\vec{u}_i\times\vec{h}_i, \nonumber\\
+            \vec{h}_r(\vec{r}) &= \frac{1}{Z_1}R_{TM}Ae^{-jk_1\vec{u}_r\cdot\vec{r}}\vec{u}_y, \label{H5eq27}\\
+            \vec{e}_r(\vec{r}) &= -Z_1\vec{u}_r\times\vec{h}_r, \nonumber\\
+            \vec{h}_t(\vec{r}) &= \frac{1}{Z_2}T_{TM}Ae^{-jk_2\vec{u}_t\cdot\vec{r}}\vec{u}_y, \nonumber\\
+            \vec{e}_t(\vec{r}) &= -Z_2\vec{u}_t\times\vec{h}_t, \nonumber
+        \end{align}
+        with
+        \begin{align}
+            R_{TM} = \frac{Z_1\cos(\theta_i)-Z_2\cos(\theta_t)}{Z_1\cos(\theta_i)+Z_2\cos(\theta_t)}, \label{H5eq28}\\
+            T_{TM} = \frac{2Z_2\cos(\theta_i)}{Z_1\cos(\theta_i)+Z_2\cos(\theta_t)}, \label{H5eq29}
+        \end{align}
+        Total transmission: for TM polarization $R_{TM}$ becomes zero provided the angle of incidence is equal to the \textit{Brewster agnle} defined by
+        \begin{equation}
+            \tan(\theta_B) = \sqrt{\frac{\epsilon_2}{\epsilon_1}} = \frac{N_2}{N_1} \label{H5eq30}
+        \end{equation}
     \end{itemize}
 
 
