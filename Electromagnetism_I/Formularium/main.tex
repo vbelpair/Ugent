@@ -33,36 +33,60 @@
     Source free, homogenous, lossless and isotrpoic dielectric characterized by $\epsilon=\epsilon_0\epsilon_r$ and $\mu=\mu_0\mu_r$.\\
     Plane wave propagation to an arbitrary direction $\vec{u}$:
     \begin{align}
-        \vec{e}(\vec{r}) & = \vec{A}e^{-jk\vec{u}\cdot \vec{r}} \label{PW_eq1},\\
-        \vec{h}(\vec{r}) & = \frac{1}{Z_c}\vec{u}\times \vec{e}(r) \label{PW_eq2},
+        \vec{e}(\vec{r}) & = \vec{A}e^{-jk\vec{u}\cdot \vec{r}} \label{H5eq1},\\
+        \vec{h}(\vec{r}) & = \frac{1}{Z_c}\vec{u}\times \vec{e}(r) \label{H5eq2},
     \end{align}
     with $\vec{A}\cdot \vec{u} = 0$, $Z_c = \frac{\mu}{\epsilon}$, $k^2=\omega^2\epsilon\mu$ and Poynting's vector: 
-    \begin{equation}\vec{p}(\vec{r})=\frac{|\vec{A}|^2}{2Z_c}\vec{u}.\label{PW_eq3}\end{equation}
+    \begin{equation}\vec{p}(\vec{r})=\frac{|\vec{A}|^2}{2Z_c}\vec{u}.\label{H5eq3}\end{equation}
     \subsection*{Plane waves in a lossy dielectric}
-    Equations \refeq{PW_eq1} and \refeq{PW_eq2} with $\vec{A}\cdot u=0$ remain unchanged but $k$ and $Z_c$ are now complex valued (in VI). 
+    Equations \refeq{H5eq1} and \refeq{H5eq2} with $\vec{A}\cdot u=0$ remain unchanged but $k$ and $Z_c$ are now complex valued (in VI). 
     Denote $k=\beta-j\alpha$, the new Poynting vector becomes 
-    \begin{equation}\vec{p}(\vec{r})=\frac{|\vec{A}|^2}{2Z_c}e^{-2\alpha\vec{u}\cdot\vec{r}}\vec{u}.\label{PW_eq4}\end{equation}
+    \begin{equation}\vec{p}(\vec{r})=\frac{|\vec{A}|^2}{2Z_c}e^{-2\alpha\vec{u}\cdot\vec{r}}\vec{u}.\label{H5eq4}\end{equation}
     This shows that when a wave propagates over a distance d in a lossy medium, its power descreases by a factor $e^{-2\alpha d}$. Expressed in decibel (dB) gives
-    \begin{equation}-10\log_{10}(e^{-2\alpha d})\approx 8.686\alpha d,\label{PW_eq5}\end{equation} with $L=8.686\alpha$ the relative power loss in (dB/m).
+    \begin{equation}-10\log_{10}(e^{-2\alpha d})\approx 8.686\alpha d,\label{H5eq5}\end{equation} with $L=8.686\alpha$ the relative power loss in (dB/m).
 
     Considering a material with conduction losses ($\epsilon + \frac{\sigma}{j\omega}$):
     \begin{align}
-        k & = \omega\sqrt{\epsilon\mu}\sqrt{1+\frac{\sigma}{j\omega}}\label{PW_eq6},\\
-        Z_c & = \sqrt{\frac{\mu}{\epsilon}}\frac{1}{\sqrt{1+\frac{\sigma}{j\omega}}}\label{PW_eq7},
+        k & = \omega\sqrt{\epsilon\mu}\sqrt{1+\frac{\sigma}{j\omega}}\label{H5eq6},\\
+        Z_c & = \sqrt{\frac{\mu}{\epsilon}}\frac{1}{\sqrt{1+\frac{\sigma}{j\omega}}}\label{H5eq7},
     \end{align}
     gives rise to two interesting situations:
     \begin{itemize}
         \item[1.] Low-loss dielectric ($\sigma \ll \omega\epsilon$):
         \begin{align}
-            k & = \beta - j\alpha \approx \omega\sqrt{\epsilon\mu} - j\frac{\sigma}{2}\sqrt{\frac{\mu}{\epsilon}} \label{PW_eq8},\\
-            Z_c & \approx \sqrt{\frac{\mu}{\epsilon}} \label{PW_eq9},
+            k & = \beta - j\alpha \approx \omega\sqrt{\epsilon\mu} - j\frac{\sigma}{2}\sqrt{\frac{\mu}{\epsilon}} \label{H5eq8},\\
+            Z_c & \approx \sqrt{\frac{\mu}{\epsilon}} \label{H5eq9},
         \end{align}
         \item[2.] Good conductor ($\sigma \gg \omega\epsilon$):
         \begin{align}
-            k & = \beta - j\alpha \approx \frac{1-j}{\delta} \label{PW_eq10},\\
-            Z_c & \approx \frac{1+j}{\sigma\delta} \label{PW_eq11},
+            k & = \beta - j\alpha \approx \frac{1-j}{\delta} \label{H5eq10},\\
+            Z_c & \approx \frac{1+j}{\sigma\delta} \label{H5eq11},
         \end{align}
         with $\delta = \sqrt{\frac{2}{\omega\mu\sigma}}$ known as the \it{skin depth}.
+    \end{itemize}
+    \subsection{Reflection and transmission at a plane interface}
+    Given the incident fields in medium 1:
+    \begin{align}
+        \vec{e}_i&=\vec{A}e^{-jk_1\vec{u_i}\cdot \vec{r}} \label{H5eq12},\\
+        \vec{h}_i&=\frac{1}{Z_1}\vec{u_i}\times\vec{e}_i \label{H5eq13},
+    \end{align}
+    with $u_i = \cos(\theta_i)\vec{u}_z+\sin(\theta_i)\vec{u}_x$ and $\vec{A}\cdot \vec{u}_i = 0$. Then:
+    \begin{itemize}
+        \item[1.] The reflected wave becomes
+        \begin{align}
+            \vec{e}_r&=\vec{B}e^{-jk_1\vec{u_r}\cdot \vec{r}} \label{H5eq14},\\
+            \vec{h}_r&=\frac{1}{Z_1}\vec{u_r}\times \vec{e}_r \label{H5eq15},
+        \end{align}
+        with $u_r = -\cos(\theta_i)\vec{u}_z+\sin(\theta_i)\vec{u}_x$ and $\vec{B}\cdot \vec{u}_r = 0$.
+        \item[2.] The transmitted wave becomes
+        \begin{align}
+            \vec{e}_t&=\vec{C}e^{-jk_2\vec{u_t}\cdot \vec{r}} \label{H5eq16},\\
+            \vec{h}_t&=\frac{1}{Z_2}\vec{u_t}\times \vec{e}_t \label{H5eq17},
+        \end{align}
+        with $u_r = \cos(\theta_t)\vec{u}_z+\sin(\theta_t)\vec{u}_x$, $\vec{C}\cdot \vec{u}_t = 0$ and where Snell's law states that
+        \begin{equation}
+            k_2\sin{\theta_t} = k_1\sin{\theta_i} \label{H5eq18}.
+        \end{equation}
     \end{itemize}
 
 
