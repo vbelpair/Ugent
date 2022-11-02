@@ -1,6 +1,4 @@
-from audioop import mul
 import os
-from symbol import parameters
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
