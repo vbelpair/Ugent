@@ -1,7 +1,10 @@
 \documentclass[a4paper, 10pt]{report}
 
+\usepackage{graphicx}
+\graphicspath{{figures/}}
+
 \usepackage{mathtools}
-\usepackage{amsmath}
+\usepackage{amsmath, bm}
 
 \usepackage{geometry}
 \geometry{
@@ -22,9 +25,9 @@
 
  \maketitle
  \tableofcontents
-    
+ 
  \subfile{biofluids/biofluids.tex}
- \subfile{softtissue/softtissue.tex}
+\subfile{softtissue/softtissue.tex}
 
 
  \end{document}
