@@ -1,0 +1,16 @@
+# latex related files
+*.log
+*.toc
+*.synctex.gz
+*.snm
+*.nav
+*.out
+*.fdb_latexmk
+*.fls
+*.aux
+
+# python related files
+*.pyc
+
+# some other files
+*.docx
