@@ -89,6 +89,83 @@
 
 \section{Constitutive modeling}
 
+The most general form:
+\begin{equation}
+    \bm{\sigma}(t) = \mathcal{F}_{\tau \leq t}\{\textbf{F}(\tau)\}
+\end{equation}
+
+\subsection{Hyperelasticity}
+
+Strain energy density function $\Psi$ related to 2PK
+\begin{equation} 
+    \textbf{S} = \frac{\partial \Psi}{\partial \textbf{E}} = 2\frac{\partial \Psi}{\partial \textbf{C}}
+\end{equation}
+Strain energy density function related to Cauchy stress
+\begin{equation}
+    \bm{\sigma} = \frac{1}{J}\frac{\partial \Psi}{\partial \textbf{F}}\textbf{F}^{\top}
+\end{equation}
+Small strain - linear elasticity (using Hooke's law)
+\begin{equation}
+    \Psi_{\text{elastic}} = \frac{E\varepsilon^2}{2}
+\end{equation}
+
+\subsection{Isotropic hyperelastic materials}
+
+Right Cauchy-Green Tensor (with $\lambda_i$ the PRICIPAL stretches)
+\begin{equation}
+    \textbf{C} = \left[\begin{matrix}
+        \lambda_1^2 & 0 & 0 \\
+        0 & \lambda_2^2 & 0 \\
+        0 & 0 & \lambda_3^2
+    \end{matrix}\right]
+\end{equation}
+with invariants:
+\begin{align}
+    I_1 & = \text{tr}(\textbf{C}) = \lambda_1^2 + \lambda_2^2 + \lambda_3^2\\
+    I_2 & = \frac{1}{2}[\text{tr}(\textbf{C})^2 - \text{tr}(\textbf{C}^2)] = \lambda_1^2\lambda_2^2 + \lambda_1^2\lambda_3^2 + \lambda_2^2\lambda_3^2 \\
+    I_3 & = \det(\textbf{C}) = \lambda_1^2\lambda_2^2\lambda_3^2 = J^2
+\end{align}
+Some forms of isotropic SEDFs
+\begin{itemize}
+    \item Generalized Ogden
+    \begin{equation}
+        \Psi = \sum^N_{p=1}\frac{\mu_p}{\alpha_p}(\lambda_1^{\alpha_p} + \lambda_2^{\alpha_p} + \lambda_3^{\alpha_p} - 3)
+    \end{equation}
+    \item Neo-Hookean ($N=1$, $\alpha_1=2$)
+    \begin{equation}
+        \psi = c_1(I_1 - 3)
+    \end{equation}
+    \item Mooney-Rivlin ($N = 2$, $\alpha_1=2$, $\alpha_2=-2$)
+    \begin{equation}
+        \psi = c_1(I_1 - 3) + c_2(\lambda_1^{-2} + \lambda_2^{-2} + \lambda_3^{-2} - 3)
+    \end{equation}
+\end{itemize}
+
+\subsection{The NeoHookean material formulation}
+
+\begin{equation}
+    \bm{\sigma}_{\text{NH}} = \frac{2}{J}c_1\textbf{B}
+\end{equation}
+
+\subsection{Incompressibility}
+
+Consider as SEDF
+\begin{equation}
+    \Psi_{\text{tot}} = \Psi(\textbf{F}) - p(J-1)
+\end{equation}
+the 2PK stress becomes
+\begin{equation}
+    S=2\left(\frac{\partial \Psi}{\partial \textbf{C}} - p \frac{J}{2}\textbf{C}^{-\top}\right)
+\end{equation}
+hence the Cauchy stress takes the following form
+\begin{equation}
+    \bm{\sigma} = \frac{2}{J}<textbf{F}\frac{\partial \Psi}{\partial \textbf{C}}\textbf{F}^{\top} - p \textbf{I}
+\end{equation}
+Using the Neohookean SEDF gives
+\begin{equation}
+    \bm{\sigma} = 2c_1\textbf{B} - p \textbf{I} = -p_h\textbf{I}
+\end{equation}
+
 \section{Mechanical testing \& parameter fitting}
 
 \subsection{Uniaxial tensile testing}
@@ -120,6 +197,26 @@ with corresponding stresses
 \includegraphics[scale=0.5]{cylindricaltissueslice.png}
 
 \subsection{Analytical analysis fot thick-walled cylinders}
+
+Stress equilibrium (Balance of Momentum)
+\begin{equation}
+    \nabla \cdot \bm{\sigma} + \vec{f} = \rho \frac{D^2\vec{u}}{Dt^2}
+\end{equation}
+Stress equilibrium in a thick-walled cylinder
+\begin{equation}
+    P = \int_{r_i}^{r_o}(\sigma_{\theta\theta}-\sigma_{rr})\frac{dr}{r}
+\end{equation}
+NeoHookean formulation for the Cauchy Stress in a thick-walled cylinder
+\begin{align}
+    \sigma_{rr} & = 2c_1\lambda_{\theta}^{-2}\lambda_z^{-2}-p \\
+    \sigma_{\theta\theta} & = 2c_1\lambda_{\theta}^{2}-p \\
+    \sigma_{zz} & = 2c_1\lambda_z^{2}-p
+\end{align}
+with
+\begin{align}
+    \lambda_{\theta} & = \frac{r}{R}\\
+    r & = \sqrt{\lambda_{\theta, i}^2R_i^2+\frac{R^2-R_i^2}{\lambda_z}}
+\end{align}
 
 \subsection{The Finite Element Method}
 
