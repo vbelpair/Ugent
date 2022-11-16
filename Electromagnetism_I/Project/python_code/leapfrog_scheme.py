@@ -30,7 +30,7 @@ def leapfrog(parameters):
 
     dz = l/N
     alpha = v*dt/dz
-    rg, rl = Zc/Zg, Zc/Zl# adjusted Rc with respect to Rg and RL
+    rg, rl = Zc/Zg, Zc/Zl# adjusted Zc with respect to Zg and Zl
     C1, C2 = (1-alpha*rg)/(1+alpha*rg), 2*alpha/(1+alpha*rg) # constants for BC at z = 0
     C3, C4 = (1-alpha*rl)/(1+alpha*rl), 2*alpha/(1+alpha*rl) # constants for BC at z = N*dz
 
