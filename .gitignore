@@ -14,3 +14,6 @@
 
 # some other files
 *.docx
+
+# some particular data files
+example.txt
