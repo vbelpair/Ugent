@@ -32,6 +32,7 @@ if __name__ == "__main__":
     pm.plot_V_at_t(V,z,t[1]*T,m)
     pm.plot_V_at_z(V,t,Z,n)
 
+# hello this is the end of the code
 
 
 
