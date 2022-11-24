@@ -19,7 +19,7 @@ def splot(X, Y, title = '', axis = ['', ''], sname = ''):
     axis       : list with two elements containing name of x- and y axis 
     sname      : name of saved plot file
     '''
-    fig, ax = plt.subplots(1, figsize=(8, 4), dpi = 250)
+    fig, ax = plt.subplots(1, figsize=(8, 4))
     
     ax.set_title(title, size = 14)
     
@@ -33,12 +33,12 @@ def splot(X, Y, title = '', axis = ['', ''], sname = ''):
 
     plt.tight_layout()
     if sname != '':
-        plt.savefig(sname, transparent = True)
+        plt.savefig(sname, transparent = True, dpi = 300)
     plt.show()
 
 ### TEST CODE ###
 import numpy as np
-x1 = np.linspace(-np.pi, np.pi, 100)
+x1 = np.linspace(-np.pi, np.pi)
 y1 = (lambda x: x**2)(x1)
 y2 = (lambda x: x)(x1)
 
