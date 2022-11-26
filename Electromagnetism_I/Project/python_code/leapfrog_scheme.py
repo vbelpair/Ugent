@@ -30,6 +30,7 @@ def leapfrog(parameters):
 
     dz = l/N
     alpha = v*dt/dz
+    print(f'alpha value: {alpha}')
     rg, rl = Zc/Zg, Zc/Zl# adjusted Zc with respect to Zg and Zl
     C1, C2 = (1-alpha*rg)/(1+alpha*rg), 2*alpha/(1+alpha*rg) # constants for BC at z = 0
     C3, C4 = (1-alpha*rl)/(1+alpha*rl), 2*alpha/(1+alpha*rl) # constants for BC at z = N*dz
@@ -43,7 +44,7 @@ def leapfrog(parameters):
 
     # define source signal
 
-    t1, t2, t3, t4 = d, d+tr, d+tr+Tb, d+2*tr+Tb
+    t1, t2, t3, t4 = d, d+tr, d+Tb, d+tr+Tb
     eg = lambda t: A/tr*(t-t1)*B(t1, t2)(t) + A*B(t2,t4)(t) - A/tr*(t-t3)*B(t3,t4)(t)
 
     for m in range(M-1):
@@ -57,4 +58,4 @@ def leapfrog(parameters):
     t = dt*np.arange(M+1) # time for plotting
     z = dz*np.arange(N+1) # space for plotting
     
-    return I, V, z, t
+    return I, V, z, t, eg

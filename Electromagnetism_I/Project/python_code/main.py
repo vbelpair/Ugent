@@ -21,7 +21,7 @@ if __name__ == "__main__":
         file = input("Please enter a file: ")
 
     parameters = io.readdata_numpy(file)
-    I, V, z, t = ls.leapfrog(parameters[:-2])
+    I, V, z, t, eg = ls.leapfrog(parameters[:-2])
 
     """
     Z:  position of the sensor [m]
@@ -29,8 +29,10 @@ if __name__ == "__main__":
     """
     Z, T = parameters[-2], parameters[-1]
     n, m = int(Z/z[1]), int(T)
-    pm.plot_V_at_t(V,z,t[1]*T,m)
-    pm.plot_V_at_z(V,t,Z,n)
+    pm.plot_space(V,z,t[1]*T,m)
+    pm.plot_time(V,t,Z,n)
+    pm.plot_time(eg(t[:50]), t[:50], name="initial bit")
+    #pm.plot_animation(V, z, t)
 
 # hello this is the end of the code
 

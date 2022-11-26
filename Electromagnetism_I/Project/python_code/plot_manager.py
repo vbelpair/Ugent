@@ -1,28 +1,51 @@
 import matplotlib.pyplot as plt
+from matplotlib.animation import FuncAnimation
 import numpy as np
 
-def plot_V_at_z(V, t, Z, n):
+def plot_time(V, t, Z=0, n=None, name="exampletime.png"):
 
-    v = V[n,:]
+    if n:
+        V = V[n,:]
 
     fig, ax = plt.subplots()
-    ax.plot(t, v)
+    ax.plot(t, V)
     ax.set_xlabel('time [s]')
     ax.set_ylabel('Voltage [V]')
     ax.set_title(f'Voltage at z = {Z}m')
-    plt.savefig("exampletime.png")
+    plt.savefig(name)
 
 
-def plot_V_at_t(V, z, T, m):
-
-    v = V[:,m]
+def plot_space(V, z, T, m, name="exampleposition.png"):
 
     fig, ax = plt.subplots()
-    ax.plot(z, v)
+    ax.plot(z, V[:,m])
     ax.set_xlabel('z-position [m]')
     ax.set_ylabel('Voltage [V]')
     ax.set_title(f'Voltage at t = {T}s')
-    plt.savefig("exampleposition.png")
+    plt.savefig(name)
+
+
+def plot_animation(s, z, t):
+    """
+    s: signal
+    z: space coordinate
+    t: time
+    """
+    fig, ax = plt.subplots()
+    ax.set_xlabel('z-position [m]')
+    ax.set_ylabel('Voltage [V]')
+    M = len(t)
+
+    # function that draws each frame of the animation
+    def animate(m):
+
+        ax.clear()
+        ax.plot(s[:,m], z)
+        ax.set_ylim([np.min(s)-abs(np.std(s)),np.max(s)+abs(np.std(s))])
+
+    anim = FuncAnimation(fig, animate, frames=20, interval=500, repeat=False)
+
+    anim.save('animation')
 
 if __name__ == "__main__":
 
@@ -43,5 +66,6 @@ if __name__ == "__main__":
     plt.plot(t, eg(t))
     plt.show()
 
+    
 
 
