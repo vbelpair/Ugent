@@ -16,13 +16,14 @@ import argparse
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
+import os 
 
 #=========================#
 # defining argument parser
 #=========================#
 
-parser = argparse.ArgumentParser(description='Input data file to run programm.')
-parser.add_argument('file', type=str, help='Enter the file in which the data is contained to run the leapfrog scheme.', nargs='?', default=None)
+parser = argparse.ArgumentParser(description = 'Input data file to run programm.')
+parser.add_argument('file', type=str, help = 'Enter the file in which the data is contained to run the leapfrog scheme.', nargs='?', default=None)
 
 #===========================#
 # creating usefull functions
@@ -47,6 +48,53 @@ def bit(A, tr, th, tf, D=0):
     """
     t1, t2, t3, t4 = D, D+tr, D+1/2*tr+th-1/2*tf, D+1/2*tr+th+1/2*tf
     return lambda t: A/tr*(t-t1)*B(t1, t2)(t) + A*B(t2,t4)(t) - A/tr*(t-t3)*B(t3,t4)(t)
+
+# allow more LaTeX in plots
+# make sure LaTeX is installed on your computer, if not uncheck this
+
+update = {"text.usetex": True, 'text.latex.preamble': r'\usepackage{cmbright}'}
+plt.rcParams.update(update)
+
+# define plotter
+def splot(X, Y, title = '', lb = None, axis = ['', ''], sname = '', tsp = True):
+    '''
+    Simple Plot Function
+    
+    X : List of arrays containing plotting data on x-axis
+    Y : Corresponding y values
+    
+    title      : title of plot
+    axis       : list with two elements containing name of x- and y axis 
+    sname      : name of saved plot file
+    tsp        : transparent background (default : True)
+    '''
+    
+    ## make a figure with axes
+    fig, ax = plt.subplots(1, figsize=(8, 4))
+    
+    ## make plot title
+    ax.set_title(title, size = 14)
+    
+    ## lable axis
+    plt.xlabel(axis[0], size = 12)
+    plt.ylabel(axis[1], size = 12)
+    
+    ## plot the data
+    if type(X) == list and len(X) > 1:
+        if lb == None:
+            lb = ['']*len(X)
+        for i in range(len(X)):
+            ax.plot(X[i], Y[i], lw = 2, label = lb[i])
+    else:
+        ax.plot(X, Y, lw = 2, label = lb)
+    
+    plt.legend()
+    plt.grid()
+    plt.tight_layout()
+    
+    if sname != '':
+        plt.savefig(sname, transparent = tsp, dpi = 300)
+    plt.show()
 
 #=========================#
 # creating leapfrog scheme
@@ -88,47 +136,44 @@ def leapfrog_scheme(alpha, Rc, Eg, Rg, Rl, Cl, dt, M, N):
 # creating plotting functions
 #============================#
  
-def plot_time(V, t, Z=0, n=None, name="exampletime.png"):
+def plot_time(V, t, Z=0, n = None, name = "exampletime.png"):
 
     if n:
         V = V[n,:]
 
-    fig, ax = plt.subplots()
-    ax.plot(t*10**9, V)
-    ax.set_xlabel('time [ns]')
-    ax.set_ylabel('Voltage [V]')
-    ax.set_title(f'Voltage at z = {Z}m')
-    plt.savefig(name)
+    laxis = ['time [ns]', 'Voltage [V]']
+    ttl = f'Voltage at $z = {Z}$ m' 
+    path = os.path.dirname('__file__')  + 'figures/'  + name
+    splot(t*10**9, V, axis = laxis, title = ttl, sname = path)
 
-def plot_space(V, z, T, m, name="exampleposition.png"):
+def plot_space(V, z, T, m, name = "exampleposition.png"):
 
-    fig, ax = plt.subplots()
-    ax.plot(z, V[:,m])
-    ax.set_xlabel('z-position [m]')
-    ax.set_ylabel('Voltage [V]')
-    ax.set_ylim(-1,1)
-    ax.set_title(f'Voltage at t = {T*10**9:.2f} ns')
-    plt.savefig(name)
+    laxis = ['$z$-position [m]', 'Voltage [V]']
+    ttl = f'Voltage at $t = {T*10**9:.2f}$ ns' 
+    path = path = os.path.dirname('__file__') + 'figures/' + name
+    splot(z, V[:,m], axis = laxis, title = ttl, sname = path) 
 
 def plot_animation(V, z, t):
-    
-    t = t*10**9
+    # uncheck this if the video does not run (mac)
+    #plt.rcParams["backend"] = "TkAgg"
+    t *= 10**9
 
-    fig = plt.figure(figsize=(10,6))
+    fig = plt.figure(figsize=(8,4))
 
     def plot_initialize():
         plt.ylim(-1, 1)
-        plt.xlabel('z-coordinate [m]',fontsize=20)
-        plt.ylabel('voltage [V]',fontsize=20)
+        plt.xlabel('$z$-coordinate [m]', fontsize=12)
+        plt.ylabel('Voltage [V]', fontsize=12)
 
     def animate(i):
         
         plt.clf()
         plot_initialize()
         plt.plot(z, V[:,i])
-        plt.title(f'Voltage at {t[i]:.2f} ns',fontsize=20)
+        plt.title(f'Voltage at {t[i]:.2f} ns',fontsize=16)
+        plt.grid()
     
-    ani = animation.FuncAnimation(fig, animate, interval=50)
+    ani = animation.FuncAnimation(fig, animate, interval = 50)
     ani.save('animation.mp4')
 
 
@@ -180,7 +225,7 @@ if __name__ == "__main__":
     # executing the leapfrog scheme
 
     Eg = bit(A, tr, Tbit, tr, D)(t[:-1]+dt/2)
-    V, I = leapfrog_scheme(alpha, Rc, Eg, Rg, Rl, Cl, M, N)
+    V, I = leapfrog_scheme(alpha, Rc, Eg, Rg, Rl, Cl, dt, M, N)
 
     # plotting the output
 
