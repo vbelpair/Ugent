@@ -52,7 +52,7 @@ def bit(A, tr, th, tf, D=0):
 # creating leapfrog scheme
 #=========================#
 
-def leapfrog_scheme(alpha, Rc, Eg, Rg, Rl, Cl, M, N):
+def leapfrog_scheme(alpha, Rc, Eg, Rg, Rl, Cl, dt, M, N):
     """
     alpha: courant factor of the transmission line
     Rc: characteristic impedance of the transmission line
@@ -70,9 +70,9 @@ def leapfrog_scheme(alpha, Rc, Eg, Rg, Rl, Cl, M, N):
 
     # define constants for leapfrog scheme
 
-    rg, rl = Rc/Rg, Rc/Rl # adjusted Rc with respect to Rg and Rl
+    rg, Z1, Z2 = Rc/Rg, Rc*(1/Rl-2*Cl/dt), Rc*(1/Rl+2*Cl/dt) # adjusted Rc with respect to Rg and Rl
     C1, C2 = (1-alpha*rg)/(1+alpha*rg), 2*alpha/(1+alpha*rg) # constants for BC at z = 0
-    C3, C4 = (1-alpha*rl)/(1+alpha*rl), 2*alpha/(1+alpha*rl) # constants for BC at z = N*dz
+    C3, C4 = (1-alpha*Z2)/(1+alpha*Z1), 2*alpha/(1+alpha*Z1) # constants for BC at z = N*dz
 
     for m in range(M-1):
 
@@ -99,7 +99,6 @@ def plot_time(V, t, Z=0, n=None, name="exampletime.png"):
     ax.set_ylabel('Voltage [V]')
     ax.set_title(f'Voltage at z = {Z}m')
     plt.savefig(name)
-
 
 def plot_space(V, z, T, m, name="exampleposition.png"):
 
