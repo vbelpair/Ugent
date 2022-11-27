@@ -14,6 +14,7 @@
 
 # some other files
 *.docx
+*.mp4
 
 # some particular data files
 example.txt
