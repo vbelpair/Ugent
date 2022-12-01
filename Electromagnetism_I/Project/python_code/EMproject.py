@@ -169,11 +169,12 @@ def plot_animation(V, z, t):
         
         plt.clf()
         plot_initialize()
-        plt.plot(z, V[:,i])
-        plt.title(f'Voltage at {t[i]:.2f} ns',fontsize=16)
+        plt.plot(z, V[:,i], label = f'|{np.max(np.abs(V[:, i])):.2f}|')
+        plt.title(f'Voltage at {t[i]:.2f} ns', fontsize=16)
+        plt.legend()
         plt.grid()
     
-    ani = animation.FuncAnimation(fig, animate, interval = 50)
+    ani = animation.FuncAnimation(fig, animate, interval = 50, frames = np.arange(len(t)))
     ani.save('animation.mp4')
 
 
@@ -232,8 +233,4 @@ if __name__ == "__main__":
     plot_time(V, t, z_sensor, int(z_sensor/dz), name=file[:-4]+"time.png")
     plot_space(V, z, dt*m_snapchot, m_snapchot, name=file[:-4]+"position.png")
     plot_animation(V,z,t)
-
-
-
-
 
