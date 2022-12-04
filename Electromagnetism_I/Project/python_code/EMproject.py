@@ -62,7 +62,7 @@ def splot(X, Y, title = '', lb = None, axis = ['', ''], sname = '', tsp = True):
     
     X : List of arrays containing plotting data on x-axis
     Y : Corresponding y values
-    
+    aadede
     title      : title of plot
     axis       : list with two elements containing name of x- and y axis 
     sname      : name of saved plot file
@@ -73,11 +73,11 @@ def splot(X, Y, title = '', lb = None, axis = ['', ''], sname = '', tsp = True):
     fig, ax = plt.subplots(1, figsize=(8, 4))
     
     ## make plot title
-    ax.set_title(title, size = 14)
+    ax.set_title(title, size = 16)
     
     ## lable axis
-    plt.xlabel(axis[0], size = 12)
-    plt.ylabel(axis[1], size = 12)
+    plt.xlabel(axis[0], size = 14)
+    plt.ylabel(axis[1], size = 14)
     
     ## plot the data
     if type(X) == list and len(X) > 1:
