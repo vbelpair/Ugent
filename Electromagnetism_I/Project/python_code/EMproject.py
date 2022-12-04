@@ -70,8 +70,11 @@ def splot(X, Y, title = '', lb = None, axis = ['', ''], sname = '', tsp = True):
     '''
     
     ## make a figure with axes
-    fig, ax = plt.subplots(1, figsize=(8, 4))
+    fig, ax = plt.subplots(1, figsize=(7, 3.5))
     
+    #make axis values biggel
+    ax.tick_params(axis='both', which='major', labelsize=12)
+
     ## make plot title
     ax.set_title(title, size = 16)
     
@@ -80,6 +83,7 @@ def splot(X, Y, title = '', lb = None, axis = ['', ''], sname = '', tsp = True):
     plt.ylabel(axis[1], size = 14)
     
     ## plot the data
+    labl = False if lb == None else True
     if type(X) == list and len(X) > 1:
         if lb == None:
             lb = ['']*len(X)
@@ -88,7 +92,8 @@ def splot(X, Y, title = '', lb = None, axis = ['', ''], sname = '', tsp = True):
     else:
         ax.plot(X, Y, lw = 2, label = lb)
     
-    plt.legend()
+    if labl == True:
+        plt.legend()
     plt.grid()
     plt.tight_layout()
     
