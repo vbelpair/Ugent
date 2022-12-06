@@ -1,0 +1,8 @@
+These tails, which represent the path travelled by the particles, are correlated with the diffusion coefficient. Using Stokes-Einstein equation makes it possible to deduce the particle diameter.
+\begin{equation}
+	C_D = \frac{k_BT}{3\pi\mu D}
+\end{equation}
+with $C_D$ the diffusion coefficient, $k_B$ the Boltzman constant, $\mu$ the viscosity of the medium and $D$ the diameter of the particle.\\
+By counting the number of highlighted points belonging to a certain path makes it possible to calculate the size concentration.
+
+refs: https://www.azonano.com/equipment-details.aspx?EquipID=965
