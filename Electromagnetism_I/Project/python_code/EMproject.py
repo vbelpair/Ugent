@@ -123,16 +123,16 @@ def leapfrog_scheme(alpha, Rc, Eg, Rg, Rl, Cl, dt, M, N):
 
     # define constants for leapfrog scheme
 
-    rg, Z1, Z2 = Rc/Rg, Rc*(1/Rl-2*Cl/dt), Rc*(1/Rl+2*Cl/dt) # adjusted Rc with respect to Rg and Rl
-    C1, C2 = (1-alpha*rg)/(1+alpha*rg), 2*alpha/(1+alpha*rg) # constants for BC at z = 0
-    C3, C4 = (1-alpha*Z2)/(1+alpha*Z1), 2*alpha/(1+alpha*Z1) # constants for BC at z = N*dz
+    Z1, Z2 = (Rl*dt)/(dt-2*Cl*Rl), (Rl*dt)/(dt+2*Cl*Rl)  # adjusted Rc with respect to Rg and Rl
+    K1, kappa1 = (Rg-alpha*Rc)/(Rg+alpha*Rc), 2*alpha*Rg/(Rg+alpha*Rc) # constants for BC at z = 0
+    K2, kappa2 = Z2/Z1*(Z2-alpha*Rc)/(Z1+alpha*Rc), 2*alpha*Z1/(Z1+alpha*Rc) # constants for BC at z = N*dz
 
     for m in range(M-1):
 
         i[:,m] = i[:,m-1] + alpha*(V[:N,m] - V[1:,m])
-        V[0,m+1] = C1*V[0,m] + C2*(rg*Eg[m] - i[0,m])
+        V[0,m+1] = K1*V[0,m] + kappa1*(Rc/Rg*Eg[m] - i[0,m])
         V[1:N,m+1] = V[1:N,m] + alpha*(i[0:N-1,m] - i[1:N,m])
-        V[N,m+1] = C3*V[N,m] + C4*i[N-1,m]
+        V[N,m+1] = K2*V[N,m] + kappa2*i[N-1,m]
 
     I = 1/Rc*i # readjust i to I
     return V, I
