@@ -97,20 +97,20 @@ Using Kirchoff's voltage law at the resistor gives
 \end{align}
 The relation between the current and the voltage at the capitor is given as
 \begin{equation}
-    \hat{i} = -C\frac{\partial \hat{v}}{\partial t}.
+    \hat{i} = C\frac{\partial \hat{v}}{\partial t}.
 \end{equation}
 For a first order FDM this turns into
 \begin{equation}
-    I^{m+\frac{1}{2}}_{R} = -C_{L}\frac{V^{m+1}_{N} - V^{m}_{N}}{\Delta t}.
+    I^{m+\frac{1}{2}}_{C} = C_{L}\frac{V^{m+1}_{N} - V^{m}_{N}}{\Delta t}.
     \label{IC}
 \end{equation}
 Substituting (\ref{IR}) and (\ref{IC}) into (\ref{IL2}) gives
 \begin{equation}
-    I^{m+\frac{1}{2}}_{L} = \left(\frac{1}{2R_{L}}-\frac{C_{L}}{\Delta t}\right)V^{m+1}_N + \left(\frac{1}{2R_{L}}+\frac{C_{L}}{\Delta t}\right)V^{m}_N
+    I^{m+\frac{1}{2}}_{L} = \left(\frac{1}{2R_{L}}+\frac{C_{L}}{\Delta t}\right)V^{m+1}_N + \left(\frac{1}{2R_{L}}-\frac{C_{L}}{\Delta t}\right)V^{m}_N
 \end{equation}
 and can be rewritten as
 \begin{equation}
-    \tilde{I}^{m+\frac{1}{2}}_{L} = \frac{R_{c}}{2Z_{1}}V^{m+1}_N + \frac{R_{c}}{2Z_{2}}V^{m}_N
+    \tilde{I}^{m+\frac{1}{2}}_{L} = \frac{R_{c}}{2Z_{2}}V^{m+1}_N + \frac{R_{c}}{2Z_{1}}V^{m}_N
     \label{IL2_final}
 \end{equation}
 with
@@ -124,8 +124,8 @@ Substituting (\ref{IL2_final}) into the adjusted voltage update function at $z=d
 \end{equation}
 where
 \begin{align}
-    K'_{2} & = \frac{Z_{2}}{Z_{1}}\frac{Z_{2}-\alpha R_{c}}{Z_{1}+\alpha R_{c}},\\
-    \kappa'_{2} & = \frac{2\alpha Z_{1}}{Z_{1}+\alpha R_{c}}.
+    K'_{2} & = \frac{Z_{2}}{Z_{1}}\frac{Z_{1}-\alpha R_{c}}{Z_{2}+\alpha R_{c}},\\
+    \kappa'_{2} & = \frac{2\alpha Z_{2}}{Z_{2}+\alpha R_{c}}.
 \end{align}
 
 \subsubsection{Influence of C}
@@ -141,6 +141,6 @@ well chosen time step and just look at the effect of changing $C_{L}$.
     \item $C_{L} \rightarrow \infty$ :
         $ K'_{2} \rightarrow 1$ and $\kappa'_{2} \rightarrow 0$, fully reflected wave
     \item $C_{L} \rightarrow \frac{\Delta t}{2R_{L}}$ :
-        $K'_{2} \rightarrow 0$ and $\kappa'_{2} \rightarrow 2\alpha$, would expect fully absorbed wave but get numerical problems
+        $K'_{2} \rightarrow \frac{Z_{2}}{Z_{2}+\alpha R_{C}}$ and $\kappa'_{2} \rightarrow \frac{2\alpha Z_{2}}{Z_{2}+\alpha R_{C}}$, would expect fully absorbed wave but get numerical problems
 \end{itemize}
 
