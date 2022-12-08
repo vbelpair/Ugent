@@ -2,15 +2,6 @@ import openpyxl
 import numpy as np
 import matplotlib.pyplot as plt
 
-def quit() -> None:
-    """_summary_
-    Asking the user to prolong the programm.
-    """
-
-    q = input("Quiting programm? (y/n): ")
-    if q == 'y':
-        exit()
-
 def choose(options: list, label: str="options") -> str:
     """_summary_
 
@@ -42,7 +33,7 @@ def read_in_data_week1(sheet):
 
     rmax = sheet.max_row
     frames = iterate_ND_range(sheet, 'A6', f'A{rmax}')
-    labels = [e for e in iterate_ND_range(sheet, start='A3', end='T3') if e is not None]
+    labels = [e[-4:] for e in iterate_ND_range(sheet, start='A3', end='T3') if e is not None]
     data = {}
 
     for i in range(0, len(labels)):
@@ -56,8 +47,7 @@ def read_in_data_week1(sheet):
             n+=1
         data[labels[i]] = XYZ
 
-    return frames, data, labels, 
-
+    return frames, data, labels
 
 class GaitCycleAnalysis:
 
@@ -124,6 +114,22 @@ class GaitCycleAnalysis:
             ax.set_xlabel("Frames")
             ax.set_ylabel(f"{ylabels[m]}-track [mm]")
         plt.show()
+
+    def walking_speed(self) -> float:
+        y = self.data[self.labels[2]][:,1]
+        n = self.frames
+        return (y[-1]-y[0])/(n[-1]-n[0])
+    
+    def step_lenght(self) -> float:
+        ref2 = self.labels[-1]
+        ref1 = [label for label in self.labels[:-1] if label[1:] == ref2[1:]][0]
+        y1 = self.data[ref1][:,1]
+        y2 = self.data[ref2][:,1]
+        n = self.frames
+        return np.mean(np.max(abs(y1 - y2)))
+
+    #def stride_lenght(self) -> float:
+
 
 
 if __name__ == "__main__":
