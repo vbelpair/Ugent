@@ -52,8 +52,8 @@ def bit(A, tr, th, tf, D=0):
 # allow more LaTeX in plots
 # make sure LaTeX is installed on your computer, if not uncheck this
 
-update = {"text.usetex": True, 'text.latex.preamble': r'\usepackage{cmbright}'}
-plt.rcParams.update(update)
+#update = {"text.usetex": True, 'text.latex.preamble': r'\usepackage{cmbright}'}
+#plt.rcParams.update(update)
 
 # define plotter
 def splot(X, Y, title = '', lb = None, axis = ['', ''], sname = '', tsp = True):
@@ -125,7 +125,7 @@ def leapfrog_scheme(alpha, Rc, Eg, Rg, Rl, Cl, dt, M, N):
 
     Z1, Z2 = (Rl*dt)/(dt-2*Cl*Rl), (Rl*dt)/(dt+2*Cl*Rl)  # adjusted Rc with respect to Rg and Rl
     K1, kappa1 = (Rg-alpha*Rc)/(Rg+alpha*Rc), 2*alpha*Rg/(Rg+alpha*Rc) # constants for BC at z = 0
-    K2, kappa2 = Z2/Z1*(Z2-alpha*Rc)/(Z1+alpha*Rc), 2*alpha*Z1/(Z1+alpha*Rc) # constants for BC at z = N*dz
+    K2, kappa2 = Z2/Z1*(Z1-alpha*Rc)/(Z2+alpha*Rc), 2*alpha*Z2/(Z2+alpha*Rc) # constants for BC at z = N*dz
 
     for m in range(M-1):
 
@@ -157,6 +157,14 @@ def plot_space(V, z, T, m, name = "exampleposition.png"):
     ttl = f'Voltage at $t = {T*10**9:.2f}$ ns' 
     path = path = os.path.dirname('__file__') + 'figures/' + name
     splot(z, V[:,m], axis = laxis, title = ttl, sname = path) 
+
+def plot_cap(Sc, t, Z="d", name = "exampletime.png"):
+
+    laxis = ['time [ns]', 'Voltage [V]']
+    ttl = f'Voltage at $z = {Z}$ m' 
+    path = os.path.dirname('__file__')  + 'figures/'  + name
+    splot(t*10**9, Sc, axis = laxis, title = ttl, sname = path)
+
 
 def plot_animation(V, z, t):
     # uncheck this if the video does not run (mac)
@@ -235,7 +243,8 @@ if __name__ == "__main__":
 
     # plotting the output
 
-    plot_time(V, t, z_sensor, int(z_sensor/dz), name=file[:-4]+"time.png")
-    plot_space(V, z, dt*m_snapchot, m_snapchot, name=file[:-4]+"position.png")
-    plot_animation(V,z,t)
+    #plot_time(V, t, z_sensor, int(z_sensor/dz), name=file[:-4]+"time.png")
+    #plot_space(V, z, dt*m_snapchot, m_snapchot, name=file[:-4]+"position.png")
+    #plot_animation(V,z,t)
+    plot_cap(-Cl*(V[-1,1:]-V[-1,:-1])/dt, t[:-1], name='cap plot')
 
