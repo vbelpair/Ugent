@@ -21,6 +21,6 @@ tr          4e-11  Bit rising time [s]
 D           1e-10  Delay of the bit [s]
 N          50      Number of position steps
 dt          1e-11  Time interval length [s]
-M         200      Number of time steps
+M         400      Number of time steps
 z_s         0.05   Position of sensor [frame]]
 t_s        50      Time of snapshot [frame]
