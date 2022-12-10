@@ -141,7 +141,7 @@ def leapfrog_scheme(alpha, Rc, Eg, Rg, Rl, Cl, dt, M, N):
 # creating plotting functions
 #============================#
  
-def plot_time(V, t, Z=0, n = None, name = "exampletime.png"):
+def plot_time(V, t, Z=0, n = None, name = "exampletime.png", lb=None):
 
     if n:
         V = V[n,:]
@@ -149,24 +149,24 @@ def plot_time(V, t, Z=0, n = None, name = "exampletime.png"):
     laxis = ['time [ns]', 'Voltage [V]']
     ttl = f'Voltage at $z = {Z}$ m' 
     path = os.path.dirname('__file__')  + 'figures/'  + name
-    splot(t*10**9, V, axis = laxis, title = ttl, sname = path)
+    splot(t*10**9, V, axis = laxis, title = ttl, sname = path, lb=lb)
 
-def plot_space(V, z, T, m, name = "exampleposition.png"):
+def plot_space(V, z, T, m, name = "exampleposition.png", lb=None):
 
     laxis = ['$z$-position [m]', 'Voltage [V]']
     ttl = f'Voltage at $t = {T*10**9:.2f}$ ns' 
     path = path = os.path.dirname('__file__') + 'figures/' + name
-    splot(z, V[:,m], axis = laxis, title = ttl, sname = path) 
+    splot(z, V[:,m], axis = laxis, title = ttl, sname = path, lb=lb) 
 
-def plot_cap(Sc, t, Z="d", name = "exampletime.png"):
+def plot_cap(Sc, t, Z="d", name = "exampletime.png", lb=None):
 
     laxis = ['time [ns]', 'Voltage [V]']
     ttl = f'Voltage at $z = {Z}$ m' 
     path = os.path.dirname('__file__')  + 'figures/'  + name
-    splot(t*10**9, Sc, axis = laxis, title = ttl, sname = path)
+    splot(t*10**9, Sc, axis = laxis, title = ttl, sname = path, lb=lb)
 
 
-def plot_animation(V, z, t):
+def plot_animation(V, z, t, A):
     # uncheck this if the video does not run (mac)
     #plt.rcParams["backend"] = "TkAgg"
     t *= 10**9
@@ -174,7 +174,7 @@ def plot_animation(V, z, t):
     fig = plt.figure(figsize=(8,4))
 
     def plot_initialize():
-        plt.ylim(-1, 1)
+        plt.ylim(-A, A)
         plt.xlabel('$z$-coordinate [m]', fontsize=12)
         plt.ylabel('Voltage [V]', fontsize=12)
 
@@ -243,8 +243,8 @@ if __name__ == "__main__":
 
     # plotting the output
 
-    #plot_time(V, t, z_sensor, int(z_sensor/dz), name=file[:-4]+"time.png")
-    #plot_space(V, z, dt*m_snapchot, m_snapchot, name=file[:-4]+"position.png")
-    #plot_animation(V,z,t)
-    plot_cap(-Cl*(V[-1,1:]-V[-1,:-1])/dt, t[:-1], name='cap plot')
+    plot_time(V, t, z_sensor, int(z_sensor/dz), name=file[:-4] + f"_C={Cl}_time.png", lb=r'$C_L$='+f'{Cl}')
+    plot_space(V, z, dt*m_snapchot, m_snapchot, name=file[:-4]+"position.png")
+    plot_animation(V,z,t,A)
+    #plot_cap(-Cl*(V[-1,1:]-V[-1,:-1])/dt, t[:-1], name='cap plot')
 

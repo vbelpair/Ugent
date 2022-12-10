@@ -141,6 +141,22 @@ well chosen time step and just look at the effect of changing $C_{L}$.
     \item $C_{L} \rightarrow \infty$ :
         $ K'_{2} \rightarrow 1$ and $\kappa'_{2} \rightarrow 0$, fully reflected wave
     \item $C_{L} \rightarrow \frac{\Delta t}{2R_{L}}$ :
-        $K'_{2} \rightarrow \frac{Z_{2}}{Z_{2}+\alpha R_{C}}$ and $\kappa'_{2} \rightarrow \frac{2\alpha Z_{2}}{Z_{2}+\alpha R_{C}}$, would expect fully absorbed wave but get numerical problems
+        $K'_{2} \rightarrow \frac{Z_{2}}{Z_{2}+\alpha R_{C}}$ and $\kappa'_{2} \rightarrow \frac{2\alpha Z_{2}}{Z_{2}+\alpha R_{C}}$, this shows that the division by zero for $Z_1$ does not lead to any problems.
 \end{itemize}
 
+\begin{figure}[H]
+    \includegraphics[scale=0.5]{example_C=2e-07_time.png}
+    \includegraphics[scale=0.5]{example_C=2e-11_time.png}
+
+    \includegraphics[scale=0.5]{example_C=2e-13_time.png}
+    \includegraphics[scale=0.5]{example_C=2e-16_time.png}
+    \caption{Different values for the load capacitance}
+    \label{fig:effect_CL}
+\end{figure}
+
+From figure \ref*{fig:effect_CL} the following obesrvations can be made:
+\begin{itemize}
+    \item For large values of the capacitance no energy loss will occur at the load, i.e. the amplitude of the voltage does not change when passing the load. The capacitor has enough capacitance to store the whole bit and return it to the transmision line.
+    \item For intermediate values for the capacitance, i.e. $C_L = 2e-11$, the decharging of the capacitor can clearly be seen (exponetial drop).
+    \item When the capacitance gets very low its effect gets negligible.
+\end{itemize}
