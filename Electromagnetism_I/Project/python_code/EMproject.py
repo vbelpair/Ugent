@@ -20,6 +20,7 @@ import os
 from datetime import datetime
 from tabulate import tabulate as tb
 
+
 #=========================#
 # defining argument parser
 #=========================#
@@ -111,7 +112,7 @@ def get_date():
 def dir_maker(parent_dir, name):
     path = os.path.join(parent_dir, get_date())
     os.mkdir(path)
-    print(f'Directory \'{name}\' created!')
+    print(f'Directory \'{name}\' succesfully created!')
     return path
 
 def gen_table(par, headers):
@@ -120,7 +121,7 @@ def gen_table(par, headers):
     for key in par.keys():
         val, dis = par[key]
         data.append([key, f'{val:e}', dis])
-    
+
     ## generate the table
     table = tb(data, headers = headers)
     return table
@@ -129,22 +130,22 @@ def f_maker(para):
     '''
     This function creates a directory (named as the current date) with a README.txt file
     '''
-    
+
     ## get formatted date
     date = get_date()
-    
+
     ## create folder
     dir_path = dir_maker(os.path.dirname('__file__'), date)
-    
+
     ## make formatted table from input data
     headers = ['Symbol', 'Value', 'Description']
     table = gen_table(para, headers)
     fpara = '\nThis simulation is performed with following parameters\n\n' + table  # formatting 
-    
+
     ## Make README.txt
     file_path = os.path.join(dir_path, 'README.txt')
     file = open(file_path, 'x')
-    
+
     ## preface text
     preface = '''
 FDTD SIMULATION OF A LOSSLESS TRANSMISSION LINE - PROJECT EM I
@@ -152,7 +153,7 @@ FDTD SIMULATION OF A LOSSLESS TRANSMISSION LINE - PROJECT EM I
 This directory contains following subfolders/files:
 \tfigures         : Storage folder with relevant plots of the simulation 
 \tanimation       : Animation of the simulation
-    '''
+'''
 
 
     ## write to file
@@ -200,29 +201,29 @@ def leapfrog_scheme(alpha, Rc, Eg, Rg, Rl, Cl, dt, M, N):
 # creating plotting functions
 #============================#
  
-def plot_time(V, t, Z=0, n = None, name = "exampletime.png"):
+def plot_time(V, t, Z=0, n = None, name = "exampletime.png", lb=None):
 
     if n:
         V = V[n,:]
 
     laxis = ['time [ns]', 'Voltage [V]']
     ttl = f'Voltage at $z = {Z}$ m' 
-    splot(t*10**9, V, axis = laxis, title = ttl, sname = name)
+    splot(t*10**9, V, axis = laxis, title = ttl, sname = name, lb=lb)
 
-def plot_space(V, z, T, m, name = "exampleposition.png"):
+def plot_space(V, z, T, m, name = "exampleposition.png", lb=None):
 
     laxis = ['$z$-position [m]', 'Voltage [V]']
     ttl = f'Voltage at $t = {T*10**9:.2f}$ ns' 
-    splot(z, V[:,m], axis = laxis, title = ttl, sname = name) 
+    splot(z, V[:,m], axis = laxis, title = ttl, sname = name, lb=lb) 
 
-def plot_cap(Sc, t, Z="d", name = "exampletime.png"):
+def plot_cap(Sc, t, Z="d", name = "exampletime.png", lb=None):
 
     laxis = ['time [ns]', 'Voltage [V]']
     ttl = f'Voltage at $z = {Z}$ m' 
-    splot(t*10**9, Sc, axis = laxis, title = ttl, sname = name)
+    splot(t*10**9, Sc, axis = laxis, title = ttl, sname = name, lb=lb)
 
 
-def plot_animation(V, z, t, name = 'animation.mp4'):
+def plot_animation(V, z, t, A, name = 'animation.mp4'):
     # uncheck this if the video does not run (mac)
     #plt.rcParams["backend"] = "TkAgg"
     t *= 10**9
@@ -230,9 +231,9 @@ def plot_animation(V, z, t, name = 'animation.mp4'):
     fig = plt.figure(figsize=(8,4))
 
     def plot_initialize():
-        plt.ylim(-1, 1)
-        plt.xlabel('$z$-coordinate [m]', fontsize=12)
-        plt.ylabel('Voltage [V]', fontsize=12)
+        #plt.ylim(-A, A)
+        plt.xlabel('$z$-coordinate [m]', fontsize = 12)
+        plt.ylabel('Voltage [V]', fontsize = 12)
 
     def animate(i):
         
@@ -297,15 +298,14 @@ if __name__ == "__main__":
     Eg = bit(A, tr, Tbit, tr, D)(t[:-1]+dt/2)
     V, I = leapfrog_scheme(alpha, Rc, Eg, Rg, Rl, Cl, dt, M, N)
 
-    # making folder with simulation data
     par = {'d': [d, 'Length of the transmission line [m]'], 'v': [v, 'Velocity of the bit [m/s]'], 'Rc': [Rc, 'Characteristic impedance of the line [Ohm]'], 'Rg': [Rg, 'Generator resistance [Ohm]'], 'Rl': [Rl, 'Load resistanve [Ohm]'], 'Cl': [Cl, 'Load capacitance [F]'], 'A': [A, 'Bit amplitude [V]'], 'Tbit': [Tbit, 'But duration time [s]'], 'tr': [tr, 'Bit rising time [s]'], 'D': [D, 'Delay of the bit [s]'], 'N': [N, 'Number of position steps'], 'dt': [dt, 'Time interval length [s]'], 'M': [M, 'Number of time steps'], 'z_s': [z_sensor, 'Position of sensor [frame]]'], 't_s' : [m_snapchot, 'Time of snapshot [frame]']}
     dir_path = f_maker(par)
-    print(dir_path)
 
     # plotting the output
 
-    plot_time(V, t, z_sensor, int(z_sensor/dz), name = os.path.join(dir_path, "time.png"))
-    plot_space(V, z, dt*m_snapchot, m_snapchot, name = os.path.join(dir_path, "position.png"))
-    plot_animation(V,z,t, name = os.path.join(dir_path, 'simulation.mp4'))
-    plot_cap(-Cl*(V[-1,1:]-V[-1,:-1])/dt, t[:-1], name = os.path.join(dir_path, "cap.png"))
+    plot_time(V, t, z_sensor, int(z_sensor/dz), name=os.path.join(dir_path, file[:-4] + f"_C={Cl}_time.png"), lb=r'$C_L$='+f'{Cl}')
+    plot_space(V, z, dt*m_snapchot, m_snapchot, name=os.path.join(dir_path, file[:-4] + "position.png"))
+    plot_cap(-Cl*(V[-1,1:]-V[-1,:-1])/dt, t[:-1], name=os.path.join(dir_path, 'cap plot.png'))
+    plot_animation(V,z,t,A, name = '')
+    
 
