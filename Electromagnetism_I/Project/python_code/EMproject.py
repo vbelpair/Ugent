@@ -231,7 +231,7 @@ def plot_animation(V, z, t, A, name = 'animation.mp4'):
     fig = plt.figure(figsize=(8,4))
 
     def plot_initialize():
-        #plt.ylim(-A, A)
+        plt.ylim(-A, A)
         plt.xlabel('$z$-coordinate [m]', fontsize = 12)
         plt.ylabel('Voltage [V]', fontsize = 12)
 
@@ -306,6 +306,6 @@ if __name__ == "__main__":
     plot_time(V, t, z_sensor, int(z_sensor/dz), name=os.path.join(dir_path, file[:-4] + f"_C={Cl}_time.png"), lb=r'$C_L$='+f'{Cl}')
     plot_space(V, z, dt*m_snapchot, m_snapchot, name=os.path.join(dir_path, file[:-4] + "position.png"))
     plot_cap(-Cl*(V[-1,1:]-V[-1,:-1])/dt, t[:-1], name=os.path.join(dir_path, 'cap plot.png'))
-    plot_animation(V,z,t,A, name = '')
+    plot_animation(V,z,t,A, name = os.path.join(dir_path, 'simulation.mp4'))
     
 
