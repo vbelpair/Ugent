@@ -17,6 +17,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 import os 
+from datetime import datetime
+from tabulate import tabulate as tb
 
 #=========================#
 # defining argument parser
@@ -52,8 +54,8 @@ def bit(A, tr, th, tf, D=0):
 # allow more LaTeX in plots
 # make sure LaTeX is installed on your computer, if not uncheck this
 
-#update = {"text.usetex": True, 'text.latex.preamble': r'\usepackage{cmbright}'}
-#plt.rcParams.update(update)
+update = {"text.usetex": True, 'text.latex.preamble': r'\usepackage{cmbright}'}
+plt.rcParams.update(update)
 
 # define plotter
 def splot(X, Y, title = '', lb = None, axis = ['', ''], sname = '', tsp = True):
@@ -100,6 +102,63 @@ def splot(X, Y, title = '', lb = None, axis = ['', ''], sname = '', tsp = True):
     if sname != '':
         plt.savefig(sname, transparent = tsp, dpi = 300)
     plt.show()
+
+def get_date():
+    t = datetime.now()
+    year, month, day, hour, minute, second = t.year, t.month, t.day, t.hour, t.minute, t.second
+    return f'{hour:.0f}.{minute:.0f}.{second:.0f} {day:.0f}-{month:.0f}-{year:.0f}'
+
+def dir_maker(parent_dir, name):
+    path = os.path.join(parent_dir, get_date())
+    os.mkdir(path)
+    print(f'Directory \'{name}\' created!')
+    return path
+
+def gen_table(par, headers):
+    data = []
+    ## unpack the data
+    for key in par.keys():
+        val, dis = par[key]
+        data.append([key, f'{val:e}', dis])
+    
+    ## generate the table
+    table = tb(data, headers = headers)
+    return table
+
+def f_maker(para):
+    '''
+    This function creates a directory (named as the current date) with a README.txt file
+    '''
+    
+    ## get formatted date
+    date = get_date()
+    
+    ## create folder
+    dir_path = dir_maker(os.path.dirname('__file__'), date)
+    
+    ## make formatted table from input data
+    headers = ['Symbol', 'Value', 'Description']
+    table = gen_table(para, headers)
+    fpara = '\nThis simulation is performed with following parameters\n\n' + table  # formatting 
+    
+    ## Make README.txt
+    file_path = os.path.join(dir_path, 'README.txt')
+    file = open(file_path, 'x')
+    
+    ## preface text
+    preface = '''
+FDTD SIMULATION OF A LOSSLESS TRANSMISSION LINE - PROJECT EM I
+
+This directory contains following subfolders/files:
+\tfigures         : Storage folder with relevant plots of the simulation 
+\tanimation       : Animation of the simulation
+    '''
+
+
+    ## write to file
+    file.write(preface + fpara )
+    file.close()
+    return dir_path
 
 #=========================#
 # creating leapfrog scheme
@@ -148,25 +207,22 @@ def plot_time(V, t, Z=0, n = None, name = "exampletime.png"):
 
     laxis = ['time [ns]', 'Voltage [V]']
     ttl = f'Voltage at $z = {Z}$ m' 
-    path = os.path.dirname('__file__')  + 'figures/'  + name
-    splot(t*10**9, V, axis = laxis, title = ttl, sname = path)
+    splot(t*10**9, V, axis = laxis, title = ttl, sname = name)
 
 def plot_space(V, z, T, m, name = "exampleposition.png"):
 
     laxis = ['$z$-position [m]', 'Voltage [V]']
     ttl = f'Voltage at $t = {T*10**9:.2f}$ ns' 
-    path = path = os.path.dirname('__file__') + 'figures/' + name
-    splot(z, V[:,m], axis = laxis, title = ttl, sname = path) 
+    splot(z, V[:,m], axis = laxis, title = ttl, sname = name) 
 
 def plot_cap(Sc, t, Z="d", name = "exampletime.png"):
 
     laxis = ['time [ns]', 'Voltage [V]']
     ttl = f'Voltage at $z = {Z}$ m' 
-    path = os.path.dirname('__file__')  + 'figures/'  + name
-    splot(t*10**9, Sc, axis = laxis, title = ttl, sname = path)
+    splot(t*10**9, Sc, axis = laxis, title = ttl, sname = name)
 
 
-def plot_animation(V, z, t):
+def plot_animation(V, z, t, name = 'animation.mp4'):
     # uncheck this if the video does not run (mac)
     #plt.rcParams["backend"] = "TkAgg"
     t *= 10**9
@@ -182,13 +238,13 @@ def plot_animation(V, z, t):
         
         plt.clf()
         plot_initialize()
-        plt.plot(z, V[:,i], label = f'|{np.max(np.abs(V[:, i])):.2f}|')
+        plt.plot(z, V[:,i], label = f'$|${np.max(np.abs(V[:, i])):.2f}$|$')
         plt.title(f'Voltage at {t[i]:.2f} ns', fontsize=16)
         plt.legend()
         plt.grid()
     
     ani = animation.FuncAnimation(fig, animate, interval = 50, frames = np.arange(len(t)))
-    ani.save('animation.mp4')
+    ani.save(name)
 
 
 #=====================#
@@ -241,10 +297,15 @@ if __name__ == "__main__":
     Eg = bit(A, tr, Tbit, tr, D)(t[:-1]+dt/2)
     V, I = leapfrog_scheme(alpha, Rc, Eg, Rg, Rl, Cl, dt, M, N)
 
+    # making folder with simulation data
+    par = {'d': [d, 'Length of the transmission line [m]'], 'v': [v, 'Velocity of the bit [m/s]'], 'Rc': [Rc, 'Characteristic impedance of the line [Ohm]'], 'Rg': [Rg, 'Generator resistance [Ohm]'], 'Rl': [Rl, 'Load resistanve [Ohm]'], 'Cl': [Cl, 'Load capacitance [F]'], 'A': [A, 'Bit amplitude [V]'], 'Tbit': [Tbit, 'But duration time [s]'], 'tr': [tr, 'Bit rising time [s]'], 'D': [D, 'Delay of the bit [s]'], 'N': [N, 'Number of position steps'], 'dt': [dt, 'Time interval length [s]'], 'M': [M, 'Number of time steps'], 'z_s': [z_sensor, 'Position of sensor [frame]]'], 't_s' : [m_snapchot, 'Time of snapshot [frame]']}
+    dir_path = f_maker(par)
+    print(dir_path)
+
     # plotting the output
 
-    #plot_time(V, t, z_sensor, int(z_sensor/dz), name=file[:-4]+"time.png")
-    #plot_space(V, z, dt*m_snapchot, m_snapchot, name=file[:-4]+"position.png")
-    #plot_animation(V,z,t)
-    plot_cap(-Cl*(V[-1,1:]-V[-1,:-1])/dt, t[:-1], name='cap plot')
+    plot_time(V, t, z_sensor, int(z_sensor/dz), name = os.path.join(dir_path, "time.png"))
+    plot_space(V, z, dt*m_snapchot, m_snapchot, name = os.path.join(dir_path, "position.png"))
+    plot_animation(V,z,t, name = os.path.join(dir_path, 'simulation.mp4'))
+    plot_cap(-Cl*(V[-1,1:]-V[-1,:-1])/dt, t[:-1], name = os.path.join(dir_path, "cap.png"))
 
