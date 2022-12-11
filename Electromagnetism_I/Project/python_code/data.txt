@@ -1,12 +1,12 @@
 # Transmission line data
 0.1          # length of the line [m]
 200.0e6      # signal speed [m/s]
-50.0         # characteristic impedance of the line [Ohm]
+1e10         # characteristic impedance of the line [Ohm]
 100.0        # generator impedance [Ohm]
 25.0         # load impedance [Ohm]
 0.0          # load capacitance [F]
 1.0          # amplitude of the voltage source [V]
-100.0e-12    # bit duration [s]
+200.0e-12    # bit duration [s]
 40.0e-12     # bit rise time [s]
 0.1e-9       # bit delay [s]
 50           # number of cells 
