@@ -161,6 +161,35 @@ This directory contains following subfolders/files:
     file.close()
     return dir_path
 
+def rV(V, P):
+    # unpack needed parameters
+    d, N, dt, v, Tbit, tr, Rl, Rc, M, Rg = P['d'][0], P['N'][0], P['dt'][0], P['v'][0], P['Tbit'][0], P['tr'][0], P['Rl'][0], P['Rc'][0], P['M'][0], P['Rg'][0]
+    
+    ## extra parameters
+    dz = d/N
+    n0 = int(v*dt/dz)
+    m1 = int(d/(v*dt))
+    dm = int((Tbit + 2*tr)/dt)
+    Kl = (Rl - Rc)/(Rl + Rc) 
+    C_L = Kl/(1+Kl)
+
+    Kg = (Rg - Rc)/(Rl + Rc)
+    C_g = Kg/(1+Kg)
+
+    #reflected wave
+    Vr = np.zeros(V.shape)
+
+    for m in range(m1, V.shape[-1]-dm, 2*m1):
+        Vr[-1, m:m+dm] = C_L*V[-1, m:m+dm] 
+        for k in range(1, dm):
+            Vr[-1-k:-1, m+k] = Vr[-k:, m+k-1]
+    
+    for m in range(2*m1, V.shape[-1]-dm, 2*m1):
+        Vr[0, m:m+dm] = C_g*V[0, m:m+dm] 
+        for k in range(1, dm):
+            Vr[1:k+1, m+k] = Vr[:k, m+k-1]
+
+    return Vr, m1, dm
 #=========================#
 # creating leapfrog scheme
 #=========================#
@@ -208,29 +237,27 @@ def plot_time(V, t, Z=0, n = None, name = "exampletime.png", lb=None):
 
     laxis = ['time [ns]', 'Voltage [V]']
     ttl = f'Voltage at $z = {Z}$ m' 
-    path = os.path.dirname('__file__')  + 'figures/'  + name
-    splot(t*10**9, V, axis = laxis, title = ttl, sname = path, lb=lb)
+    splot(t*10**9, V, axis = laxis, title = ttl, sname = name, lb=lb)
 
 def plot_space(V, z, T, m, name = "exampleposition.png", lb=None):
 
     laxis = ['$z$-position [m]', 'Voltage [V]']
     ttl = f'Voltage at $t = {T*10**9:.2f}$ ns' 
-    path = path = os.path.dirname('__file__') + 'figures/' + name
-    splot(z, V[:,m], axis = laxis, title = ttl, sname = path, lb=lb) 
+    splot(z, V[:,m], axis = laxis, title = ttl, sname = name, lb=lb) 
 
 def plot_cap(Sc, t, Z="d", name = "exampletime.png", lb=None):
 
     laxis = ['time [ns]', 'Voltage [V]']
     ttl = f'Voltage at $z = {Z}$ m' 
-    path = path = os.path.dirname('__file__') + 'figures/' + name
-    splot(t*10**9, Sc, axis = laxis, title = ttl, sname = path, lb=lb)
+    splot(t*10**9, Sc, axis = laxis, title = ttl, sname = name, lb=lb)
 
-def plot_animation(V, z, t, A):
+def plot_animation(V, z, t, A, P, Vr, m1, dm, name):
     # uncheck this if the video does not run (mac)
     #plt.rcParams["backend"] = "TkAgg"
     t *= 10**9
 
     fig = plt.figure(figsize=(8,4))
+
 
     def plot_initialize():
         plt.ylim(-A*1.2, A*1.2)
@@ -241,12 +268,18 @@ def plot_animation(V, z, t, A):
         
         plt.clf()
         plot_initialize()
-        plt.plot(z, V[:,i], label = f'$|${np.max(np.abs(V[:, i])):.2f}$|$')
         plt.title(f'Voltage at {t[i]:.2f} ns', fontsize=16)
+
+        #print(i, (i//m1)*m1, (i//m1)*m1 + dm, i >= (i//m1)*m1 and i <= (i//m1)*m1 + dm and i >= m1)
+        if i >= (i//m1)*m1 and i < (i//m1)*m1 + dm and i >= m1:
+            plt.plot(z, Vr[:, i], color = 'red', label = 'Reflected wave')
+            plt.plot(z, V[:,i]-Vr[:,i], color = 'green', label = 'Incident wave')
+
+        plt.plot(z, V[:,i], color = 'blue', label = f'net voltage $|${np.max(np.abs(V[:, i])):.2f}$|$')
         plt.legend()
         plt.grid()
     
-    ani = animation.FuncAnimation(fig, animate, interval = 50, frames = np.arange(len(t)))
+    ani = animation.FuncAnimation(fig, animate, interval = 80, frames = np.arange(len(t)))
     ani.save(name)
 
 
@@ -299,13 +332,13 @@ if __name__ == "__main__":
 
     Eg = bit(A, tr, Tbit, tr, D)(t[:-1]+dt/2)
     V, I = leapfrog_scheme(alpha, Rc, Eg, Rg, Rl, Cl, dt, M, N)
-
     par = {'d': [d, 'Length of the transmission line [m]'], 'v': [v, 'Velocity of the bit [m/s]'], 'Rc': [Rc, 'Characteristic impedance of the line [Ohm]'], 'Rg': [Rg, 'Generator resistance [Ohm]'], 'Rl': [Rl, 'Load resistanve [Ohm]'], 'Cl': [Cl, 'Load capacitance [F]'], 'A': [A, 'Bit amplitude [V]'], 'Tbit': [Tbit, 'But duration time [s]'], 'tr': [tr, 'Bit rising time [s]'], 'D': [D, 'Delay of the bit [s]'], 'N': [N, 'Number of position steps'], 'dt': [dt, 'Time interval length [s]'], 'M': [M, 'Number of time steps'], 'z_s': [z_sensor, 'Position of sensor [frame]]'], 't_s' : [m_snapchot, 'Time of snapshot [frame]']}
     dir_path = f_maker(par)
 
     # plotting the output
+    Vr, m1, dm = rV(V, par)
 
-    plot_time(V, t, z_sensor, int(z_sensor/dz), name=os.path.join(dir_path, file[:-4] + f"_C={Cl}_time.png"), lb=f'$C_L={Cl}$')
-    plot_space(V, z, dt*m_snapchot, m_snapchot, name=os.path.join(dir_path, file[:-4] + "position.png"))
-    plot_cap(-Cl*(V[-1,1:]-V[-1,:-1])/dt, t[:-1], name=os.path.join(dir_path, 'cap plot.png'))
-    plot_animation(V,z,t,A, name = os.path.join(dir_path, 'simulation.mp4'))
+    #plot_time(V, t, z_sensor, int(z_sensor/dz), name = os.path.join(dir_path, f"time.png"), lb=f'$C_L={Cl}$')
+    #plot_space(V, z, dt*m_snapchot, m_snapchot, name = os.path.join(dir_path, "position.png"))
+    #plot_cap(-Cl*(V[-1,1:]-V[-1,:-1])/dt, t[:-1], name = os.path.join(dir_path, 'cap plot.png'))
+    plot_animation(V,z,t,A*0.5, par, Vr, m1, dm, name = os.path.join(dir_path, 'simulation.mp4'))
