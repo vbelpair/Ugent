@@ -23,19 +23,50 @@ Realising that the voltage and current are related;
 \hat{i}(z, t) = \frac{1}{R_c}(\hat{v}^{+}(z, t) - \hat{v}^{-}(z, t)),
 \end{equation}
 
-with $R_c$ a constant that depends on the characteristics (e.g. geometry) of the TL, and is hence called the characteristic impedance. Although it has the units of resistance ($\Omega$) it is not reactive; there is no energy dissipation. The characteristic impedance can be interpreted as a scale for (1) the current to voltage amplitude and (2) the dissipation of energy to the load or generator (see (REF)). In further sections, $R_c$ is assumed to be finite and constant.
+with $R_c$ a constant that depends on the characteristics (e.g. geometry) of the TL, hence it's name characteristic impedance. Although it has the units of resistance ($\Omega$) it is not reactive; there is no energy dissipation. The characteristic impedance can be interpreted as a scale for (1) the current to voltage amplitude when there is only a forward or backward wave present in the TL and (2) the dissipation of energy to the load or generator (see (REF)). Furthermore, the CI is the consequence of the model we provided for the TL; it counts for the p.u.l capacitance and inductance. In further sections, $R_c$ is assumed to be finite and constant.
 
 \subsection{Reflections and amplitude dampening}
-In section (REF) the wave behavior of the voltage and current is discovered. To this end, the analysis of voltage waves at the boundaries for specific values of the generator resistance $R_g$ and load resistance $R_L$ is discussed in this section. \\
+In section (REF) the wave behavior of the voltage and current is discovered. To this end, the analysis of voltage waves at the boundaries for specific values of the generator resistance $R_g$ and load resistance $R_L$ is discussed. \\
 
 Our first question concerns the entrance of the bit to the TL: the simulation starts at $t=0$ and the generator $\hat{e}_g$ produces a bit with amplitude $V_0$. Before the bit enters the TL, it meets the generator resistance $R_g$ and thus energy will be dissipated i.e. the voltage amplitude is dampened. This can be clarified by expressing Kirchoff's Voltage Law at the origin ($z=0$) of the TL;
 
 \begin{align}
 &\hat{e}_g(t) = (R_g + R_c)\hat{i}(0, t) \\
 &\Rightarrow \hat{i}(0, t) = \frac{1}{R_g+R_c}\hat{e}_g(t)= \frac{1}{R_c}(\hat{v}^{+}(0, t) - \hat{v}^{-}(0, t)) \\
-&\Rightarrow \hat{v}(0, t) = \hat{v}^{+}(0, t) =\kappa\hat{e}_g(0, t).
+&\Rightarrow \hat{v}(0, t) = \hat{v}^{+}(0, t) =\kappa\hat{e}_g(0, t)\label{enter}.
 \end{align}
-The amplitude $V_0$ of generated bit is reduced by a factor $\kappa = \frac{R_c}{R_g + R_c}$. Here, the role of the characteristic impedance becomes clear; at the beginning of the TL, the bit 'sees' it as a resistance, but does not dissipate energy to it. Therefore the name input impedance. More interestingly, when $R_g = 0$, $\kappa = 1$ and the bit amplitude remains unchanged; the bit freely enters the TL since it does not meet resistance Figure (REF).
+The amplitude $V_0$ of generated bit is reduced by a factor $\kappa = \frac{R_c}{R_g + R_c}$. Here, the role of the characteristic impedance becomes clear; at the beginning of the TL, the bit 'sees' it as input impedance, but does not dissipate energy to it; the bit amplitude remains constant during its passage through the TL. Indeed, the TL is lossless and only contains p.u.l capacitances and inductances (?). One can observe two interesting cases:
+\begin{itemize}
+\item $R_g = 0 \Rightarrow \kappa = 1$\\ The generated bit freely enters the TL since it does not meet resistance.
+\item $R_g = \infty \Rightarrow \kappa = 0$ \\ The circuit is open. The bit can not enter the TL.
+\end{itemize}
+
+Now, assume the bit is able to enter the transmission line ($R_g \neq \infty$) and propagates lossless towards the load with, obviously, constant speed $c$. Again, at the load ($z=d$), Kirchoff's Voltage Law must be satisfied. Consequently, a reflected wave with lower or equal amplitude will be originated;
+\begin{align}
+&\hat{v}(d, t) = \hat{v}^{+}(d, t) + \hat{v}^{-}(d, t) = R_L\hat{i}(d, t) \\
+&\Leftrightarrow \hat{v}^{+}(d, t) + \hat{v}^{-}(d, t) = \frac{R_L}{R_c}(\hat{v}^{+}(d, t) - \hat{v}^{-}(d, t)) \\
+&\Leftrightarrow (1 + K_L)\hat{v}^{+}(d, t) = \frac{R_L}{R_c}(1 - K_L)\hat{v}^{+}(d, t) \\
+&\Rightarrow K_L = \frac{R_L/R_c - 1}{R_L/R_c + 1} = \frac{R_L - R_c}{R_c + R_L}.
+\end{align}
+
+$K_L$ is also know as the reflection coefficient at the load. This constant determines how much of the amplitude is reflected back:
+
+\begin{enumerate}
+\item $R_L > R_c \Rightarrow K_L > 0$ \label{ref1} \\
+	The voltage wave arriving at the does not have enough power. Since the load impedance is not matched with the characteristic impedance, the voltage at the load must take the load impedance into account (KCL); the net voltage $\hat{v}$ is compensated such that its amplitude at the load is higher than the amplitude of the wave arriving at $R_L$; a backward wave is originated that satisfies $\hat{v}^{-} = K_L\hat{v}^{+}$, because than $$\hat{v}(d, t) = (1 + K_L)\hat{v}^{+}(d, t).$$ This might be counterintuitive, since one might think it violates the law of conservation of energy. This will be tackled in section (REF).
+	
+\item $R_L = R_c \Rightarrow K_L = 0$: MATCHING\\
+	The energy of the forward wave is fully dissipated to the load. There is no reflection back.
+	
+\item $R_L < R_c \Rightarrow K_L <0$ \\
+	The same principle holds as in case \ref{ref1}, with the difference that the reflected wave amplitude has an opposite sign compared to the incident wave; that is, because the voltage wave arriving at the load contains too much energy.
+
+\item $R_L \longrightarrow \infty \Rightarrow K_L \longrightarrow 1$ \\
+	The electric circuit is open. When the voltage wave arrives at the end of the TL, it is fully reflected to the load and no energy is dissipated.
+	
+\end{enumerate}
+Obviously, when the reflected wave arrives back at the generator it might be reflected back to the load, depending on the value of the generator impedance. In summary, the generated bit enters the TL weakened (\ref{enter}) and starts to move back and forth between the load impedance and generator impedance, whereby energy is dissipated and the amplitude reduces until the wave is fully dampened (REF VIDEO).
+
 
 
 

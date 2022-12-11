@@ -208,22 +208,19 @@ def plot_time(V, t, Z=0, n = None, name = "exampletime.png", lb=None):
 
     laxis = ['time [ns]', 'Voltage [V]']
     ttl = f'Voltage at $z = {Z}$ m' 
-    path = os.path.dirname('__file__')  + 'figures/'  + name
-    splot(t*10**9, V, axis = laxis, title = ttl, sname = path, lb=lb)
+    splot(t*10**9, V, axis = laxis, title = ttl, sname = name, lb=lb)
 
 def plot_space(V, z, T, m, name = "exampleposition.png", lb=None):
 
     laxis = ['$z$-position [m]', 'Voltage [V]']
     ttl = f'Voltage at $t = {T*10**9:.2f}$ ns' 
-    path = path = os.path.dirname('__file__') + 'figures/' + name
-    splot(z, V[:,m], axis = laxis, title = ttl, sname = path, lb=lb) 
+    splot(z, V[:,m], axis = laxis, title = ttl, sname = name, lb=lb) 
 
 def plot_cap(Sc, t, Z="d", name = "exampletime.png", lb=None):
 
     laxis = ['time [ns]', 'Voltage [V]']
     ttl = f'Voltage at $z = {Z}$ m' 
-    path = path = os.path.dirname('__file__') + 'figures/' + name
-    splot(t*10**9, Sc, axis = laxis, title = ttl, sname = path, lb=lb)
+    splot(t*10**9, Sc, axis = laxis, title = ttl, sname = name, lb=lb)
 
 def plot_animation(V, z, t, A):
     # uncheck this if the video does not run (mac)
