@@ -1,1 +1,311 @@
 \chapter{Tweedimensionale problemen}
+
+    \section{VLAKSPANNING EN VLAKVERVORMING}
+
+        \subsection{Vlakvervorming}
+
+            \subsubsection{Algemeen}
+
+                De spanningstensor
+                \begin{equation}
+                    [\sigma] = \left[\begin{matrix}
+                        \upsigma_{xx} & \uptau_{xy} & 0 \\
+                        \uptau_{yx} & \upsigma_{yy} & 0 \\
+                        0 & 0 & 0
+                    \end{matrix}\right]
+                \end{equation}
+                Uitwerking van de wet van Hooke:
+                \begin{align}
+                    \varepsilon_{xx} &= \frac{1}{E}\left(\upsigma_{xx} - \upnu\upsigma_{yy}\right)\nonumber\\
+                    \varepsilon_{yy} &= \frac{1}{E}\left(\upsigma_{yy} - \upnu\upsigma_{xx}\right)\nonumber\\
+                    \varepsilon_{zz} &= \frac{-\upnu}{E}\left(\upsigma_{xx}+\upsigma_{yy}\right) = \frac{-\upnu}{1-\upnu}\left(\varepsilon_{xx}+\varepsilon_{yy}\right)\\
+                    \upgamma_{xy} &= \frac{\uptau_{xy}}{G}\nonumber
+                \end{align}
+                Geïnverteerde wet van Hooke
+                \begin{align}
+                    \upsigma_{xx} &= \frac{E}{(1-\upnu^2)}\left[\varepsilon_{xx}+\upnu\varepsilon_{yy}\right]\nonumber\\
+                    \upsigma_{yy} &= \frac{E}{(1-\upnu^2)}\left[\varepsilon_{yy}+\upnu\varepsilon_{xx}\right]\\
+                    \uptau_{xy} &= G\upgamma_{xy}\nonumber\\
+                \end{align}
+                De transformatieformules voor de spanningen:
+                \begin{align}
+                    \upsigma_{xx}' &= \upsigma_{xx}\cos^2\theta+\upsigma_{yy}\sin^2\theta + \uptau_{xy}2\sin\theta\cos\theta\nonumber\\
+                    \upsigma_{yy}' &= \upsigma_{xx}\sin^2\theta+\upsigma_{yy}\cos^2\theta - \uptau_{xy}2\sin\theta\cos\theta\\
+                    \uptau_{xy}' &= (\upsigma_{yy}-\upsigma_{xx})\sin\theta\cos\theta + \uptau_{xy}\left(\cos^2\theta - \sin^2\theta\right)\nonumber
+                \end{align}
+                waarvoor de hoodfrichtingen worden bepaald door
+                \begin{equation}
+                    \tan2\theta = \frac{-2\uptau_{xy}}{\upsigma_{yy}-\upsigma_{xx}}
+                \end{equation}
+                Deze zijn
+                \begin{align}
+                    \upsigma_I &= \frac{\upsigma_{xx}+\upsigma_{yy}+\sqrt{(\upsigma_{xx}-\upsigma_{yy})^2+4(\uptau_{xy})^2}}{2}\nonumber\\
+                    \upsigma_{II} &= \frac{\upsigma_{xx}+\upsigma_{yy}-\sqrt{(\upsigma_{xx}-\upsigma_{yy})^2+4(\uptau_{xy})^2}}{2}
+                \end{align}
+
+            \subsubsection{Cirkel van Mohr}
+
+                Cirkel met middelpunt
+                \begin{equation}
+                    M = \left(\frac{\upsigma_{xx}+\upsigma_{yy}}{2},0\right)
+                \end{equation}
+                en straal
+                \begin{equation}
+                    R = \sqrt{\left(\frac{\upsigma_{xx}-\upsigma_{yy}}{2}\right)^2+(\uptau_{xy})^2}
+                \end{equation}
+
+            \subsubsection{Vlakspanning met thermische effecten}
+                
+                Uitwerking van de wet van Hooke:
+                \begin{align}
+                    \varepsilon_{xx} &= \frac{1}{E}\left(\upsigma_{xx} - \upnu\upsigma_{yy}\right) +\upalpha T\nonumber\\
+                    \varepsilon_{yy} &= \frac{1}{E}\left(\upsigma_{yy} - \upnu\upsigma_{xx}\right) +\upalpha T\nonumber\\
+                    \varepsilon_{zz} &= \frac{-\upnu}{E}\left(\upsigma_{xx}+\upsigma_{yy}\right) +\upalpha T = \frac{-\upnu}{1-\upnu}\left(\varepsilon_{xx}+\varepsilon_{yy}\right)+\frac{1+\upnu}{1-\upnu}\upalpha T\\
+                    \upgamma_{xy} &= \frac{\uptau_{xy}}{G}\nonumber
+                \end{align}
+                Geïnverteerde wet van Hooke
+                \begin{align}
+                    \upsigma_{xx} &= \frac{E}{(1-\upnu^2)}\left[\varepsilon_{xx}+\upnu\varepsilon_{yy}\right]-\frac{E}{1-\upnu}\upalpha T\nonumber\\
+                    \upsigma_{yy} &= \frac{E}{(1-\upnu^2)}\left[\varepsilon_{yy}+\upnu\varepsilon_{xx}\right]-\frac{E}{1-\upnu}\upalpha T\\
+                    \uptau_{xy} &= G\upgamma_{xy}\nonumber
+                \end{align}
+        
+        \subsection{Vlakvervorming}
+
+            \subsubsection{Algemeen}
+
+            De spanningstensor
+            \begin{equation}
+                [\sigma] = \left[\begin{matrix}
+                    \varepsilon_{xx} & \frac{1}{2}\upgamma_{xy} & 0 \\
+                    \frac{1}{2}\upgamma_{yx} & \varepsilon_{yy} & 0 \\
+                    0 & 0 & 0
+                \end{matrix}\right]
+            \end{equation}
+            Uitwerking van de wet van Hooke:
+            \begin{align}
+                \varepsilon_{xx} &= \frac{1+\upnu}{E}\left((1-\upnu)\upsigma_{xx} - \upnu\upsigma_{yy}\right)\nonumber\\
+                \varepsilon_{yy} &= \frac{1+\upnu}{E}\left((1-\upnu)\upsigma_{yy} - \upnu\upsigma_{xx}\right)\\
+                \upgamma_{xy} &= \frac{\uptau_{xy}}{G}\nonumber
+            \end{align}
+            Geïnverteerde wet van Hooke
+            \begin{align}
+                \upsigma_{xx} &= \frac{E}{(1+\upnu)(1-2\upnu)}\left[(1-\upnu)\varepsilon_{xx}+\upnu\varepsilon_{yy}\right]\nonumber\\
+                \upsigma_{yy} &= \frac{E}{(1+\upnu)(1-2\upnu)}\left[(1-\upnu)\varepsilon_{yy}+\upnu\varepsilon_{xx}\right]\nonumber\\
+                \upsigma_{zz} &= \frac{E}{(1+\upnu)(1-2\upnu)}\left[\upnu(\varepsilon_{xx}+\varepsilon_{yy})\right] = \upnu(\upsigma_{xx}+\upsigma_{yy})\\
+                \uptau_{xy} &= G\upgamma_{xy}\nonumber
+            \end{align}
+            De transformatieformules voor de spanningen:
+            \begin{align}
+                \varepsilon_{xx}' &= \varepsilon_{xx}\cos^2\theta+\varepsilon_{yy}\sin^2\theta + \upgamma_{xy}\sin\theta\cos\theta\nonumber\\
+                \varepsilon_{yy}' &= \varepsilon_{xx}\sin^2\theta+\varepsilon_{yy}\cos^2\theta - \upgamma_{xy}\sin\theta\cos\theta\\
+                \upgamma_{xy}' &= (\varepsilon_{yy}-\varepsilon_{xx})\sin\theta\cos\theta + \frac{\upgamma_{xy}}{2}\left(\cos^2\theta - \sin^2\theta\right)\nonumber
+            \end{align}
+            waarvoor de hoodfrichtingen worden bepaald door
+            \begin{equation}
+                \tan2\theta = \frac{\upgamma_{xy}}{\varepsilon_{yy}-\varepsilon_{xx}}
+            \end{equation}
+            Deze zijn
+            \begin{align}
+                \varepsilon_I &= \frac{\varepsilon_{xx}+\varepsilon_{yy}+\sqrt{(\varepsilon_{xx}-\varepsilon_{yy})^2+(\upgamma_{xy})^2}}{2}\nonumber\\
+                \varepsilon_{II} &= \frac{\varepsilon_{xx}+\varepsilon_{yy}-\sqrt{(\varepsilon_{xx}-\varepsilon_{yy})^2+(\upgamma_{xy})^2}}{2}
+            \end{align}
+
+        \subsubsection{Cirkel van Mohr}
+
+            Cirkel met middelpunt
+            \begin{equation}
+                M = \left(\frac{\varepsilon_{xx}+\varepsilon_{yy}}{2},0\right)
+            \end{equation}
+            en straal
+            \begin{equation}
+                R = \sqrt{\left(\frac{\varepsilon_{xx}-\varepsilon_{yy}}{2}\right)^2+\left(\frac{\upgamma_{xy}}{2}\right)^2}
+            \end{equation}
+
+        \subsubsection{Vlakspanning met thermische effecten}
+            
+            Uitwerking van de wet van Hooke:
+            \begin{align}
+                \varepsilon_{xx} &= \frac{1+\upnu}{E}\left((1-\upnu)\upsigma_{xx} - \upnu\upsigma_{yy}\right) + (1+\upnu)\alpha T\nonumber\\
+                \varepsilon_{yy} &= \frac{1+\upnu}{E}\left((1-\upnu)\upsigma_{yy} - \upnu\upsigma_{xx}\right) + (1+\upnu)\alpha T\\
+                \upgamma_{xy} &= \frac{\uptau_{xy}}{G}\nonumber
+            \end{align}
+            Geïnverteerde wet van Hooke
+            \begin{align}
+                \upsigma_{xx} &= \frac{E}{(1+\upnu)(1-2\upnu)}\left[(1-\upnu)\varepsilon_{xx}+\upnu\varepsilon_{yy}\right] -\frac{E}{1-2\upnu}\alpha T\nonumber\\
+                \upsigma_{yy} &= \frac{E}{(1+\upnu)(1-2\upnu)}\left[(1-\upnu)\varepsilon_{yy}+\upnu\varepsilon_{xx}\right] -\frac{E}{1-2\upnu}\alpha T\nonumber\\
+                \upsigma_{zz} &= \frac{E}{(1+\upnu)(1-2\upnu)}\left[\upnu(\varepsilon_{xx}+\varepsilon_{yy})\right] -\frac{E}{1-2\upnu}\alpha T= \upnu(\upsigma_{xx}+\upsigma_{yy}) - E\alpha T\\
+                \uptau_{xy} &= G\upgamma_{xy}\nonumber
+            \end{align}
+
+    \section{AXIAALSYMMETRISCHE BELASINGSGEVALLEN}
+
+        \subsection{Basisformules voor axiaalsymmetrie}
+
+            De spanningstensor
+            \begin{equation}
+                [\upsigma] = \left[\begin{matrix}
+                    \upsigma_{rr} & \uptau_{x\theta} & \uptau_{rz} \\
+                    \uptau_{r\theta} & \upsigma_{\theta \theta} & \uptau_{\theta z} \\
+                    \uptau_{rz} & \uptau_{\theta z} & \upsigma_{zz}
+                \end{matrix}\right]
+            \end{equation}
+            De rektensor      
+            \begin{equation}
+                [\varepsilon] = \left[\begin{matrix}
+                    \varepsilon_{rr} & \frac{1}{2}\upgamma_{r\theta} & \frac{1}{2}\upgamma_{rz} \\
+                    \frac{1}{2}\upgamma_{r\theta} & \varepsilon_{\theta\theta} & \frac{1}{2}\upgamma_{\theta z} \\
+                    \frac{1}{2}\upgamma_{rz} & \frac{1}{2}\upgamma_{\theta z} & \varepsilon_{zz}
+                \end{matrix}\right] = \left[\begin{matrix}
+                    \frac{du_r}{dr} & 0 & 0\\
+                    0 & \frac{u_r}{r} & 0\\
+                    0 & 0 & \frac{du_z}{dz}
+                \end{matrix}\right]
+            \end{equation}
+            waaruit volgt dat 
+            \begin{equation}
+                u_r = r\cdot\varepsilon_{\theta\theta}
+            \end{equation}
+            De wet van Hooke, algemeen met thermische spanningen, wordt gegeven door
+            \begin{align}
+                \varepsilon_{xx} &= \frac{1}{E}\left[\upsigma_{rr} - \upnu\left(\upsigma_{\theta\theta}+\upsigma_{zz}\right)\right] + \alpha T\nonumber\\
+                \varepsilon_{yy} &= \frac{1}{E}\left[\upsigma_{\theta\theta} - \upnu\left(\upsigma_{xx}+\upsigma_{zz}\right)\right] + \alpha T\\
+                \varepsilon_{zz} &= \frac{1}{E}\left[\upsigma_{zz} - \upnu\left(\upsigma_{xx}+\upsigma_{yy}\right)\right] + \alpha T\nonumber\\
+            \end{align}
+        
+        \subsection{Opstellen algemene vergelijkingen voor radiale belastingen}
+
+            \begin{figure}[h!]
+                \centering
+                \includegraphics[scale=0.5]{axiaal_symmetrie.png}
+            \end{figure}
+            In het algemeen
+            \begin{equation}
+                \frac{d}{r}(\upsigma_{rr}\cdot h\cdot r) - \upsigma_{\theta\theta}\cdot h = 0
+            \end{equation}
+            en in het bijzonder voor constante dikte h
+            \begin{equation}
+                \frac{d}{dr}(\upsigma_{rr}) - \upsigma_{\theta\theta} = 0
+            \end{equation}
+        
+        \subsection{Trek- of drukspanning op de binnen- en buitenrand}
+            
+            \subsubsection{Schijf in vlakspanning belast $\upsigma_{a}$ en/of $\upsigma_{b}$}
+                
+                De spanningen
+                \begin{align}
+                    \upsigma_{rr} &= \upsigma_a\frac{a^2}{a^2-b^2}\left(1-\frac{b^2}{r^2}\right)-\upsigma_b\frac{b^2}{a^2-b^2}\left(1-\frac{a^2}{r^2}\right)\nonumber\\
+                    \upsigma_{rr} &= \upsigma_a\frac{a^2}{a^2-b^2}\left(1+\frac{b^2}{r^2}\right)-\upsigma_b\frac{b^2}{a^2-b^2}\left(1a\frac{a^2}{r^2}\right)
+                \end{align}
+                De radiale verplaatsing
+                \begin{equation}
+                    u_r(r) = \frac{\upsigma_a}{E}\frac{a^2}{a^2-b^2}\left[(1-\upnu)r+(1+\upnu)\frac{b^2}{r}\right] -\frac{\upsigma_b}{E}\frac{b^2}{a^2-b^2}\left[(1-\upnu)r+(1+\upnu)\frac{a^2}{r}\right]
+                \end{equation}
+                Verticale rek
+                \begin{equation}
+                    \varepsilon_{zz} = \frac{-\upnu}{E}(\upsigma_{rr}+\upsigma_{\theta\theta})=\frac{-2\upnu}{E}\frac{a^2\upsigma_a-b^2\upsigma_b}{a^2-b^2}
+                \end{equation}
+                Voor volle schijf geldt
+                \begin{align}
+                    \upsigma_{rr} &= \upsigma_{\theta\theta} = \upsigma_b\nonumber\\
+                    u_r(r) &= \frac{1-\upnu}{E}\upsigma_b r
+                \end{align}
+
+            \subsubsection{Schijf in vlakvervorming belast met $\upsigma_a$ en/of $\upsigma_b$}
+
+                De spanningen
+                \begin{align}
+                    \upsigma_{rr} &= \upsigma_a\frac{a^2}{a^2-b^2}\left(1-\frac{b^2}{r^2}\right)-\upsigma_b\frac{b^2}{a^2-b^2}\left(1-\frac{a^2}{r^2}\right)\nonumber\\
+                    \upsigma_{rr} &= \upsigma_a\frac{a^2}{a^2-b^2}\left(1+\frac{b^2}{r^2}\right)-\upsigma_b\frac{b^2}{a^2-b^2}\left(1a\frac{a^2}{r^2}\right)
+                \end{align}
+                De radiale verplaatsing
+                \begin{equation}
+                    u_r(r) = \frac{\upsigma_a}{E}(1+\upnu)\frac{a^2}{a^2-b^2}\left[(1-2\upnu)r+\frac{b^2}{r}\right] -\frac{\upsigma_b}{E}(1+\upnu)\frac{b^2}{a^2-b^2}\left[(1-2\upnu)r+\frac{a^2}{r}\right]
+                \end{equation}
+                Verticale rek
+                \begin{equation}
+                    \upsigma_{zz} = \upnu(\upsigma_{rr}+\upsigma_{\theta\theta})=2\upnu\frac{a^2\upsigma_a-b^2\upsigma_b}{a^2-b^2}
+                \end{equation}
+                Voor volle schijf geldt
+                \begin{align}
+                    \upsigma_{rr} &= \upsigma_{\theta\theta} = \upsigma_b\nonumber\\
+                    u_r(r) &= \frac{(1+\upnu)(1-2\upnu)}{E}\upsigma_b r
+                \end{align}
+
+        \subsection{Radiaal temperatuurveld}
+
+            \subsubsection{Schijf in vlakspanning met radiaal temperatuurveld $T(r)$}
+
+                spanningen
+                \begin{align}
+                    \upsigma_{rr} &= E\alpha\frac{r^2-a^2}{b^2-a^2}\frac{1}{r^2}\int_a^bT(r)rdr-E\alpha\frac{1}{r^2}\int_a^rT(r)rdr\nonumber\\
+                    \upsigma_{\theta\theta} &= E\alpha\frac{r^2+a^2}{b^2-a^2}\frac{1}{r^2}\int_a^bT(r)rdr+E\alpha\frac{1}{r^2}\int_a^rT(r)rdr-E\alpha T(r)
+                \end{align}
+                Radiale verplaatsing
+                \begin{equation}
+                    u_r(r) = \alpha\frac{1}{b^2-a^2}\left[(1-\upnu)r+(1+\upnu)\frac{a^2}{r}\right]\int_a^bT(r)rdr + \alpha\frac{(1+\upnu)}{r}\int_a^rT(r)rdr
+                \end{equation}
+                Verticale rek
+                \begin{equation}
+                    \varepsilon_{zz} = \frac{-\upnu}{E}(\upsigma_{rr}+\upsigma_{\theta\theta}) + \alpha T(r) = \frac{-2\upnu}{b^2-a^2}\alpha\int_a^bT(r)rdr+(1+\upnu)\alpha T(r)
+                \end{equation}
+                Temperatuurveld voor constante binnenrand en buitenrand temperatuur
+                \begin{align}
+                    &T(r) = (T_a-T_0)+(T_b-T_a)\frac{\ln\left(\frac{r}{a}\right)}{\ln\left(\frac{b}{a}\right)}\nonumber\\
+                    &\Rightarrow \int_a^rT(r)rdr=\frac{1}{4}(T_b-T_a)\frac{a^2}{\ln\left(\frac{b}{a}\right)}\left[\left(\frac{r}{a}\right)^2\left(2\ln\left(\frac{r}{a}\right)-1\right)+1\right]+\frac{1}{2}(T_a-T_0)(r^2-a^2)
+                \end{align}
+                waardoor de spanningen geschreven kunnnen worden als
+                \begin{align}
+                    \upsigma_{rr} & = \frac{E\alpha(T_b-T_a)}{2\ln\left(\frac{b}{a}\right)}\left[\frac{r^2-a^2}{r^2}\frac{b^2}{b^2-a^2}\ln\left(\frac{b}{a}\right)-\ln\left(\frac{r}{a}\right)\right]\nonumber\\
+                    \upsigma_{\theta\theta} & = \frac{E\alpha(T_b-T_a)}{2\ln\left(\frac{b}{a}\right)}\left[\frac{r^2+a^2}{r^2}\frac{b^2}{b^2-a^2}\ln\left(\frac{b}{a}\right)-\ln\left(\frac{r}{a}\right)-1\right]
+                \end{align}
+                
+        \subsubsection{Schijf in vlakvervorming met radiaal temperatuurveld $T(r)$}
+
+            spanningen
+            \begin{align}
+                \upsigma_{rr} &= \frac{E}{1-\upnu}\frac{r^2-a^2}{b^2-a^2}\frac{\alpha}{r^2}\int_a^bT(r)rdr-\frac{E}{1-\upnu}\frac{\alpha}{r^2}\int_a^rT(r)rdr\nonumber\\
+                \upsigma_{\theta\theta} &= \frac{E}{1-\upnu}\frac{r^2+a^2}{b^2-a^2}\frac{\alpha}{r^2}\int_a^bT(r)rdr+\frac{E}{1-\upnu}\frac{\alpha}{r^2}\int_a^rT(r)rdr-\frac{E}{1-\upnu}\alpha T(r)
+            \end{align}
+            Radiale verplaatsing
+            \begin{equation}
+                u_r(r) = \alpha\frac{1+\upnu}{1-\upnu}\frac{1}{b^2-a^2}\left[(1-2\upnu)r+\frac{a^2}{r}\right]\int_a^bT(r)rdr + \alpha\frac{1+\upnu}{1-\upnu}\frac{1}{r}\int_a^rT(r)rdr
+            \end{equation}
+            Verticale spanning
+            \begin{equation}
+                \upsigma_{zz} = \upnu(\upsigma_{rr}+\upsigma_{\theta\theta}) - E\alpha T(r) = \frac{2\upnu E}{1-\upnu}\frac{\alpha}{b^2-a^2}\int_a^bT(r)rdr-\frac{E}{1-\upnu}\alpha T(r)
+            \end{equation}
+            Temperatuurveld voor constante binnenrand en buitenrand temperatuur geeft voor de spanningen
+            \begin{align}
+                \upsigma_{rr} & = \frac{E\alpha(T_b-T_a)}{2(1-\upnu)\ln\left(\frac{b}{a}\right)}\left[\frac{r^2-a^2}{r^2}\frac{b^2}{b^2-a^2}\ln\left(\frac{b}{a}\right)-\ln\left(\frac{r}{a}\right)\right]\nonumber\\
+                \upsigma_{\theta\theta} & = \frac{E\alpha(T_b-T_a)}{2(1-\upnu)\ln\left(\frac{b}{a}\right)}\left[\frac{r^2+a^2}{r^2}\frac{b^2}{b^2-a^2}\ln\left(\frac{b}{a}\right)-\ln\left(\frac{r}{a}\right)-1\right]\\
+                \upsigma_{zz} & = \frac{E\alpha(T_b-T_a)}{(1-\upnu)\ln\left(\frac{b}{a}\right)}\left[\upnu\frac{b^2}{b^2-a^2}\ln\left(\frac{b}{a}\right)-\ln\left(\frac{r}{a}\right)-\frac{\upnu}{2}\right] - E\alpha(T_a-T_0)
+            \end{align}
+        
+        \subsubsection{Lange buis met vrije uiteinden met radiaal temperatuurveld $T(r)$}
+
+            Spanningen
+            \begin{align}
+                \upsigma_{rr} &= \frac{E}{1-\upnu}\frac{r^2-a^2}{b^2-a^2}\frac{\alpha}{r^2}\int_a^bT(r)rdr-\frac{E}{1-\upnu}\alpha\frac{1}{r^2}\int_a^rT(r)rdr\nonumber\\
+                \upsigma_{\theta\theta} &= \frac{E}{1-\upnu}\frac{r^2+a^2}{b^2-a^2}\frac{\alpha}{r^2}\int_a^bT(r)rdr+\frac{E}{1-\upnu}\frac{\alpha}{r^2}\int_a^rT(r)rdr-\frac{E}{1-\upnu}\alpha T(r)\\
+                \upsigma_{zz} &= \upnu(\upsigma_{rr}+\upsigma_{\theta\theta}) - E\alpha T(r) = \frac{2\upnu E}{1-\upnu}\frac{\alpha}{b^2-a^2}\int_a^bT(r)rdr-\frac{E}{1-\upnu}\alpha T(r)\nonumber
+            \end{align}
+            De rek en verplaatsing worden dan gegeven door
+            \begin{align}
+                \varepsilon_{zz} &= \frac{2\alpha}{b^2-a^2}\int_a^bT(r)rdr\nonumber\\
+                u_r(r) &= \frac{\alpha}{r}\frac{1}{1-\upnu}\left[(1+\upnu)\int_a^rT(r)rdr+\frac{(1-3\upnu)r^2+(1+\upnu)a^2}{b^2-a^2}\int_a^bT(r)rdr\right]
+            \end{align}
+    \section{SPANNINGSCONCENTRATIES IN VLAKKE PLATEN}
+
+        \begin{figure}[h!]
+            \centering
+            \includegraphics[scale=0.5]{spaningsC.png}
+        \end{figure}
+        De spanningen worden gegeven door
+        \begin{align}
+            \upsigma_{rr} &= \frac{\upsigma_{xx}}{2}\left[1-\frac{a^2}{r^2}+\cos2\theta\left(1-4\frac{a^2}{r^2}+3\frac{a^4}{r^4}\right)\right]\nonumber\\
+            \upsigma_{\theta\theta} &= \frac{\upsigma_{xx}}{2}\left[1+\frac{a^2}{r^2}-\cos2\theta\left(1+3\frac{a^4}{r^4}\right)\right]\\
+            \uptau_{r\theta} &= \frac{-\upsigma_{xx}}{2}\sin2\theta\left(1+2\frac{a^2}{r^2}-3\frac{a^4}{r^4}\right)
+        \end{align}
+
+
