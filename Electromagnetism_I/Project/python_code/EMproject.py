@@ -208,22 +208,24 @@ def plot_time(V, t, Z=0, n = None, name = "exampletime.png", lb=None):
 
     laxis = ['time [ns]', 'Voltage [V]']
     ttl = f'Voltage at $z = {Z}$ m' 
-    splot(t*10**9, V, axis = laxis, title = ttl, sname = name, lb=lb)
+    path = os.path.dirname('__file__')  + 'figures/'  + name
+    splot(t*10**9, V, axis = laxis, title = ttl, sname = path, lb=lb)
 
 def plot_space(V, z, T, m, name = "exampleposition.png", lb=None):
 
     laxis = ['$z$-position [m]', 'Voltage [V]']
     ttl = f'Voltage at $t = {T*10**9:.2f}$ ns' 
-    splot(z, V[:,m], axis = laxis, title = ttl, sname = name, lb=lb) 
+    path = path = os.path.dirname('__file__') + 'figures/' + name
+    splot(z, V[:,m], axis = laxis, title = ttl, sname = path, lb=lb) 
 
 def plot_cap(Sc, t, Z="d", name = "exampletime.png", lb=None):
 
     laxis = ['time [ns]', 'Voltage [V]']
     ttl = f'Voltage at $z = {Z}$ m' 
-    splot(t*10**9, Sc, axis = laxis, title = ttl, sname = name, lb=lb)
+    path = path = os.path.dirname('__file__') + 'figures/' + name
+    splot(t*10**9, Sc, axis = laxis, title = ttl, sname = path, lb=lb)
 
-
-def plot_animation(V, z, t, A, name = 'animation.mp4'):
+def plot_animation(V, z, t, A):
     # uncheck this if the video does not run (mac)
     #plt.rcParams["backend"] = "TkAgg"
     t *= 10**9
@@ -307,5 +309,3 @@ if __name__ == "__main__":
     plot_space(V, z, dt*m_snapchot, m_snapchot, name=os.path.join(dir_path, file[:-4] + "position.png"))
     plot_cap(-Cl*(V[-1,1:]-V[-1,:-1])/dt, t[:-1], name=os.path.join(dir_path, 'cap plot.png'))
     plot_animation(V,z,t,A, name = os.path.join(dir_path, 'simulation.mp4'))
-    
-
