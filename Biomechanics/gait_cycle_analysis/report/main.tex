@@ -1,0 +1,232 @@
+\documentclass[english, a4paper, 11pt]{article}
+\usepackage[utf8]{inputenc}
+
+%Margins 
+\usepackage[a4paper, left=1.27cm,top=1.27cm,right =1.27cm, bottom = 1.4cm]{geometry}
+
+%Load packages
+\input{packages}
+
+
+\begin{document}
+
+%Load heading of document
+\input{tpage}
+
+\section{Introduction}
+
+    This small report consists out of three parts - 3D marker trajectory, balance assessment and EMG - which 
+    are not related to each other in the sense that one part does not depend on the resulst form another, i.e. each part is a stand alone.\\
+
+    In each section data is used obtained form the \emph{Gait \& Movement Lab} at UZ Ghent. This data is stored in an excel file
+    and is manipulated with python to create the necessary results. The used python code is based on the Jupyter Notebook file created by \emph{Juul Van Derbeken} 
+    - for this a special thanks to him - and is further edited to match the style of this report.
+
+    \begin{lstlisting}[language=Python, caption=imported python modules]
+import numpy as np # data manipulation
+import openpyxl # imorting data from excel
+import matplotlib.pyplot as plt # data plotting
+import scipy.signal as sg # signal analysis
+    \end{lstlisting}
+
+\section{3D marker trajectory}
+
+    Three walk trials were recorded in the Lab.
+
+    Using the \emph{openpyxl} module data can be easily imported in python for further manipulation. 
+    Remark that in code block~\ref*{lst:3Dmtd} on the end of line 5 the first range starts from 14 instead of 5 this due 
+    to NoneType elements contained in the range 5:14. Because it is just a small range compaired to the full dataset - consisting 
+    from $\pm$500 rows - it is assumed that this will not heavily impact the results.
+
+    \begin{lstlisting}[language=Python, caption=importing 3D marker trajectory data, label=lst:3Dmtd]
+input_file = '.\Group 3B.xlsx'
+workbook = openpyxl.load_workbook(input_file)
+Sheets = workbook.sheetnames # Excel sheet Names
+
+T1 = np.array([[el.value for el in rij] for rij in workbook[Sheets[0]].rows])[14:,2:].T #First Trial, None values for rows < 14
+T2 = np.array([[el.value for el in rij] for rij in workbook[Sheets[1]].rows])[5:,2:].T #Second Trial
+T3 = np.array([[el.value for el in rij] for rij in workbook[Sheets[2]].rows])[5:,2:].T #Third Trial
+T = [T1, T2, T3]
+    \end{lstlisting}
+
+    \subsection{Walking speed}
+
+        For each trial the forward propagation direction is plotted in figure \ref*{fig:trajectory}.
+        Note that on each plot multiple trajectory lines occur. Each line corresponds to a marker placed
+        on the subject who executed these trials. The global (average) walking speed is then calculated as the mean
+        of the different marker speeds. The results are placed in table \ref*{tab:walking_speed}.
+
+        \begin{lstlisting}[language=Python, caption=walking speed calculation and trajectory plotting]
+fig, ax = plt.subplots(1,3, figsize = (18,6),sharey=True)
+ax[0].set_ylabel('distance in mm', fontsize=15)
+
+for i, t in enumerate(T):
+    AS = [] # average speeds
+    for y in t[1::3]:
+        v = np.diff(y) # instantanious speeds
+        ASL = np.mean(v) # averaged speed
+        AS.append(ASL)
+        ax[i].plot(y), ax[i].set_title(f'trial {i+1}', fontsize=15)
+    
+    AS = np.array(AS) 
+    speed = np.mean(AS) # Averaged speed for all markers
+    std = np.std(AS)
+    print(f'Average speed for Trial {i} = ',speed, ' and std = ', std)
+plt.show()
+        \end{lstlisting}
+
+        \begin{figure}[!h]
+            \centering
+            \includegraphics[scale=0.45]{direction_of_movement.png}
+            \caption{forward propagation direction}
+            \label{fig:trajectory}
+        \end{figure}
+
+        \begin{table}[!h]
+            \centering
+            \begin{tabular}{c|c|c}
+                trial & walking speed [mm/frame] & std [mm/frame]\\ \hline
+                1 & 14.58 & 0.48\\
+                2 & 13.42 & 0.32\\
+                3 & 12.61 & 0.97
+            \end{tabular}
+            \caption{Walking speed for different trials}
+            \label{tab:walking_speed}
+        \end{table}
+
+    \subsection{Stride length}
+
+        The stride length is calculated as the difference in foward propagation direction values corresponding to the local minima of the
+        ankle marker height. To approximate these local minima a treshold is used as displayed in figure \ref*{fig:height}. The numerical results
+        are listed in table \ref*{tab:stride_length}.
+
+        \begin{lstlisting}[language=Python, caption=plotting marker height with treshold and calculating stride length]
+fig, ax = plt.subplots(1,3, figsize = (18,6),sharey=True)
+ax[0].set_ylabel('Height in mm', fontsize=15)
+AHS = [] # average stride length for each trial. 
+for i, t in enumerate(T):
+    TAZ = t[8] # Trial Ankle Z-coordinate
+    TAY = t[7] # Trial Ankle Y-coordinate (forward movement direction)
+    Tp = np.percentile(TAZ, 30) # Treshold at 30%
+    TP = np.ones(np.shape(TAZ))*Tp # treshold for graph
+    P = np.where(TAZ < Tp, 1, 0) # ones where Trial is under treshold value
+    HS = np.where(np.diff(P) == 1) # locations where values dip under treshold values. 
+    Y = TAY[HS]
+            
+    ax[i].plot(TAZ), ax[i].plot(TP)
+    ax[i].legend(['Data', 'Treshold'], loc="upper right", fontsize=15)
+    ax[i].set_title(f"Trial {i+1}: Ankle", fontsize=15)
+    print(np.diff(Y))
+    print(f'Trial {i+1}: Average stride length is: ', np.mean(np.diff(Y)), " and std = ", np.std(np.diff(Y)))
+plt.show()
+        \end{lstlisting}
+
+        \begin{figure}[!h]
+            \centering
+            \includegraphics[scale=0.45]{z-coordinate.png}
+            \caption{Ankle marker height}
+            \label{fig:height}
+        \end{figure}
+
+        \begin{table}[!h]
+            \centering
+            \begin{tabular}{c|c|c}
+                trial & walking speed [mm] & std [mm]\\ \hline
+                1 & 1597.86 & 20.73\\
+                2 & 1554.80 & 19.87\\
+                3 & 1503.08 & 55.59
+            \end{tabular}
+            \caption{Stride length}
+            \label{tab:stride_length}
+        \end{table} 
+
+The stride length is in the first place related to the person's height, since taller humans can take larger steps.
+\section{Balance assessment}
+
+    \begin{lstlisting}[language=Python, caption=importing balance assessment data, label=code:BA_input]
+input_file = '.\Grp 3B Wk 2.xlsx'
+workbook = openpyxl.load_workbook(input_file)
+sheets = G2A_2.sheetnames #Sheet Names
+
+EO = np.array([[el.value for el in rij] for rij in workbook[sheets[1]].rows])[6:15006,2:].T #First Trial #15006
+EC = np.array([[el.value for el in rij] for rij in workbook[sheets[2]].rows])[6:12976,2:].T #Second Trial #12976
+
+EOFX, EOFY, EOFZ = EO[0], EO[1], EO[2] # Eyes Open Force Vectors of x,y,z coordinates
+ECFX, ECFY, ECFZ = EC[0], EC[1], EC[2] # Eyes Closed Force Vectors of x,y,z coordinates
+    \end{lstlisting}
+
+    First it is recommended to plot the overal xy-plane with the center of pressures (CoP) on it. This is displayed in figure \ref*{fig:CoP}.
+    This gives a first impression between the two cases.
+
+    \begin{lstlisting}[language=Python, caption=plotting CoP]
+fig, (ax0, ax1) = plt.subplots(1,2, figsize = (18,6), sharey=True)
+ax0.scatter(EOFX, EOFY, s=1), ax0.set_title('eyes open (EO)', fontsize=15), ax0.set_xlabel('x-coordinate in mm', fontsize=15), ax0.set_ylabel('y-coordinate in mm', fontsize=15)
+ax1.scatter(ECFX, ECFY, s=1), ax1.set_title('eyes closed (EC)', fontsize=15), ax1.set_xlabel('x-coordinate in mm', fontsize=15)
+plt.show()
+    \end{lstlisting}
+
+    \begin{figure}[!h]
+        \centering
+        \includegraphics[scale=0.45]{CoP.png}
+        \caption{Center of pressure}
+        \label{fig:CoP}
+    \end{figure}
+
+    Different parameters such as path length, swept area and mean radius suffice to make a distinguishment between EO and EC.
+    Before one of these parameters can be calculated one must calculate the Arithmetic Mean Point (AMP) and shift the axis
+    to this point in space. The results of the three mentioned parameters are listed in table \ref*{tab:params}.
+
+    \begin{table}[!h]
+        \centering
+        \begin{tabular}{c|c|c|c}
+            trial & path length [mm] & swept area [mm$^2$] & mean radius [mm]\\ \hline
+            EO & 15508.36 & 13936.26 & 2.879\\
+            EC & 13462.69 & 22494.91 & 5.248
+        \end{tabular}
+        \caption{Calculated parameters}
+        \label{tab:params}
+    \end{table}
+
+    \begin{lstlisting}[language=Python, caption=calculating the parameters]
+def AMP(x): # calculating AMP
+    return np.mean(x)
+
+EOFXs, EOFYs = EOFX - AMP(EOFX), EOFY - AMP(EOFY) # shifting to AMP
+ECFXs, ECFYs = ECFX - AMP(ECFX), ECFY - AMP(ECFY) # shifting to AMP
+
+def Mean_radius(x, y):
+    r = (x**2 + y**2)**(1/2) # radius
+    return np.mean(r), np.std(r)
+
+def Path_length(x, y):
+    L = (np.diff(x)**2+np.diff(y)**2)**(1/2) # length
+    return np.sum(L)
+
+def Swept_area(x, y):
+    r = (x**2 + y**2)**(1/2) # radius
+    L = (np.diff(x)**2+np.diff(y)**2)**(1/2) # length
+    a, b, c = L, r[:-1], r[1:]
+    S = 1/2*(a+b+c)
+    A = (S*(S-a)*(S-b)*(S-c))**(1/2)
+    return np.sum(A)
+    \end{lstlisting}
+
+In table \ref*{tab:params} one migth expect every parameter to be larger in the EC scenario but instead the path length
+reaches the highest value. Probably this is due to the difference in data point - more data points imply a longer path that can be passed.
+Looking to code block \ref*{code:BA_input} one can observe on line 5 and 6 a great difference in data points between EO and EC (15006 $>$ 12976).
+
+
+
+\section{EMG}
+
+\begin{lstlisting}[language=Python, caption=Python example]
+    import numpy as np
+
+    
+\end{lstlisting}
+
+
+
+
+
+\end{document}
