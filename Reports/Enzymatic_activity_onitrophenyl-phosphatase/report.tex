@@ -1,7 +1,14 @@
 \documentclass[a4paper,12pt]{article}
 
 \usepackage{graphicx}
+\graphicspath{{figures/}}
 \usepackage{geometry}
+\geometry{
+    a4paper,
+    total={170mm,257mm},
+    left=20mm,
+    top=20mm,
+    }
 \geometry{textwidth=426pt}
 \usepackage{tabularx, ragged2e}
 \usepackage{mathtools}
@@ -10,7 +17,7 @@
 
 \titleformat{\section}{\fontsize{11}{15}\bfseries}{\Roman{section}}{1em}{}
 \titleformat{\paragraph}{\normalfont}{\textbf{\theparagraph.}}{0.5em}{}
-\titlespacing*{\paragraph}{1.5em}{1.em}{1.em}
+\titlespacing*{\paragraph}{1.5em}{0.5em}{0.5em}
 \counterwithout{paragraph}{section}
 \setcounter{secnumdepth}{4}
 
@@ -51,62 +58,112 @@ Date: & October 5, 2022
 
 \paragraph{Make a plot of the absorbance versus concentration and calculate the trendline. ($E=bx+a$ with $x=$ nitrophenol concetration) And calculate the concentration of P01.}
 
-\begin{figure}[h]
-    \includegraphics[scale=0.5]{fig1.png}
+\begin{figure}[htb]
+    \includegraphics[scale=0.4]{fig1.png}
     \centering
 \end{figure}
+
+The estimated concentration of PO1 is 0.01743 mM. (We made the mean of all of the results to estimate it's concentration.)
 
 \section{Enzymatic activity as a function of substrate concentration}
 
 \paragraph{Plot the enzymatic activity (as absorbance after 30 minutes (Y-axis)) 
 against the substrate concentration (X-axis) and display $R^2$.}
 
-Answer\\
+Note: in this expirement the absorbance was measured after 20 minutes.
+
+\begin{figure}[htb]
+    \includegraphics[scale=0.4]{fig2_1.png}
+    \centering
+\end{figure}
+
+$v$ (enzymatic activity) is calculated as $\frac{\text{absorbance}}{1200 \text{s}}$, 1200 s = 20 min in oven, with absorbance a dimensionless quantity, hence $v$ got untis $\frac{1}{\text{s}}$.\\
 
 \paragraph{Lineweaver-Burk plot: $\frac{1}{v}$ (Y-axis) against $\frac{1}{[S]}$ (X-axis) and display $R^2$. 
 Formula of Michaëlis Menten:\[v=V_{\text{max}}\frac{[S]}{K_m+[S]}\] \[\frac{1}{v}=\frac{1}{V_{\text{max}}}\left(\frac{K_m}{[S]}+1\right)\]}
 
-Answer\\
+\begin{figure}[htb]
+    \includegraphics[scale=0.4]{fig2_2.png}
+    \centering
+\end{figure}
 
 \paragraph{Eadie-Hofstee plot: $\frac{v}{[S]}$ (X-axis) against $v$ (Y-axis) and display $R^2$. \[v=-K_m\frac{v}{[S]}+V_{\text{max}}\]}
 
-Answer\\
+\begin{figure}[htb]
+    \includegraphics[scale=0.4]{fig2_3.png}
+    \centering
+\end{figure}
 
 \paragraph{Hanes-Woolf plot: $\frac{[S]}{v}$ (Y-axis) against $[S]$ (X-axis) and display $R^2$. \[\frac{[S]}{v}=\frac{[S]}{V_{\text{max}}}+\frac{K_m}{V_{\text{max}}}\]}
 
-Answer\\
+\begin{figure}[htb]
+    \includegraphics[scale=0.4]{fig2_4.png}
+    \centering
+\end{figure}
 
-\paragraph{Calculate $K_m$-value (molarity of substrate in incubation mixture) and $V_{\text{max}}$ (formed nitrophenol (mg) per 30 minutes) for every plot. Do you observe 
-differences? Why? 
-}
+\paragraph{Calculate $K_m$-values (molarity of substrate in incubation mixture) and $V_{\text{max}}$ (formed nitrophenol (mg) per 30 minutes) for every plot. Do you observe 
+differences? Why?}
 
-Answer\\
+The $K_m$ and $V_{\text{max}}$ value can be derived from the trendline ($y = bx+a$):
+\begin{itemize}
+\item Lineweaver-Burk plot: $V_{\text{max}} = \frac{1}{a} = 0.000647\: \frac{1}{\text{s}}$, $K_m = \frac{b}{a} = 0.66$ mM
+\item Eadie-Hofstee plot: $V_{\text{max}} = a = 0.000665\: \frac{1}{\text{s}}$, $K_m = -b = 0.73$ mM
+\item Hanes-Woolf plot: $V_{\text{max}} = \frac{1}{b} = 0.000719\: \frac{1}{\text{s}}$, $K_m = \frac{a}{b} = 1.22$ mM
+\end{itemize}
 
 \section{Enzymatic activity in the presence of an inhibitor}
 
 \paragraph{Plot the enzymatic activity (as absorbance after 30 minutes (Y-axis)) 
 against the substrate concentration (X-axis). Add a trendline and $R^2$}
 
-Answer\\
+Note: in this expirement the absorbance was measured after 20 minutes.
+
+\begin{figure}[htb]
+    \includegraphics[scale=0.4]{fig3_1.png}
+    \centering
+\end{figure}
+
+$v$ (enzymatic activity) is calculated as $\frac{\text{absorbance}}{1200 \text{s}}$, 1200 s = 20 min in oven, with absorbance a dimensionless quantity, hence $v$ got untis $\frac{1}{\text{s}}$.\\
 
 \paragraph{Lineweaver-Burk plot: $\frac{1}{v}$ (Y-axis) against $\frac{1}{[S]}$ (X-axis).}
 
-Answer\\
+\begin{figure}[htb]
+    \includegraphics[scale=0.4]{fig3_2.png}
+    \centering
+\end{figure}
 
 \paragraph{Eadie-Hofstee plot: $\frac{v}{[S]}$ (X-axis) against $v$ (Y-axis).}
 
-Answer\\
+\begin{figure}[htb]
+    \includegraphics[scale=0.4]{fig3_3.png}
+    \centering
+\end{figure}
 
 \paragraph{Hanes-Woolf plot: $\frac{[S]}{v}$ (Y-axis) against $[S]$ (X-axis).}
 
-Answer\\
+\begin{figure}[htb]
+    \includegraphics[scale=0.4]{fig3_4.png}
+    \centering
+\end{figure}
 
 \paragraph{Calculate $K_m$-value (molarity of substrate in incubation mixture) and $V_{\text{max}}$ (formed nitrophenol (mg) per 30 minutes) for every plot.}
- 
- Answer\\
+
+The $K_m$ and $V_{\text{max}}$ values can be derived from the trendline ($y = bx+a$):
+\begin{itemize}
+\item Lineweaver-Burk plot: $V_{\text{max}} = \frac{1}{a} = 0.000716\: \frac{1}{\text{s}}$, $K_m = \frac{b}{a} = 1.40$ mM
+\item Eadie-Hofstee plot: $V_{\text{max}} = a = 0.000701\: \frac{1}{\text{s}}$, $K_m = -b = 1.08$ mM
+\item Hanes-Woolf plot: $V_{\text{max}} = \frac{1}{b} = 0.000836\: \frac{1}{\text{s}}$, $K_m = \frac{a}{b} = 2.55$ mM
+\end{itemize}
 
 \paragraph{Is the inhibitor competitive or non-competitive? Motivate your answer.}
 
-Answer\\
+\begin{figure}[htb]
+    \includegraphics[scale=0.4]{fig3_6.png}
+    \centering
+\end{figure}
+
+It looks most like a competitive inhibitor: the $V_{\text{max}}$ stays unaltered while the $K_m$ increases. For the Lineweaver-Burk 
+plot the proportional changes for $V_{\text{max}}$ and $K_m$ between the two experiments can be respectively estimated as $\frac{\Delta V_{\text{max}}}{V_{\text{max}}} \approx 0.107$ 
+and $\frac{\Delta K_m}{K_m} \approx 1.121$.
 
 \end{document}

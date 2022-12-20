@@ -1,0 +1,38 @@
+\documentclass[dutch,a4paper,11pt,fleqn,listof=totoc,toc=sectionentrywithdots]{scrartcl}
+\usepackage{babel}
+\usepackage{slantsc}
+\usepackage{array}
+\usepackage{amsmath}
+\setkomafont{subsection}{\usefont{T1}{fvm}{m}{n}}
+%\setkomafont{section}{\usefont{T1}{fvs}{b}{n}\Large}
+\setcounter{secnumdepth}{0}
+\pagestyle{empty}
+\usepackage{txfonts}
+\usepackage[T1]{fontenc}
+\usepackage[a4paper, left=1cm, top=1.5cm, right=1.5cm, bottom=2cm, bindingoffset=0.5cm]{geometry}
+\setlength{\parindent}{0pt} 
+\usepackage{graphicx}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{etoolbox}
+\newcommand{\zerodisplayskips}{%
+  \setlength{\abovedisplayskip}{0pt}%
+  \setlength{\belowdisplayskip}{0pt}%
+  \setlength{\abovedisplayshortskip}{0pt}%
+  \setlength{\belowdisplayshortskip}{0pt}}
+\appto{\normalsize}{\zerodisplayskips}
+\appto{\small}{\zerodisplayskips}
+\appto{\footnotesize}{\zerodisplayskips}
+
+\newcommand\myeq{\stackrel{\mathclap{\small\normalfont\mbox{vac.}}}{=}}
+
+\setlength{\mathindent}{0pt}
+\setlength{\abovedisplayskip}{-15pt}
+\setlength{\belowdisplayskip}{0pt}
+\setlength{\abovedisplayshortskip}{0pt}
+\setlength{\belowdisplayshortskip}{0pt}
+
+\usepackage{lastpage}
+\renewcommand\pagemark{{ \usekomafont{pagenumber}\thepage}}
+\usepackage{scrlayer-scrpage}% sets pagestyle scrheadings automatically
+\clearpairofpagestyles
+\ofoot*{\pagemark}

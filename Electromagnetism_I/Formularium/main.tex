@@ -1,0 +1,152 @@
+\documentclass[a4paper, 10pt]{article}
+
+\usepackage{mathtools}
+\usepackage{amsmath}
+
+\usepackage{geometry}
+\geometry{
+    a4paper,
+    total={170mm,257mm},
+    left=20mm,
+    top=20mm,
+    }
+\geometry{textwidth=426pt}
+
+ \title{Formularium - Electromagnetism I}
+ \author{}
+ \date{}
+
+ \begin{document}
+    
+    \maketitle
+
+    \section{Introduction}
+    \begin{align}
+        AB + BA = \heartsuit
+    \end{align}
+    \section{Maxwell's Equations}
+    \section{Electrostatics}
+    \section{Magnetostatics}
+    \section{Plane Waves}
+    \subsection{Plane waves in a lossless dielectric}
+    \paragraph{Assumptions}
+    Source free, homogenous, lossless and isotrpoic dielectric characterized by $\epsilon=\epsilon_0\epsilon_r$ and $\mu=\mu_0\mu_r$.\\
+    Plane wave propagation to an arbitrary direction $\vec{u}$:
+    \begin{align}
+        \vec{e}(\vec{r}) & = \vec{A}e^{-jk\vec{u}\cdot \vec{r}} \label{H5eq1},\\
+        \vec{h}(\vec{r}) & = \frac{1}{Z_c}\vec{u}\times \vec{e}(r) \label{H5eq2},
+    \end{align}
+    with $\vec{A}\cdot \vec{u} = 0$, $Z_c = \frac{\mu}{\epsilon}$, $k^2=\omega^2\epsilon\mu$ and Poynting's vector: 
+    \begin{equation}\vec{p}(\vec{r})=\frac{|\vec{A}|^2}{2Z_c}\vec{u}.\label{H5eq3}\end{equation}
+    \subsection*{Plane waves in a lossy dielectric}
+    Equations \refeq{H5eq1} and \refeq{H5eq2} with $\vec{A}\cdot u=0$ remain unchanged but $k$ and $Z_c$ are now complex valued (in VI). 
+    Denote $k=\beta-j\alpha$, the new Poynting vector becomes 
+    \begin{equation}\vec{p}(\vec{r})=\frac{|\vec{A}|^2}{2Z_c}e^{-2\alpha\vec{u}\cdot\vec{r}}\vec{u}.\label{H5eq4}\end{equation}
+    This shows that when a wave propagates over a distance d in a lossy medium, its power descreases by a factor $e^{-2\alpha d}$. Expressed in decibel (dB) gives
+    \begin{equation}-10\log_{10}(e^{-2\alpha d})\approx 8.686\alpha d,\label{H5eq5}\end{equation} with $L=8.686\alpha$ the relative power loss in (dB/m).
+
+    Considering a material with conduction losses ($\epsilon + \frac{\sigma}{j\omega}$):
+    \begin{align}
+        k & = \omega\sqrt{\epsilon\mu}\sqrt{1+\frac{\sigma}{j\omega}}\label{H5eq6},\\
+        Z_c & = \sqrt{\frac{\mu}{\epsilon}}\frac{1}{\sqrt{1+\frac{\sigma}{j\omega}}}\label{H5eq7},
+    \end{align}
+    gives rise to two interesting situations:
+    \begin{itemize}
+        \item[1.] Low-loss dielectric ($\sigma \ll \omega\epsilon$):
+        \begin{align}
+            k & = \beta - j\alpha \approx \omega\sqrt{\epsilon\mu} - j\frac{\sigma}{2}\sqrt{\frac{\mu}{\epsilon}} \label{H5eq8},\\
+            Z_c & \approx \sqrt{\frac{\mu}{\epsilon}} \label{H5eq9},
+        \end{align}
+        \item[2.] Good conductor ($\sigma \gg \omega\epsilon$):
+        \begin{align}
+            k & = \beta - j\alpha \approx \frac{1-j}{\delta} \label{H5eq10},\\
+            Z_c & \approx \frac{1+j}{\sigma\delta} \label{H5eq11},
+        \end{align}
+        with $\delta = \sqrt{\frac{2}{\omega\mu\sigma}}$ known as the \textit{skin depth}.
+    \end{itemize}
+    \subsection{Reflection and transmission at a plane interface}
+    Given the incident fields in medium 1:
+    \begin{align}
+        \vec{e}_i&=\vec{A}e^{-jk_1\vec{u_i}\cdot \vec{r}} \label{H5eq12},\\
+        \vec{h}_i&=\frac{1}{Z_1}\vec{u_i}\times\vec{e}_i \label{H5eq13},
+    \end{align}
+    with $u_i = \cos(\theta_i)\vec{u}_z+\sin(\theta_i)\vec{u}_x$ and $\vec{A}\cdot \vec{u}_i = 0$. Then:
+    \begin{itemize}
+        \item[1.] The reflected wave becomes
+        \begin{align}
+            \vec{e}_r&=\vec{B}e^{-jk_1\vec{u_r}\cdot \vec{r}} \label{H5eq14},\\
+            \vec{h}_r&=\frac{1}{Z_1}\vec{u_r}\times \vec{e}_r \label{H5eq15},
+        \end{align}
+        with $u_r = -\cos(\theta_i)\vec{u}_z+\sin(\theta_i)\vec{u}_x$ and $\vec{B}\cdot \vec{u}_r = 0$.
+        \item[2.] The transmitted wave becomes
+        \begin{align}
+            \vec{e}_t&=\vec{C}e^{-jk_2\vec{u_t}\cdot \vec{r}} \label{H5eq16},\\
+            \vec{h}_t&=\frac{1}{Z_2}\vec{u_t}\times \vec{e}_t \label{H5eq17},
+        \end{align}
+        with $u_t = \cos(\theta_t)\vec{u}_z+\sin(\theta_t)\vec{u}_x$, $\vec{C}\cdot \vec{u}_t = 0$ and where $\theta_t$ is defined as
+        \begin{equation}
+            k_2\sin{\theta_t} = k_1\sin{\theta_i} \label{H5eq18}.
+        \end{equation}
+        equation \ref{H5eq18} gives rise to some problems. To better understand these problems, consider the case of lossless materials.
+        Two cases must be distinguished:
+        \begin{itemize}
+            \item[i.] Medium 2 is more dense than medium 1 ($k_2 > k_1$ or $N_2 > N_1$ with $N_i=\sqrt{\epsilon_{ri}\mu_{r_i}}$). Then
+            \begin{equation}
+                \vec{u}_t = \vec{u}_z\sqrt{1-\frac{k^2_1}{k^2_2}\sin^2(\theta_i)} + \sin(\theta_t)\vec{u}_x, \label{H5eq19}
+            \end{equation}
+            and equation \refeq{H5eq18} can be rewritten as, what is known as \textit{Snell's law},
+            \begin{equation}
+                \sin(\theta_t) = \frac{N_1}{N_2}\sin(\theta_i). \label{H5eq20}
+            \end{equation}
+            \item[ii.] Medium 2 is less dense than medium 1 ($k_2 < k_1$ or $N_2 < N_1$). If 
+            \begin{equation}
+                \sin(\theta_i) < \frac{N_2}{N_1} = \sin(\theta_c), \label{H5eq21}
+            \end{equation}
+            with $\theta_c$ the critical angle, then equation \ref{H5eq19} still holds. When $\theta_i$ exceeds $\theta_c$, equation \refeq{H5eq19} becomes
+            \begin{equation}
+                \vec{u}_t = -j\vec{u}_z\sqrt{\frac{k^2_1}{k^2_2}\sin^2(\theta_i)-1} + \sin(\theta_t)\vec{u}_x, \label{H5eq22}
+            \end{equation}
+            and the transmitted wave decays exponentially when propagating in medium 2 with skin depth
+            \begin{equation}
+                \delta = \frac{1}{\sqrt{k^2_1\sin^2(\theta_i)-k^2_2}}, \;\;\; \theta_i \in [\theta_c, \frac{\pi}{2}] \label{H5eq23}
+            \end{equation}
+        \end{itemize}
+    \end{itemize}
+    Solving for $\vec{B}$ and $\vec{C}$: an incident wave with arbitrary elliptical polarization can be written as the superposition of a TE and a TM polarized contribution. 
+    \begin{itemize}
+        \item[1.] \textbf{TE polarization}
+            \begin{align}
+                \vec{e}_i(\vec{r}) &= Ae^{-jk_1\vec{u}_i\cdot\vec{r}}\vec{u}_y, \nonumber\\
+                \vec{h}_i(\vec{r}) &= \frac{1}{Z_1}\vec{u}_i\times\vec{e}_i, \nonumber\\
+                \vec{e}_r(\vec{r}) &= R_{TE}Ae^{-jk_1\vec{u}_r\cdot\vec{r}}\vec{u}_y, \label{H5eq24}\\
+                \vec{h}_r(\vec{r}) &= \frac{1}{Z_1}\vec{u}_r\times\vec{e}_r, \nonumber\\
+                \vec{e}_t(\vec{r}) &= T_{TE}Ae^{-jk_2\vec{u}_t\cdot\vec{r}}\vec{u}_y, \nonumber\\
+                \vec{h}_t(\vec{r}) &= \frac{1}{Z_2}\vec{u}_t\times\vec{e}_t, \nonumber
+            \end{align}
+            with
+            \begin{align}
+                R_{TE} = \frac{Z_2\cos(\theta_i)-Z_1\cos(\theta_t)}{Z_2\cos(\theta_i)+Z_1\cos(\theta_t)}, \label{H5eq25}\\
+                T_{TE} = \frac{2Z_2\cos(\theta_i)}{Z_2\cos(\theta_i)+Z_1\cos(\theta_t)}, \label{H5eq26}
+            \end{align}
+        \item[2.] \textbf{TM polarization}
+        \begin{align}
+            \vec{h}_i(\vec{r}) &= \frac{1}{Z_1}Ae^{-jk_1\vec{u}_i\cdot\vec{r}}\vec{u}_y, \nonumber\\
+            \vec{e}_i(\vec{r}) &= -Z_1\vec{u}_i\times\vec{h}_i, \nonumber\\
+            \vec{h}_r(\vec{r}) &= \frac{1}{Z_1}R_{TM}Ae^{-jk_1\vec{u}_r\cdot\vec{r}}\vec{u}_y, \label{H5eq27}\\
+            \vec{e}_r(\vec{r}) &= -Z_1\vec{u}_r\times\vec{h}_r, \nonumber\\
+            \vec{h}_t(\vec{r}) &= \frac{1}{Z_2}T_{TM}Ae^{-jk_2\vec{u}_t\cdot\vec{r}}\vec{u}_y, \nonumber\\
+            \vec{e}_t(\vec{r}) &= -Z_2\vec{u}_t\times\vec{h}_t, \nonumber
+        \end{align}
+        with
+        \begin{align}
+            R_{TM} = \frac{Z_1\cos(\theta_i)-Z_2\cos(\theta_t)}{Z_1\cos(\theta_i)+Z_2\cos(\theta_t)}, \label{H5eq28}\\
+            T_{TM} = \frac{2Z_2\cos(\theta_i)}{Z_1\cos(\theta_i)+Z_2\cos(\theta_t)}, \label{H5eq29}
+        \end{align}
+        Total transmission: for TM polarization $R_{TM}$ becomes zero provided the angle of incidence is equal to the \textit{Brewster agnle} defined by
+        \begin{equation}
+            \tan(\theta_B) = \sqrt{\frac{\epsilon_2}{\epsilon_1}} = \frac{N_2}{N_1} \label{H5eq30}
+        \end{equation}
+    \end{itemize}
+
+
+ \end{document}

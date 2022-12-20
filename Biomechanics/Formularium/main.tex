@@ -1,0 +1,33 @@
+\documentclass[a4paper, 10pt]{report}
+
+\usepackage{graphicx}
+\graphicspath{{figures/}}
+
+\usepackage{mathtools}
+\usepackage{amsmath, bm}
+
+\usepackage{geometry}
+\geometry{
+    a4paper,
+    total={170mm,257mm},
+    left=20mm,
+    top=20mm,
+    }
+\geometry{textwidth=426pt}
+
+\usepackage{subfiles}
+
+ \title{Formularium - Biomechanics}
+ \author{}
+ \date{}
+
+ \begin{document}
+
+ \maketitle
+ \tableofcontents
+ 
+\subfile{biofluids/biofluids.tex}
+\subfile{softtissue/softtissue.tex}
+
+
+ \end{document}

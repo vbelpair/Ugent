@@ -1,0 +1,46 @@
+\documentclass[dutch, a4paper, 11pt]{article}
+\usepackage[utf8]{inputenc}
+
+%Margins 
+\usepackage[a4paper, left=1.27cm,top=1.27cm,right =1.27cm, bottom = 1.4cm]{geometry}
+
+%Load packages
+\input{packages}
+
+
+\begin{document}
+
+%Load heading of document
+\input{tpage}
+
+
+\begin{tcolorbox}[colframe=ugent_blue, colback=ugent_blue!10, enhanced jigsaw, boxrule=0.5pt]
+{\bf Abstract}\\
+\lipsum[1- 2]
+\end{tcolorbox}
+
+
+%Start writing your repot...
+
+\begin{multicols}{2}  %Write in two columns
+\section{The most beautiful equation}
+Conversion of a complex number $z$ with $|z| = 1$ to it's complex form by using Euler's formula gives
+\begin{equation}
+z = \mathrm{e}^{i\phi} = \cos(\phi) + i\sin{\phi}.
+\end{equation}
+Set $\phi = \pi$, and thus
+\begin{equation}
+\mathrm{e}^{i\pi} = \cos(\pi) + i\sin{\pi} = -1.
+\end{eqution}
+Switch postions and we get the Most Beautiful Equation
+$$\mathrm{e}^{i\pi}  + 1 = 0.$$
+
+\section{Lipsum}
+\lipsum[2-3]
+
+\end{multicols}
+
+
+
+
+\end{document}

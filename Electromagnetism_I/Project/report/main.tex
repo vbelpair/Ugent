@@ -1,0 +1,50 @@
+\documentclass[a4paper, 11pt]{article}
+\usepackage[utf8]{inputenc}
+
+%Margins 
+\usepackage[a4paper, left=1.27cm,top=1.27cm,right =1.27cm, bottom = 1.4cm]{geometry}
+
+%Load packages
+\input{packages}
+\usepackage{biblatex} %Imports biblatex package
+\addbibresource{sample.bib} %Import the bibliography file
+
+%figures
+\graphicspath{{figures/}}
+
+
+\begin{document}
+
+%Load heading of document
+\input{tpage}
+
+
+\section{Introduction}
+
+\input{sections/intro.tex}
+
+
+%Start writing your repot...
+
+\section{A bit traveling through a lossless transmission line}
+
+    \input{subsections/numerical_implementation.tex}
+
+    \input{subsections/general_bit_behavior.tex}
+
+    \input{subsections/influence_tau.tex}
+
+    \input{subsections/courant_limit.tex}
+
+    \input{subsections/Reflections_amplitude_dampening.tex}
+
+    \input{subsections/capacitance.tex}
+
+\section{Biomedical application}
+
+\input{sections/biomedical_application.tex}
+
+
+
+
+\end{document}
