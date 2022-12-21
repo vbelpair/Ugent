@@ -1,8 +1,8 @@
-\subsection{Reflections and amplitude dampening}
+\subsection{Reflections and amplitude damping}
 
-In section (REF) the wave behavior of the voltage and current is discovered. To this end, the analysis of voltage waves at the boundaries for specific values of the generator resistance $R_g$ and load resistance $R_L$ is discussed. \\
+In section \ref{gbh} the wave behavior of the voltage and current is discovered. To this end, the analysis of voltage waves at the boundaries for specific values of the generator resistance $R_g$ and load resistance $R_L$ is discussed. We highly recommend watching the simulation \href{https://ugentbe-my.sharepoint.com/:f:/g/personal/constantijn_coppers_ugent_be/Evlx5Q0EKRhCggn-R1x3NKQBhiF82wRowFP4pT1nCn1ymg?e=Xi2V3R}{video's}\footnote{Simulation details and visualizations are stored in a OneDrive. Only accessible for UGhent members.\label{fn}}. \\
 
-Our first question concerns the entrance of the bit to the TL: the simulation starts at $t=0$ and the generator $\hat{e}_g$ produces a bit with amplitude $V_0$. Before the bit enters the TL, it meets the generator resistance $R_g$ and thus energy will be dissipated i.e. the voltage amplitude is dampened. This can be clarified by expressing Kirchoff's Voltage Law at the origin ($z=0$) of the TL;
+Our first question concerns the entrance of the bit to the transmission line (TL): the simulation starts at $t=0$ and the generator $\hat{e}_g$ produces a bit with amplitude $V_0$. Before the bit enters the TL, it meets the generator resistance $R_g$ and thus energy will be dissipated i.e. the voltage amplitude is dampened. This can be clarified by expressing Kirchoff's Voltage Law at the origin ($z=0$) of the TL;
 
 \begin{align}
 &\hat{e}_g(t) = (R_g + R_c)\hat{i}(0, t) \\
@@ -34,8 +34,8 @@ $K_L$ is also know as the reflection coefficient at the load. This constant dete
 		&\Leftrightarrow (R_L-R_c)^2 > 0 \label{Pw}.
 	\end{align}
 Equation (\ref{Pw}) is always true and the law of conservation of energy still holds. The reflected wave still contains $P_{\text{in}} - P_L$ power.
-\item $R_L = R_c \Rightarrow K_L = 0$: MATCHING (Figure \ref{fig:damp} B)\\
-	The energy of the forward wave is fully dissipated to the load. Maximum power is reached and there is no reflection back.
+\item $R_L = R_c \Rightarrow K_L = 0$: matching (Figure \ref{fig:damp} B,  \href{https://ugentbe-my.sharepoint.com/:f:/g/personal/constantijn_coppers_ugent_be/Evlx5Q0EKRhCggn-R1x3NKQBhiF82wRowFP4pT1nCn1ymg?e=Xi2V3R}{video matching})\\
+	From an engineering point of view, this is the most wanted; the energy of the forward wave is fully dissipated to the load. Maximum power is reached and there is no reflection back.
 	
 \item $R_L < R_c \Rightarrow K_L <0$ \\
 	The same principle holds as in case \ref{ref1}, with the difference that the reflected wave amplitude has an opposite sign compared to the incident wave; that is, because the voltage wave arriving at the load contains too much energy.
@@ -44,12 +44,12 @@ Equation (\ref{Pw}) is always true and the law of conservation of energy still h
 	The electric circuit is open. When the voltage wave arrives at the end of the TL, it is fully reflected to the load and no energy is dissipated.
 	
 \end{enumerate}
-Obviously, when the reflected wave arrives back at the generator it might be reflected back to the load, depending on the value of the generator impedance. In summary, the generated bit enters the TL weakened (\ref{enter}) and starts to move back and forth between the load impedance and generator impedance, whereby energy is dissipated and the amplitude reduces until the wave is fully dampened (REF VIDEO).
+Obviously, when the reflected wave arrives back at the generator it might be reflected back to the load, depending on the value of the generator impedance. In summary, the generated bit enters the TL weakened (\ref{enter}) and starts to move back and forth between the load impedance and generator impedance, whereby energy is dissipated and the amplitude reduces until the wave is fully dampened (\href{https://ugentbe-my.sharepoint.com/:f:/g/personal/constantijn_coppers_ugent_be/Evlx5Q0EKRhCggn-R1x3NKQBhiF82wRowFP4pT1nCn1ymg?e=Xi2V3R}{video amplitude damping}$^{\ref{fn}}$).
 
 \begin{figure}[h!]
 \centering
 \includegraphics[width = \textwidth]{amplitudeplot.png}
-\caption{FDTD simulations of a voltage wave traveling trough a TL. This wave moves with constant speed $c$ and is reflected at the load- and generator impedance with a damping factor $K_L$ resp. $K_g$. In A, the bit amplitude decreases as it meets an impedance. In B, the bit it trapped in the TL ($K_L\approx-1$ and $K_g \approx1$).}\label{fig:damp}
+\caption{FDTD simulations of a voltage wave traveling trough a TL. This wave moves with constant speed $c$ and is reflected at the load- and generator impedance with a damping factor $K_L$ resp. $K_g$. In A, the bit amplitude decreases as it meets an impedance. In B, the bit is trapped in the TL ($K_L\approx-1$ and $K_g \approx1$).}\label{fig:damp}
 \end{figure}
 
 \begin{figure}[h!]
