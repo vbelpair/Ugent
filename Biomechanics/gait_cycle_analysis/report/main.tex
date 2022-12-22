@@ -213,20 +213,78 @@ def Swept_area(x, y):
 
 In table \ref*{tab:params} one migth expect every parameter to be larger in the EC scenario but instead the path length
 reaches the highest value. Probably this is due to the difference in data point - more data points imply a longer path that can be passed.
-Looking to code block \ref*{code:BA_input} one can observe on line 5 and 6 a great difference in data points between EO and EC (15006 $>$ 12976).
+Looking to code block \ref*{code:BA_input} one can observe on line 5 and 6 a great difference in data points between EO and EC (15006 $>$ 12976).\\
 
+Some practical notes have to be taken into account for these measurements. The force plate
+exists out of a collection of sensors. There can be small errors on the linearity of these 
+sensors, i.e. the amount of displacement measured is not fully proportional with the measured voltage, which
+leads to small errors in the data. It is crucial to minimalize these erros for accurate measurements.
+Moreover do the number of sensors also influence the accuracy by which there can be measured.
 
+Besides these practical limitations, there is also a choice to be made by the executor of the measurement, namely which sampling rate to use.
+There are two factors to take into account: what is the maximal sampling rate the force plate can physically handle and by which frequencies does the subject on the force plate move.
+Since the subject on the force plate is human it wise to start by looking at the human movement frecueny and to aim the sampling rate 
+somewhere in between this human movement frecueny and the maximal sampling rate. A higher sampling rate would cause more noise
+in the data, hence aiming to lower sampling rates that still would capture all the human movement is the goal.
 
 \section{EMG}
 
-\begin{lstlisting}[language=Python, caption=Python example]
-    import numpy as np
+    \begin{lstlisting}[language=Python, caption=input EMG data]
+G2A_3_input = '.\G3B_EMG Lab3.xlsx'
+G2A_3 = openpyxl.load_workbook(G2A_3_input)
+SN3 = G2A_3.sheetnames #Sheet Names
 
+EN = np.array([[el.value for el in rij] for rij in G2A_3[SN3[0]].rows])[11:10951,2:].T #EMG Normal walking #10951
+ET = np.array([[el.value for el in rij] for rij in G2A_3[SN3[1]].rows])[11:11891,2:].T #EMG Toe walking #11891
     
-\end{lstlisting}
+    \end{lstlisting}
 
 
+    \begin{lstlisting}[language=Python, caption=raw EMG plotting]
+ENG = EN[0]- EN[1] #EMG Normal-walking Gastrocnemius
+ENT = EN[2] - EN[3] #EMG Normal-walking Tibialis-anterior
+ETG = ET[0]- ET[1] #EMG Toe-walking Gastrocnemius
+ETT = ET[2] - ET[3] #EMG Toe-walking Tibialis-anterior        
 
+fig, ((ax0, ax1), (ax2,ax3)) = plt.subplots(2,2, figsize = (14,8),sharey=True)
+ax0.plot(ENG), ax0.set_title('Gastrocnemius Normal', fontsize=15), ax0.set_xlim(0,10000), ax0.set_ylabel('Voltage [V]', fontsize=15)
+ax1.plot(ETG), ax1.set_title('Gastrocnemius Toe', fontsize=15), ax1.set_xlim(0,10000)
+ax2.plot(ENT), ax2.set_title('Tibialis Ant Normal', fontsize=15), ax2.set_xlim(0,10000), ax2.set_ylabel('Voltage [V]', fontsize=15)
+ax3.plot(ETT), ax3.set_title('Tibialis Ant Toe', fontsize=15), ax3.set_xlim(0,10000)
+    \end{lstlisting}
+
+    \begin{figure}[!h]
+        \centering
+        \includegraphics[scale=0.5]{EMG_raw.png}
+        \caption{raw EMG signals}
+        \label{fig:EMG_raw}
+    \end{figure}
+
+Looking at figure \ref*{fig:EMG_raw}, capturing the raw EMG data, the following obeservatoins can be made:
+the separation between voltage bursts is shorter and the amplitudes reach higher values in the toe walking case
+in comparison with the normal walking case.
+
+    \begin{lstlisting}[language=Python, caption=rectified EMG calculation and plotting]
+ENG = ENG - np.mean(ENG)
+ENT = ENT - np.mean(ENT)
+ETG = ETG - np.mean(ETG)
+ETT = ETT - np.mean(ETT)
+ENG, ENT, ETG, ETT = abs(ENG), abs(ENT), abs(ETG), abs(ETT)
+
+fig, ((ax0, ax1), (ax2,ax3)) = plt.subplots(2,2, figsize = (14,8),sharey=True)
+ax0.plot(ENG), ax0.set_title('Gastrocnemius Normal', fontsize=15), ax0.set_xlim(0,10000), ax0.set_ylabel('Voltage [V]', fontsize=15)
+ax1.plot(ETG), ax1.set_title('Gastrocnemius Toe', fontsize=15), ax1.set_xlim(0,10000)
+ax2.plot(ENT), ax2.set_title('Tibialis Ant Normal', fontsize=15), ax2.set_xlim(0,10000), ax2.set_ylabel('Voltage [V]', fontsize=15)
+ax3.plot(ETT), ax3.set_title('Tibialis Ant Toe', fontsize=15), ax3.set_xlim(0,10000)
+plt.show()
+    \end{lstlisting}
+
+    \begin{figure}[!h]
+        \centering
+        \includegraphics[scale=0.5]{EMG_rectified.png}
+        \caption{rectified EMG signals}
+        \label{fig:EMG_rect}
+    \end{figure}
 
 
 \end{document}
