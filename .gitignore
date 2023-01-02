@@ -8,6 +8,7 @@
 *.fdb_latexmk
 *.fls
 *.aux
+*.bbl
 
 # python related files
 *.pyc
@@ -16,6 +17,10 @@
 *.docx
 *.mp4
 *.xlsx
+*.zip
 
 # some particular data files
 example.txt
+
+# some particular folders
+*Electromagnetism_I/Project/
