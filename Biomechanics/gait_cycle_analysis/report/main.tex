@@ -212,7 +212,7 @@ def Swept_area(x, y):
     \end{lstlisting}
 
 In table \ref*{tab:params} one migth expect every parameter to be larger in the EC scenario but instead the path length
-reaches the highest value. Probably this is due to the difference in data point - more data points imply a longer path that can be passed.
+reaches the highest value. Probably this is due to the difference in data points - more data points imply a longer path that can be passed.
 Looking to code block \ref*{code:BA_input} one can observe on line 5 and 6 a great difference in data points between EO and EC (15006 $>$ 12976).\\
 
 Some practical notes have to be taken into account for these measurements. The force plate
@@ -286,5 +286,9 @@ plt.show()
         \label{fig:EMG_rect}
     \end{figure}
 
+Starting from the rectified EMG signals, i.e. the absolute value taken from the original signals, one could produce smooth rectified EMG by filtering out the high frequencies in the signal. 
+This can be realized with a low-band pass filter.\\
+At last if one would want to deduce the resting EMG level, i.e. the measured voltage without the muscle actually being contracted, one should establish a threshold of EMG on/off levels.
+This can be derived from the smoothed out rectified EMG signal. The voltages below this threshold can be considered as the resting EMG level.
 
 \end{document}
