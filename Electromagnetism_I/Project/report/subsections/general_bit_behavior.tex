@@ -1,0 +1,26 @@
+
+%In this section, the numerical analysis of a bit traveling through a lossless transmission line is %established ({\bf Figure CIRCUIT}). To this end, a rough analytical estimation of the simulation is %made
+
+\subsection{General behavior of a bit traveling through a transmission line}\label{gbh}
+This section aims to predict, and thus validate, the behavior of the numerical simulation of the voltage in a LTL. A rough analytical approach is used, since it gives more insight in the physical nature of the problem.  \\
+
+Rearranging the telegrapher's equations for a LTL yields
+
+\begin{equation}
+\frac{\partial^2\hat{v}(z, t)}{\partial z^2} - k^2\frac{\partial^2 \hat{v}(z, t)}{\partial t^2} = 0, \quad k = \frac{1}{c}= \sqrt{LC} = \mathrm{cte}.
+\label{tele}
+\end{equation}
+
+This means that $\hat{v}$ satisfies the wave equation and thus can be written as a superposition of two voltage waves traveling in opposite directions with constant speed $c$. That is,
+
+\begin{equation}
+\hat{v}(z, t) = \underbrace{\hat{v}^{+}(z - ct)}_{\text{forward wave}} + \underbrace{\hat{v}^{-}(z + ct)}_{\text{backward wave}}.
+\end{equation}
+
+Realising that the voltage and current are related;
+
+\begin{equation}
+\hat{i}(z, t) = \frac{1}{R_c}(\hat{v}^{+}(z, t) - \hat{v}^{-}(z, t)),
+\end{equation}
+
+with $R_c = \sqrt{\frac{L_{TL}}{C_{TL}}}$ and $L_{TL}$, $C_{TL}$ p.u.l. inductance resp. capacitance of the TL, a constant that depends on the characteristics of the TL, hence the name characteristic impedance. Although it has the units of resistance ($\Omega$) it is not reactive; there is no energy dissipation over the TL. The characteristic impedance can be interpreted as a scale for (1) the current to voltage amplitude when there is only a forward or backward wave present in the TL and (2) the dissipation of energy to the load or generator (\ref{ref1}). Furthermore, the CI is the consequence of the model we provided for the TL; it counts for the p.u.l capacitance and inductance (depend on type of TL). In further sections, $R_c$ is assumed to be finite and constant.

@@ -1,4 +1,4 @@
-\documentclass[dutch, a4paper, 11pt]{article}
+\documentclass[a4paper, 11pt]{article}
 \usepackage[utf8]{inputenc}
 
 %Margins 
@@ -6,6 +6,8 @@
 
 %Load packages
 \input{packages}
+\usepackage{biblatex} %Imports biblatex package
+\addbibresource{sample.bib} %Import the bibliography file
 
 %figures
 \graphicspath{{figures/}}
@@ -17,23 +19,29 @@
 \input{tpage}
 
 
-\begin{tcolorbox}[colframe=ugent_blue, colback=ugent_blue!10, enhanced jigsaw, boxrule=0.5pt]
-{\bf Abstract}\\
-Short review of the report.
-\end{tcolorbox}
+\section{Introduction}
+
+\input{sections/intro.tex}
 
 
 %Start writing your repot...
 
-%\begin{multicols}{2}  %Write in two columns
-%\input{Vincent}
+\section{A bit traveling through a lossless transmission line}
 
-\input{Coco}
+    \input{subsections/numerical_implementation.tex}
 
-%\input{Bram}
-%\end{multicols}
+    \input{subsections/general_bit_behavior.tex}
+    
+     \input{subsections/Reflections_amplitude_dampening.tex}
 
+    \input{subsections/influence_tau.tex}
 
+    \input{subsections/courant_limit.tex}
 
+    \input{subsections/capacitance.tex}
 
+\section{Biomedical application}
+
+\input{sections/biomedical_application.tex}
+\input{sections/bm}
 \end{document}
