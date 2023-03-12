@@ -1,0 +1,46 @@
+\documentclass[dutch, a4paper, 11pt]{article}
+\usepackage[utf8]{inputenc}
+
+%Margins 
+\usepackage[a4paper, left=1.27cm,top=1.27cm,right =1.27cm, bottom = 1.4cm]{geometry}
+
+%Load packages
+\input{packages}
+\graphicspath{{figures/}}
+
+\begin{document}
+
+%Load heading of document
+\input{tpage}
+
+
+\begin{tcolorbox}[colframe=ugent_blue, colback=ugent_blue!10, enhanced jigsaw, boxrule=0.5pt]
+{\bf Abstract}\\
+\lipsum[1- 2]
+\end{tcolorbox}
+
+
+%Start writing your repot...
+
+\begin{multicols}{2}  %Write in two columns
+
+    \section{Introduction}
+
+        \input{sections/inleiding_noodzaak.tex}
+        \input{sections/inleiding_comp_eig.tex}
+        \input{sections/inleiding_gel.tex}
+        \input{sections/inleiding_comp.tex}
+        \input{sections/inleiding_model.tex}
+
+    \section{Methods}
+
+    \section{Results}
+
+    \section{Conclusion}
+
+\end{multicols}
+
+
+
+
+\end{document}
