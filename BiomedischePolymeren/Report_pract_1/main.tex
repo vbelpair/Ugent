@@ -1,0 +1,38 @@
+\documentclass[dutch, a4paper, 11pt]{article}
+\usepackage[utf8]{inputenc}
+
+%Margins 
+\usepackage[a4paper, left=1.27cm,top=1.27cm,right =1.27cm, bottom = 1.4cm]{geometry}
+
+%Load packages
+\input{packages}
+\graphicspath{{figures/}}
+
+%units
+\newcommand{\MW}{\frac{\text{g}}{\text{mol}}}
+\newcommand{\mathtext}[2][]{\text{#2}_{\text{#1}}}
+
+\begin{document}
+
+%Load heading of document
+\input{tpage}
+
+\section{Calculations}
+
+    \input{sections/calcs1.tex}
+
+    \input{sections/calcs2.tex}
+
+\section{Questions}
+
+    \input{sections/quest1.tex}
+
+    \input{sections/quest2.tex}
+
+    \input{sections/quest3.tex}
+
+    \input{sections/quest4.tex}
+
+    \input{sections/quest5.tex}
+
+\end{document}
