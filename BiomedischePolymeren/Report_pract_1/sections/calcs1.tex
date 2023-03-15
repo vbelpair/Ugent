@@ -1,1 +1,51 @@
 \subsection{Convential radical polymerisation}
+
+    The amount of reactive units of MMA reflects how much initiator (irgacure 651) is needed.
+    The reactive units of MMA is given as $x$ mole\% from the total monomers present. So the first step
+    is to calculate the total amount of MMA present.
+    $$\mathtext[MMA]{m} = 0.943\density\cdot 4 \ml = 3.722 g$$
+    $$\mathtext[MMA]{n} = \frac{\mathtext[MMA]{m}}{100.13\MW} = 3.77 \cdot 10^{-2} mole$$
+    The amount of initiator needed for $x$ mole\% is then given by
+
+    \begin{equation}
+        \mathtext[Irg651]{n}(x) = 3.77\cdot10^{-4}\cdot x \;\mole,
+        \label{eq:molepercent}
+    \end{equation}
+
+    in moles and the expresions in units gram turns into
+
+    \begin{equation}
+        \mathtext[Irg651]{m}(x) = 256.3\MW\cdot3.77\cdot10^{-4}\cdot x \;\mole = 9.66\cdot10^{-2}\cdot x \;\g.
+        \label{eq:molepercent_grams}
+    \end{equation}
+
+    The degree of polymerisation and the theoretical molar mass can both be expressed in function of $x$. Only the theoretical
+    case will be considered where every radical will initiate a polymer chain, hence the amount of polymers present will be equal 
+    to the amout of initiator at the beginning. Furthermore, the amout of repeat unit is equal to the amout of monomers at the start
+    of the reaction.
+
+    \begin{equation}
+        \mathtext[PMMA]{DP}(x) = \frac{\# \text{repeat unit}}{\# \text{polymers}} = \frac{\mathtext[MMA]{n}}{\mathtext[Irg651]{n}(x)} = \frac{100}{x} \\
+        \label{eq:DPx}
+    \end{equation}
+
+    \begin{equation}
+        \mathtext[PMMA]{MW}(x) = DP\cdot 100.13\MW = \frac{10013}{x} \MW
+        \label{eq:MWx}
+    \end{equation}
+
+    Three different values for $x$ where considered. In table \ref{tab:calcs1} the results for these three 
+    different values can be found.
+
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{c|c|c|c}
+            & 2 mole \% & 3 mole \% & 4 mole \%\\ \hline
+            $\mathtext[Irg651]{n}$ ($10^{-4}$ mole) & 7.54 & 11.31 & 15.08 \\
+            $\mathtext[Irg651]{m}$ (mg) & 193.2 & 289.8 & 386.4 \\
+            $\mathtext[PMMA]{DP}$ & 50 & 33.3 $\approx$ 30 & 25\\
+            $\mathtext[PMMA]{MW}$ ($\MW$) & 5006.5 & 3337.7 & 2503.3
+        \end{tabular}
+        \caption{results of Calculations}
+        \label{tab:calcs1}
+    \end{table}
