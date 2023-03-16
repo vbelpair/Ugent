@@ -9,6 +9,7 @@
 *.fls
 *.aux
 *.bbl
+*.pdf
 
 # python related files
 *.pyc

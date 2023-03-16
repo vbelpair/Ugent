@@ -1,0 +1,57 @@
+\subsection{ATRP}
+
+    The theoretical molar mass of PMMA is the product of the degree of polymerisation
+    with the molar mass of the monomer it consists from, i.e. MMA.
+    
+    $$\mathtext[PMMA]{MW} = \mathtext[PMMA]{DP} \cdot \mathtext[MMA]{MW} = 50 \cdot 190.65\MW =5006,5\MW$$
+
+    From the formula of degree of polymerisation (there is more than one formula)
+
+    \begin{equation}
+        \mathtext[PMMA]{DP} = \frac{\text{\# repeat unit}}{\# polymers},
+        \label{eq:DPpmma}
+    \end{equation}
+
+    one can derive the amount of initiator needed. Since the number of polymers depends
+    on the number of initial radicals present which depends on the number of initiator (I) added
+    and the amout of repeat unit is equal to the amout of monomer present one can rewrite the above formula as 
+
+    \begin{equation}
+        \# initiator = \frac{\text{\# monomer}}{\mathtext[PMMA]{DP}}.
+        \label{eq:numbI}
+    \end{equation}
+
+    The amout of monomer present in mol can be derived as
+
+    $$\mathtext[MMA]{m} = 0.943\density\cdot 10\ml = 9.43\g,$$
+    $$\mathtext[MMA]{n} = \frac{9.43\g}{100.13\MW} = 9.42\cdot10^{-2}\mole.$$
+
+    Converting formula \ref{eq:numbI} to mol yields
+
+    $$\mathtext[I]{n} = \frac{9.42\cdot10^{-2}\mole}{50}=1.88\cdot10^{-3}\mole.$$
+
+    Multiplying this result with the molecular weight of the initiator gives the
+    the amount of initiator needed in grams
+
+    $$\mathtext[I]{m} = 1.88\cdot10^{-3}\mole \cdot 190.65\MW = 3.59\cdot10^{-1}\g.$$
+
+    Now that the amount of initiator is know one can calculate the amount of Cu(I)Br and 
+    2,2'-bipyridine [bpy] needed from the know molar ratio [Cu(I)Br][bpy][I] = 1:3:4.
+
+    $$\left\{\begin{matrix}
+        \mathtext[Cu(i)Br]{n} = \frac{1}{4}\mathtext[I]{n} = 0.47\cdot10^{-3}\mole,\\
+        \mathtext[bpy]{n} = \frac{3}{4}\mathtext[I]{n} = 1.41\cdot10^{-3}\mole.\\
+    \end{matrix}\right.$$
+
+    Converting to grams gives
+
+    $$\left\{\begin{matrix}
+        \mathtext[Cu(i)Br]{m} = 0.47\mole \cdot 143.45\MW = 67.4 \cdot10^{-3}\g,\\
+        \mathtext[bpy]{m} = 1.41\mole \cdot 156.18\MW = 220.2 \cdot10^{-3}\g.\\
+    \end{matrix}\right.$$
+
+    At last, the amout of solvent (ethyl acetate) which is present is equimolaire 
+    with the amount of MMA present, hence its volume can be calculated as
+
+    $$\mathtext[solvent]{m} = \mathtext[MMA]{n}\cdot 88.11\MW = 8.30\g,$$
+    $$\mathtext[solvent]{V} = \frac{\mathtext[solvent]{m}}{0.902\density} = 9.20\ml.$$
