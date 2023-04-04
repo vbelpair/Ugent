@@ -1,0 +1,36 @@
+\documentclass[dutch, a4paper, 11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{pgfplots}
+\pgfplotsset{width=10cm,compat=1.9}
+
+%Margins 
+\usepackage[a4paper, left=1.27cm,top=1.27cm,right =1.27cm, bottom = 1.4cm]{geometry}
+
+%Load packages
+\input{packages}
+\graphicspath{{figures/}}
+
+%units
+\newcommand{\MW}{\frac{\text{g}}{\text{mol}}}
+\newcommand{\g}{\text{g}}
+\newcommand{\ml}{\text{ml}}
+\newcommand{\density}{\frac{\text{g}}{\text{ml}}}
+\newcommand{\mole}{\text{mol}}
+%symbols
+\newcommand{\mathtext}[2][]{\text{#2}_{\text{#1}}}
+
+\begin{document}
+
+%Load heading of document
+\input{tpage}
+
+\input{sections/q1.tex}
+
+\input{sections/q2.tex}
+
+\input{sections/q3.tex}
+
+\input{sections/q4.tex}
+
+\end{document}
