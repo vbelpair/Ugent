@@ -10,6 +10,13 @@
 *.aux
 *.bbl
 *.pdf
+*.blg
+*.glo
+*.run.xml
+*.ist
+*.bcf
+*.gls
+*.glg
 
 # python related files
 *.pyc
@@ -19,6 +26,7 @@
 *.mp4
 *.xlsx
 *.zip
+*.cdxml
 
 # some particular data files
 example.txt
