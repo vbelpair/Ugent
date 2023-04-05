@@ -1,6 +1,6 @@
-\section{Question 3: Texturometry}
+\subsection{Question 3: Texturometry}
 
-Two differences in the mechanical testing method:
+Two differences in the mechanical testing methods:
 \begin{itemize}
     \item[1.] Rheology measures the flow and deformation of materials under applied stress or strain, while texturometry 
     measures the mechanical properties of materials under compression, tension, or shearing forces.
@@ -9,11 +9,9 @@ Two differences in the mechanical testing method:
     hand, are performed using a texture analyzer, which applies a compressive, tensile, or shearing force to the sample and measures the resulting deformation or force response.
 \end{itemize}
 
-Next, two texturometry tests were performed by two researchers. Table \ref{tab:inverted-mechanical-test-results} and \ref{tab:inverted-mechanical-test-results-10wv} are results of a texture profile analysis (TPA) from researcher 1. 
-Compairing the hardness, the ability to resist deformation, and springiness, the ability to recover to the original shape after compression, between the two tables indicate that higher w/v\% values results in a stiffer/harder material with a better ability to recover to its original shape after compression. 
-If the DS of the material would br  
+Two researchers performed texturometry tests, and Table \ref{tab:inverted-mechanical-test-results} and \ref{tab:inverted-mechanical-test-results-10wv} show the results of a texture profile analysis (TPA) conducted by researcher 1. Comparing the hardness (ability to resist deformation) and springiness (ability to recover to the original shape after compression) between the two tables indicates that higher w/v\% values result in a stiffer/harder material with a better ability to recover its original shape after compression. Increasing the DS of the GelMA sheet would hypothetically increase its hardness and springiness because a higher DS would allow for more crosslinks, resulting in a more rigid structure.
 
-\begin{table}[H]
+\begin{table}[ht]
     \centering
     \begin{tabular}{c|ccc}
     \hline
@@ -32,7 +30,7 @@ If the DS of the material would br
     \label{tab:inverted-mechanical-test-results}
 \end{table}
 
-\begin{table}[H]
+\begin{table}[ht]
     \centering
     \begin{tabular}{c|ccc}
     \hline
@@ -49,4 +47,20 @@ If the DS of the material would br
     \end{tabular}
     \caption{TPA results - 10 w/v\%}
     \label{tab:inverted-mechanical-test-results-10wv}
-    \end{table}
+\end{table}
+
+The second researcher conducted a fracture test, and the results are shown in Figure \ref{fig:fracture}. The figure shows that higher DS values result in a stiffer material because less deflection is reached before fracture for a higher load. The extension relation is slightly different, as it shows a greater ability to extend for intermediate DS values. As previously discussed, a higher DS results in more crosslinks, making the material stiffer. However, for a very low DS, the structure has too few crosslinks to tolerate high loads, and it breaks earlier than a structure with an intermediate DS. Applying the same logic to the concentration of GelMA used to create the sheet yields similar results as for different DS values. A higher concentration implies more crosslinks, resulting in a stiffer structure, and lower concentrations have the opposite effect. Therefore, for increasing concentrations, the deflection would decrease with increasing load, as well as the extension.
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.45\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{facture.png}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.45\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{deflection.png}
+    \end{subfigure}
+    \caption{Fracture test - load vs extension (left) and load vs deflection (right)}
+    \label{fig:fracture}
+\end{figure}
