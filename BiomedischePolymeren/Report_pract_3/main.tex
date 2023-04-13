@@ -1,0 +1,55 @@
+\documentclass[a4paper, 11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{pgfplots}
+\pgfplotsset{width=10cm,compat=1.9}
+
+%Margins 
+\usepackage[a4paper, left=1.27cm,top=1.27cm,right =1.27cm, bottom = 1.4cm]{geometry}
+
+%Load packages
+\input{packages}
+\graphicspath{{figures/}}
+
+%units
+\newcommand{\MW}{\frac{\text{g}}{\text{mol}}}
+\newcommand{\g}{\text{g}}
+\newcommand{\ml}{\text{ml}}
+\newcommand{\density}{\frac{\text{g}}{\text{ml}}}
+\newcommand{\mole}{\text{mol}}
+%symbols
+\newcommand{\mathtext}[2][]{\text{#2}_{\text{#1}}}
+
+%citing
+\newcommand{\citec}[1]{{\color{ugent_blue}\cite{#1}}}
+
+%glossary
+\usepackage[stylemods=longbooktabs,automake]{glossaries-extra}
+\usepackage{glossary-inline}
+
+\makeglossaries
+
+\input{acronyms.tex}
+
+\glssetcategoryattribute{acronym}{indexonlyfirst}{true}
+\renewcommand*{\glsinlinenameformat}[2]{\glstarget{#1}{\textsc{#2}}}
+\setglossarystyle{inline}
+
+\begin{document}
+
+%Load heading of document
+\input{tpage}
+
+\printglossaries
+
+\input{sections/section1.tex}
+
+\input{sections/section2.tex}
+
+\input{sections/section3.tex}
+
+\newpage
+\bibliographystyle{plain}
+\bibliography{mybib.bib}
+
+\end{document}
