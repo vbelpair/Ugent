@@ -10,13 +10,13 @@
 *.aux
 *.bbl
 *.pdf
-*.blg
-*.glo
-*.run.xml
-*.ist
 *.bcf
-*.gls
+*.blg
 *.glg
+*.glo
+*.gls
+*.ist
+*.run.xml
 
 # python related files
 *.pyc
