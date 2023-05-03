@@ -21,6 +21,7 @@
 # python related files
 *.pyc
 *.npy
+*.venv
 
 # some other files
 *.docx
